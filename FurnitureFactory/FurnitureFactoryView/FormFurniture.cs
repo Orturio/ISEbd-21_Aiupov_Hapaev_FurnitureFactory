@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace FurnitureFactoryView
 {
-    public partial class FormReport : Form
+    public partial class FormFurniture : Form
     {
-        public FormReport()
+        public FormFurniture()
         {
             InitializeComponent();
         }

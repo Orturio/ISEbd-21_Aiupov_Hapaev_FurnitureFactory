@@ -1,6 +1,6 @@
 ﻿namespace FurnitureFactoryView
 {
-    partial class FormReport
+    partial class FormReportPurchases
     {
         /// <summary>
         /// Required designer variable.
