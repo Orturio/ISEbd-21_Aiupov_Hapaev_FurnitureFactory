@@ -12,6 +12,9 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
         public int Id { get; set; }
 
         [DataMember]
+        public int UserId { get; set; }
+
+        [DataMember]
         [DisplayName("Название покупки")]
         public string Name { get; set; }
 
@@ -21,7 +24,7 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
 
         [DataMember]
         [DisplayName("Дата создания")]
-        public DateTime DateOfCreation   { get; set; }
+        public DateTime DateOfCreation { get; set; }
 
         [DataMember]
         [DisplayName("Дата оплаты")]

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FurnitureFactoryDatabaseImplement.Models
 {
-    class User
+    public class User
     {
         public int Id { get; set; }
 
@@ -16,5 +16,8 @@ namespace FurnitureFactoryDatabaseImplement.Models
 
         [Required]
         public string Password { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual List<Purchases> Purchases { get; set; }
     }
 }
