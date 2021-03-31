@@ -15,7 +15,7 @@ namespace FurnitureFactoryDatabaseImplement.Models
         public string Name { get; set; }
 
         [Required]
-        public float SumOfPurchases { get; set; }
+        public decimal Sum { get; set; }
 
         [Required]
         public DateTime DateOfCreation { get; set; }

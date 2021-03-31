@@ -20,7 +20,7 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
 
         [DataMember]
         [DisplayName("Сумма покупки")]
-        public float SumOfPurchases { get; set; }
+        public decimal Sum { get; set; }
 
         [DataMember]
         [DisplayName("Дата создания")]

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FurnitureFactoryDatabaseImplement.Implements
 {
-    class FurnitureStorage
+    public class FurnitureStorage : IFurnitureStorage
     {
         public List<FurnitureViewModel> GetFullList()
         {

@@ -10,7 +10,7 @@ namespace FurnitureFactoryDatabaseImplement
             if (optionsBuilder.IsConfigured == false)
             {
                 optionsBuilder.UseSqlServer(@"Data Source=WIN-7QPLO386PS9;Initial Catalog=FurnitureFactoryDatabase;Integrated Security=True;MultipleActiveResultSets=True;");
-                //optionsBuilder.UseSqlServer(@"Data Source=;Initial Catalog=FurnitureFactoryDatabase;Integrated Security=True;MultipleActiveResultSets=True;");
+                //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-1ORTU77;Initial Catalog=FurnitureFactoryDatabase;Integrated Security=True;MultipleActiveResultSets=True;");
             }
             base.OnConfiguring(optionsBuilder);
         }

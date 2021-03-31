@@ -12,9 +12,9 @@ namespace FurnitureFactoryDatabaseImplement.Models
         public int PurchaseId { get; set; }
 
         [Required]
-        public float SumOfPayment { get; set; }
+        public decimal Sum { get; set; }
 
         [Required]
-        public DateTime DateOfPayment { get; set; }
+        public DateTime? DateOfPayment { get; set; }
     }
 }

@@ -15,10 +15,10 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
 
         [DataMember]
         [DisplayName("Сумма оплаты")]
-        public float SumOfPayment { get; set; }
+        public decimal Sum { get; set; }
 
         [DataMember]
         [DisplayName("Дата оплаты")]
-        public DateTime DateOfPayment { get; set; }
+        public DateTime? DateOfPayment { get; set; }
     }
 }
