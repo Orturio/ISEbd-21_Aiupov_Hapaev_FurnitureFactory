@@ -23,10 +23,10 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
 
         [DataMember]
         [DisplayName("Цена")]
-        public float Price { get; set; }
+        public decimal Price { get; set; }
 
         [DataMember]
         [DisplayName("Материал")]
-        public float Material { get; set; }
+        public string Material { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace FurnitureFactoryBusinessLogics.ViewModels
 {
     [DataContract]
-    public class PurchasesViewModel
+    public class PurchaseViewModel
     {
         [DataMember]
         public int Id { get; set; }

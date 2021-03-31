@@ -16,12 +16,12 @@ namespace FurnitureFactoryDatabaseImplement.Models
         public string Name { get; set; }
 
         [Required]
-        public float Price { get; set; }
+        public decimal Price { get; set; }
 
         [Required]
-        public float Material { get; set; }
+        public string Material { get; set; }
 
         [ForeignKey("FurnitureId")]
-        public virtual List<PurchasesFurniture> PurchasesFurniture { get; set; }
+        public virtual List<PurchaseFurniture> PurchasesFurniture { get; set; }
     }
 }

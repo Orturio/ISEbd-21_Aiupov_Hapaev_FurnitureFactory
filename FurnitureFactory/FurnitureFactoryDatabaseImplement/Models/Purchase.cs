@@ -5,7 +5,7 @@ using System;
 
 namespace FurnitureFactoryDatabaseImplement.Models
 {
-    public class Purchases
+    public class Purchase
     {
         public int Id { get; set; }
 
@@ -26,6 +26,6 @@ namespace FurnitureFactoryDatabaseImplement.Models
         public virtual List<Payment> Payment { get; set; }
 
         [ForeignKey("PurchasesId")]
-        public virtual List<PurchasesFurniture> PurchasesFurniture { get; set; }
+        public virtual List<PurchaseFurniture> PurchasesFurniture { get; set; }
     }
 }

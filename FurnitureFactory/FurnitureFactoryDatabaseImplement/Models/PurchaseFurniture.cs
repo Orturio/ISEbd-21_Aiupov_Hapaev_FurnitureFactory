@@ -4,17 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FurnitureFactoryDatabaseImplement.Models
 {
-    public class Costs
+    public class PurchaseFurniture
     {
         public int Id { get; set; }
 
-        [Required]
-        public string Count { get; set; }
+        public int PurchasesId { get; set; }
 
-        [Required]
-        public string Price { get; set; }
+        public int FurnitureId { get; set; }
 
-        [ForeignKey("CostsId")]
-        public virtual List<Furniture> Furniture { get; set; }
+        public virtual Purchase Purchases { get; set; }
+
+        public virtual Furniture Furniture { get; set; }
     }
 }

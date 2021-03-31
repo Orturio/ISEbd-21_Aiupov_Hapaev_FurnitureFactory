@@ -18,6 +18,6 @@ namespace FurnitureFactoryDatabaseImplement.Models
         public string Password { get; set; }
 
         [ForeignKey("UserId")]
-        public virtual List<Purchases> Purchases { get; set; }
+        public virtual List<Purchase> Purchases { get; set; }
     }
 }

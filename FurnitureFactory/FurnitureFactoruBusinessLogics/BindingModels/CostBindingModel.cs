@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FurnitureFactoryBusinessLogics.BindingModels
 {
-    public class CostsBindingModel
+    public class CostBindingModel
     {
         public int? Id { get; set; }
 

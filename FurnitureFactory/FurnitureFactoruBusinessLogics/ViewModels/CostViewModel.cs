@@ -5,17 +5,17 @@ using System.Runtime.Serialization;
 namespace FurnitureFactoryBusinessLogics.ViewModels
 {
     [DataContract]
-    public class CostsViewModel
+    public class CostViewModel
     {
         [DataMember]
         public int Id { get; set; }
 
         [DataMember]
         [DisplayName("Количество")]
-        public string Count { get; set; }
+        public int Count { get; set; }
 
         [DataMember]
         [DisplayName("Цена")]
-        public string Price { get; set; }
+        public decimal Price { get; set; }
     }
 }
