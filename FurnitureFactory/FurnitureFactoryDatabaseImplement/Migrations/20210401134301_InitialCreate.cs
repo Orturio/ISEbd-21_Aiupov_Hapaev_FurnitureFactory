@@ -22,27 +22,12 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Employees",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Login = table.Column<string>(nullable: false),
-                    Email = table.Column<string>(nullable: false),
-                    Password = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Employees", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Login = table.Column<string>(nullable: false),
+                    Role = table.Column<int>(nullable: false),
                     Email = table.Column<string>(nullable: false),
                     Password = table.Column<string>(nullable: false)
                 },
@@ -61,7 +46,8 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     CostsId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
-                    Material = table.Column<string>(nullable: false)
+                    Material = table.Column<string>(nullable: false),
+                    UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -73,11 +59,11 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Furnitures_Employees_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "Employees",
+                        name: "FK_Furnitures_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -157,9 +143,9 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 column: "CostsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Furnitures_EmployeeId",
+                name: "IX_Furnitures_UserId",
                 table: "Furnitures",
-                column: "EmployeeId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payments_PurchasesId",
@@ -198,9 +184,6 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
 
             migrationBuilder.DropTable(
                 name: "Costs");
-
-            migrationBuilder.DropTable(
-                name: "Employees");
 
             migrationBuilder.DropTable(
                 name: "Users");

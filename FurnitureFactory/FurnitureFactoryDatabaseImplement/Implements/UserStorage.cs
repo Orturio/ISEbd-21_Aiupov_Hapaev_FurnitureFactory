@@ -18,7 +18,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 return context.Users.Select(rec => new UserViewModel
                 {
                     Id = rec.Id,
-                    Login = rec.Login,
+                    Role = rec.Role,
                     Email = rec.Email,
                     Password = rec.Password
                 })
@@ -38,7 +38,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 .Select(rec => new UserViewModel
                 {
                     Id = rec.Id,
-                    Login = rec.Login,
+                    Role = rec.Role,
                     Email = rec.Email,
                     Password = rec.Password
                 })
@@ -59,7 +59,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 new UserViewModel
                 {
                     Id = user.Id,
-                    Login = user.Login,
+                    Role = user.Role,
                     Email = user.Email,
                     Password = user.Password
                 } :
@@ -109,7 +109,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
 
         private User CreateModel(UserBindingModel model, User user)
         {
-            user.Login = model.Login;
+            user.Role = model.Role;
             user.Email = model.Email;
             user.Password = model.Password;
             return user;

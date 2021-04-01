@@ -28,8 +28,6 @@ namespace FurnitureFactoryView
             var currentContainer = new UnityContainer();
             currentContainer.RegisterType<ICostStorage, CostsStorage>(new
            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IEmployeeStorage, EmployeeStorage>(new
-           HierarchicalLifetimeManager());
             currentContainer.RegisterType<IFurnitureStorage, FurnitureStorage>(new
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<IPaymentStorage, PaymentStorage>(new
@@ -39,7 +37,6 @@ namespace FurnitureFactoryView
             currentContainer.RegisterType<IUserStorage, UserStorage>(new
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<CostLogic>(new HierarchicalLifetimeManager());
-            currentContainer.RegisterType<EmployeeLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<FurnitureLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<PaymentLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<PurchaseLogic>(new HierarchicalLifetimeManager());

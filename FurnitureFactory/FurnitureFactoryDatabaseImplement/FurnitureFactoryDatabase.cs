@@ -15,7 +15,6 @@ namespace FurnitureFactoryDatabaseImplement
             base.OnConfiguring(optionsBuilder);
         }
         public virtual DbSet<Cost> Costs { set; get; }
-        public virtual DbSet<Employee> Employees { set; get; }
         public virtual DbSet<Furniture> Furnitures { set; get; }
         public virtual DbSet<Payment> Payments { set; get; }
         public virtual DbSet<Purchase> Purchases { set; get; }

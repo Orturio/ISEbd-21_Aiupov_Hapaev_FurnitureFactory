@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using System.Collections.Generic;
+using FurnitureFactoryBusinessLogics.Enums;
 
 namespace FurnitureFactoryBusinessLogics.BindingModels
 {
@@ -10,8 +11,8 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
         public int? Id { get; set; }
 
         [DataMember]
-        public string Login { get; set; }
-        
+        public UserRole Role { get; set; }
+
         [DataMember]
         public string Email { get; set; }
 

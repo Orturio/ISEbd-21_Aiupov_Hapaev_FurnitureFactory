@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using FurnitureFactoryBusinessLogics.Enums;
 
 namespace FurnitureFactoryBusinessLogics.ViewModels
 {
@@ -11,8 +12,8 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
         public int Id { get; set; }
 
         [DataMember]
-        [DisplayName("Логин пользователя")]
-        public string Login { get; set; }
+        [DisplayName("Роль пользователя")]
+        public UserRole Role { get; set; }
 
         [DataMember]
         [DisplayName("Email пользователя")]

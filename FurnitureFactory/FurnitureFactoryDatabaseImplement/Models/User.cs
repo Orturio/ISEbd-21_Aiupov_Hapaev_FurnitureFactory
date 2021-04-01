@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using FurnitureFactoryBusinessLogics.Enums;
 
 namespace FurnitureFactoryDatabaseImplement.Models
 {
@@ -9,7 +10,7 @@ namespace FurnitureFactoryDatabaseImplement.Models
         public int Id { get; set; }
 
         [Required]
-        public string Login { get; set; }
+        public UserRole Role { get; set; }
 
         [Required]
         public string Email { get; set; }
@@ -19,5 +20,8 @@ namespace FurnitureFactoryDatabaseImplement.Models
 
         [ForeignKey("UserId")]
         public virtual List<Purchase> Purchases { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual List<Furniture> Furniture { get; set; }
     }
 }
