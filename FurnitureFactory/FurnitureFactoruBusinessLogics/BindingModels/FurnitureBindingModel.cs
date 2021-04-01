@@ -10,19 +10,19 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
         public int? Id { get; set; }
 
         [DataMember]
-        public int EmployeeId { get; set; }
+        public int? EmployeeId { get; set; }
 
         [DataMember]
-        public int CostsId { get; set; }
+        public int? CostsId { get; set; }
 
         [DataMember]
         public string Name { get; set; }
 
         [DataMember]
-        public decimal Price { get; set; }
+        public string Material { get; set; }
 
         [DataMember]
-        public string Material { get; set; }
+        public decimal Price { get; set; }
 
         [DataMember]
         public DateTime? DateFrom { get; set; }

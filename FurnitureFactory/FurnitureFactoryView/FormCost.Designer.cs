@@ -56,6 +56,7 @@ namespace FurnitureFactoryView
             this.buttonSave.TabIndex = 4;
             this.buttonSave.Text = "Сохранить";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.ButtonSave_Click);
             // 
             // buttonCancel
             // 
@@ -65,6 +66,7 @@ namespace FurnitureFactoryView
             this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // labelCount
             // 
@@ -81,6 +83,7 @@ namespace FurnitureFactoryView
             this.textBoxCount.Name = "textBoxCount";
             this.textBoxCount.Size = new System.Drawing.Size(171, 22);
             this.textBoxCount.TabIndex = 9;
+            this.textBoxCount.TextChanged += new System.EventHandler(this.TextBoxCount_TextChanged);
             // 
             // labelPrice
             // 
@@ -105,6 +108,7 @@ namespace FurnitureFactoryView
             this.comboBoxPurchase.Name = "comboBoxPurchase";
             this.comboBoxPurchase.Size = new System.Drawing.Size(171, 21);
             this.comboBoxPurchase.TabIndex = 12;
+            this.comboBoxPurchase.SelectedIndexChanged += new System.EventHandler(this.ComboBoxPurchase_SelectedIndexChanged);
             // 
             // FormCost
             // 
@@ -121,6 +125,7 @@ namespace FurnitureFactoryView
             this.Controls.Add(this.labelPurchase);
             this.Name = "FormCost";
             this.Text = "Создание статьи затрат";
+            this.Load += new System.EventHandler(this.FormCost_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

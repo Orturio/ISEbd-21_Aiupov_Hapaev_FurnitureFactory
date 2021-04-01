@@ -12,7 +12,7 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
         public int Id { get; set; }
 
         [DataMember]
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         [DataMember]
         [DisplayName("Название покупки")]

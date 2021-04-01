@@ -9,6 +9,9 @@ namespace FurnitureFactoryDatabaseImplement.Models
         public int Id { get; set; }
 
         [Required]
+        public string PurchaseName { get; set; }
+
+        [Required]
         public int Count { get; set; }
 
         [Required]

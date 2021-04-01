@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Unity;
+using Microsoft.EntityFrameworkCore;
 
 namespace FurnitureFactoryView
 {
@@ -27,7 +28,7 @@ namespace FurnitureFactoryView
             this.logic = service;
         }
 
-        private void FormCanned_Load(object sender, EventArgs e)
+        private void FormPurchase_Load(object sender, EventArgs e)
         {
             if (id.HasValue)
             {
@@ -46,8 +47,7 @@ namespace FurnitureFactoryView
 
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -121,7 +121,6 @@ MessageBoxIcon.Error);
                 {
                     try
                     {
-
                         purchaseFurniture.Remove(Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value));
                     }
 
@@ -143,22 +142,19 @@ MessageBoxIcon.Error);
         {
             if (string.IsNullOrEmpty(textBoxName.Text))
             {
-                MessageBox.Show("Заполните название", "Ошибка", MessageBoxButtons.OK,
-MessageBoxIcon.Error);
+                MessageBox.Show("Заполните название", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (string.IsNullOrEmpty(textBoxPrice.Text))
             {
-                MessageBox.Show("Заполните цену", "Ошибка", MessageBoxButtons.OK,
-MessageBoxIcon.Error);
+                MessageBox.Show("Заполните цену", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (purchaseFurniture == null || purchaseFurniture.Count == 0)
             {
-                MessageBox.Show("Заполните компоненты", "Ошибка", MessageBoxButtons.OK,
-MessageBoxIcon.Error);
+                MessageBox.Show("Заполните компоненты", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -169,13 +165,17 @@ MessageBoxIcon.Error);
                     Id = id,
                     Name = textBoxName.Text,
                     Sum = Convert.ToDecimal(textBoxPrice.Text),
-                    PurchaseFurniture = purchaseFurniture
+                    PurchaseFurnitures = purchaseFurniture
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();
             }
-
+            catch (DbUpdateException exe)
+            {
+                MessageBox.Show(exe?.InnerException?.Message, "Ошибка", MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);

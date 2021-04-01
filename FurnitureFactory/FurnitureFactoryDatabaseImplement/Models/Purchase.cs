@@ -9,7 +9,7 @@ namespace FurnitureFactoryDatabaseImplement.Models
     {
         public int Id { get; set; }
 
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         [Required]
         public string Name { get; set; }

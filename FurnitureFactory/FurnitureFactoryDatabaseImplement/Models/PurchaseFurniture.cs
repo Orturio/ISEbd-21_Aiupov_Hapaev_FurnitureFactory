@@ -12,6 +12,9 @@ namespace FurnitureFactoryDatabaseImplement.Models
 
         public int FurnitureId { get; set; }
 
+        [Required]
+        public int Count { get; set; }
+
         public virtual Purchase Purchases { get; set; }
 
         public virtual Furniture Furniture { get; set; }

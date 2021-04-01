@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FurnitureFactoryDatabaseImplement.Migrations
 {
     [DbContext(typeof(FurnitureFactoryDatabase))]
-    [Migration("20210401134301_InitialCreate")]
+    [Migration("20210401162746_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,10 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("PurchaseName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Costs");
@@ -46,10 +50,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CostsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EmployeeId")
+                    b.Property<int?>("CostsId")
                         .HasColumnType("int");
 
                     b.Property<string>("Material")
@@ -122,7 +123,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     b.Property<decimal>("Sum")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -138,6 +139,9 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
 
                     b.Property<int>("FurnitureId")
                         .HasColumnType("int");
@@ -181,9 +185,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 {
                     b.HasOne("FurnitureFactoryDatabaseImplement.Models.Cost", null)
                         .WithMany("Furniture")
-                        .HasForeignKey("CostsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CostsId");
 
                     b.HasOne("FurnitureFactoryDatabaseImplement.Models.User", null)
                         .WithMany("Furniture")
@@ -201,15 +203,13 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 {
                     b.HasOne("FurnitureFactoryDatabaseImplement.Models.User", null)
                         .WithMany("Purchases")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("FurnitureFactoryDatabaseImplement.Models.PurchaseFurniture", b =>
                 {
                     b.HasOne("FurnitureFactoryDatabaseImplement.Models.Furniture", "Furniture")
-                        .WithMany("PurchasesFurniture")
+                        .WithMany("PurchaseFurniture")
                         .HasForeignKey("FurnitureId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

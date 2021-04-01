@@ -19,6 +19,11 @@ namespace FurnitureFactoryView
             this.logic = logic;
         }
 
+        private void FormPurchases_Load(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
         private void LoadData()
         {
             try
@@ -31,6 +36,8 @@ namespace FurnitureFactoryView
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].Visible = false;
+                    dataGridView.Columns[6].Visible = false;
+                    dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
             }
             catch (Exception ex)
@@ -53,7 +60,7 @@ namespace FurnitureFactoryView
             if (dataGridView.SelectedRows.Count == 1)
             {
                 var form = Container.Resolve<FormPurchase>();
-                //form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     LoadData();

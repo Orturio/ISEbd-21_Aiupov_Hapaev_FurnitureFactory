@@ -8,9 +8,9 @@ namespace FurnitureFactoryDatabaseImplement.Models
     {
         public int Id { get; set; }
 
-        public int EmployeeId { get; set; }
+        public int? UserId { get; set; }
 
-        public int CostsId { get; set; }
+        public int? CostsId { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -22,6 +22,6 @@ namespace FurnitureFactoryDatabaseImplement.Models
         public string Material { get; set; }
 
         [ForeignKey("FurnitureId")]
-        public virtual List<PurchaseFurniture> PurchasesFurniture { get; set; }
+        public virtual List<PurchaseFurniture> PurchaseFurniture { get; set; }
     }
 }

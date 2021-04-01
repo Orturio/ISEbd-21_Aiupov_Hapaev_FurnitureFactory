@@ -8,7 +8,7 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
     {
         public int? Id { get; set; }
 
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         public string Name { get; set; }
 
@@ -22,6 +22,6 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
 
         public DateTime? DateTo { get; set; }
 
-        public Dictionary<int, (string, int)> PurchaseFurniture { get; set; }
+        public Dictionary<int, (string, int)> PurchaseFurnitures { get; set; }
     }
 }

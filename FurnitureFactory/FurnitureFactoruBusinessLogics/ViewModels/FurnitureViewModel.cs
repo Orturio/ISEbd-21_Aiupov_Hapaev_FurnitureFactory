@@ -12,21 +12,22 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
         public int Id { get; set; }
 
         [DataMember]
-        public int EmployeeId { get; set; }
+        public int? EmployeeId { get; set; }
 
         [DataMember]
-        public int CostsId { get; set; }
+        public int? CostsId { get; set; }
 
         [DataMember]
         [DisplayName("Название")]
         public string Name { get; set; }
 
         [DataMember]
+        [DisplayName("Материал")]
+        public string Material { get; set; }
+
+        [DataMember]
         [DisplayName("Цена")]
         public decimal Price { get; set; }
 
-        [DataMember]
-        [DisplayName("Материал")]
-        public string Material { get; set; }
     }
 }

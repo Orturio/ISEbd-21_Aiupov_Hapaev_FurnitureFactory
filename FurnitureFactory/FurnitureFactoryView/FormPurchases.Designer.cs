@@ -97,6 +97,7 @@
             this.Controls.Add(this.buttonAdd);
             this.Name = "FormPurchases";
             this.Text = "Покупки";
+            this.Load += new System.EventHandler(this.FormPurchases_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
 

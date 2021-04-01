@@ -13,6 +13,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    PurchaseName = table.Column<string>(nullable: false),
                     Count = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false)
                 },
@@ -42,12 +43,11 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EmployeeId = table.Column<int>(nullable: false),
-                    CostsId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: true),
+                    CostsId = table.Column<int>(nullable: true),
                     Name = table.Column<string>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
-                    Material = table.Column<string>(nullable: false),
-                    UserId = table.Column<int>(nullable: true)
+                    Material = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,7 +57,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         column: x => x.CostsId,
                         principalTable: "Costs",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Furnitures_Users_UserId",
                         column: x => x.UserId,
@@ -72,7 +72,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: true),
                     Name = table.Column<string>(nullable: false),
                     Sum = table.Column<decimal>(nullable: false),
                     DateOfCreation = table.Column<DateTime>(nullable: false),
@@ -86,7 +86,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -118,7 +118,8 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PurchasesId = table.Column<int>(nullable: false),
-                    FurnitureId = table.Column<int>(nullable: false)
+                    FurnitureId = table.Column<int>(nullable: false),
+                    Count = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

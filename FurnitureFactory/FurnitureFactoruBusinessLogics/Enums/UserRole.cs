@@ -6,8 +6,8 @@ namespace FurnitureFactoryBusinessLogics.Enums
 {
     public enum UserRole
     {
-        Клиент = 1,
+        Клиент = 0,
 
-        Сотрудник = 2
+        Сотрудник = 1
     }
 }

@@ -9,6 +9,20 @@
     <Compile Remove="Migrations\20210401121614_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20210401134019_InitialCreate.cs" />
     <Compile Remove="Migrations\20210401134019_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210401134301_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210401134301_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210401135005_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210401135005_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210401152111_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210401152111_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210401154332_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210401154332_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210401160143_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210401160143_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210401160929_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210401160929_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210401160941_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210401160941_InitialCreate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +36,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FurnitureFactoruBusinessLogics\FurnitureFactoryBusinessLogics.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

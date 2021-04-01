@@ -18,6 +18,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 return context.Costs.Select(rec => new CostViewModel
                 {
                     Id = rec.Id,
+                    PurchaseName = rec.PurchaseName,
                     Count = rec.Count,
                     Price = rec.Price
                 })
@@ -33,10 +34,12 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             }
             using (var context = new FurnitureFactoryDatabase())
             {
-                return context.Costs.Where(rec => rec.Id == model.Id)
+                return context.Costs.Include(rec => rec.Furniture).ThenInclude(rec => rec.PurchaseFurniture)
+                    .ThenInclude(rec => rec.Purchases).Where(rec => rec.Id == model.Id)
                 .Select(rec => new CostViewModel
                 {
                     Id = rec.Id,
+                    PurchaseName = rec.PurchaseName,
                     Count = rec.Count,
                     Price = rec.Price
                 })
@@ -52,11 +55,13 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             }
             using (var context = new FurnitureFactoryDatabase())
             {
-                var cost = context.Costs.FirstOrDefault(rec => rec.Id == model.Id);
+                var cost = context.Costs.Include(rec => rec.Furniture).ThenInclude(rec => rec.PurchaseFurniture)
+                    .ThenInclude(rec => rec.Purchases).FirstOrDefault(rec => rec.Id == model.Id);
                 return cost != null ?
                 new CostViewModel
                 {
                     Id = cost.Id,
+                    PurchaseName = cost.PurchaseName,
                     Count = cost.Count,
                     Price = cost.Price
                 } :
@@ -77,7 +82,8 @@ namespace FurnitureFactoryDatabaseImplement.Implements
         {
             using (var context = new FurnitureFactoryDatabase())
             {
-                var element = context.Costs.FirstOrDefault(rec => rec.Id == model.Id);
+                var element = context.Costs.Include(rec => rec.Furniture).ThenInclude(rec => rec.PurchaseFurniture)
+                    .ThenInclude(rec => rec.Purchases).FirstOrDefault(rec => rec.Id == model.Id);
                 if (element == null)
                 {
                     throw new Exception("Затрата не найдена");
@@ -91,7 +97,8 @@ namespace FurnitureFactoryDatabaseImplement.Implements
         {
             using (var context = new FurnitureFactoryDatabase())
             {
-                Cost element = context.Costs.FirstOrDefault(rec => rec.Id == model.Id);
+                Cost element = context.Costs.Include(rec => rec.Furniture).ThenInclude(rec => rec.PurchaseFurniture)
+                    .ThenInclude(rec => rec.Purchases).FirstOrDefault(rec => rec.Id == model.Id);
                 if (element != null)
                 {
                     context.Costs.Remove(element);
@@ -106,6 +113,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
 
         private Cost CreateModel(CostBindingModel model, Cost cost)
         {
+            cost.PurchaseName = model.PurchaseName;
             cost.Count = model.Count;
             cost.Price = model.Price;
             return cost;

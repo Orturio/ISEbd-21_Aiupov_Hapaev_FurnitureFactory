@@ -8,6 +8,8 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
     {
         public int? Id { get; set; }
 
+        public string PurchaseName { get; set; }
+
         public int Count { get; set; }
 
         public decimal Price { get; set; }

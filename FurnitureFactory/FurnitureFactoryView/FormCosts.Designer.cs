@@ -56,6 +56,7 @@ namespace FurnitureFactoryView
             this.buttonAdd.TabIndex = 3;
             this.buttonAdd.Text = "Добавить";
             this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.ButtonAdd_Click);
             // 
             // buttonUpd
             // 
@@ -65,6 +66,7 @@ namespace FurnitureFactoryView
             this.buttonUpd.TabIndex = 4;
             this.buttonUpd.Text = "Изменить";
             this.buttonUpd.UseVisualStyleBackColor = true;
+            this.buttonUpd.Click += new System.EventHandler(this.ButtonUpd_Click);
             // 
             // buttonDel
             // 
@@ -74,6 +76,7 @@ namespace FurnitureFactoryView
             this.buttonDel.TabIndex = 5;
             this.buttonDel.Text = "Удалить";
             this.buttonDel.UseVisualStyleBackColor = true;
+            this.buttonDel.Click += new System.EventHandler(this.ButtonDel_Click);
             // 
             // buttonRef
             // 
@@ -83,6 +86,7 @@ namespace FurnitureFactoryView
             this.buttonRef.TabIndex = 6;
             this.buttonRef.Text = "Обновить";
             this.buttonRef.UseVisualStyleBackColor = true;
+            this.buttonRef.Click += new System.EventHandler(this.ButtonRef_Click);
             // 
             // buttonBinding
             // 
@@ -92,6 +96,7 @@ namespace FurnitureFactoryView
             this.buttonBinding.TabIndex = 7;
             this.buttonBinding.Text = "Привязать";
             this.buttonBinding.UseVisualStyleBackColor = true;
+            this.buttonBinding.Click += new System.EventHandler(this.buttonBinding_Click);
             // 
             // FormCosts
             // 
@@ -106,6 +111,7 @@ namespace FurnitureFactoryView
             this.Controls.Add(this.dataGridView);
             this.Name = "FormCosts";
             this.Text = "Затраты";
+            this.Load += new System.EventHandler(this.FormCosts_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
 

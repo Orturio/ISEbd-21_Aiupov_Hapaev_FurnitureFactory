@@ -37,7 +37,7 @@ namespace FurnitureFactoryView
 
             if (list != null)
             {
-                comboBoxFurniture.DisplayMember = "ComponentName";
+                comboBoxFurniture.DisplayMember = "Name";
                 comboBoxFurniture.ValueMember = "Id";
                 comboBoxFurniture.DataSource = list;
                 comboBoxFurniture.SelectedItem = null;
