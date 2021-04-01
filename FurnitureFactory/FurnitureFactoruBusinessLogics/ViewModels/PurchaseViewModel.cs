@@ -29,5 +29,8 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
         [DataMember]
         [DisplayName("Дата оплаты")]
         public DateTime? DateOfPayment { get; set; }
+
+        [DataMember]
+        public Dictionary<int, (string, int)> PurchaseFurniture { get; set; }
     }
 }

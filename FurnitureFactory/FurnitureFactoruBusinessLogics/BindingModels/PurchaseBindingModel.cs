@@ -21,5 +21,7 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
         public DateTime? DateFrom { get; set; }
 
         public DateTime? DateTo { get; set; }
+
+        public Dictionary<int, (string, int)> PurchaseFurniture { get; set; }
     }
 }

@@ -160,6 +160,12 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Unity.Abstractions, Version=5.11.7.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.10\lib\net47\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.11.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.10\lib\net47\Unity.Container.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FormAuthorize.cs">
@@ -216,6 +222,12 @@
     <Compile Include="FormPayment.Designer.cs">
       <DependentUpon>FormPayment.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormPurchaseFurniture.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPurchaseFurniture.Designer.cs">
+      <DependentUpon>FormPurchaseFurniture.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormPurchases.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -246,11 +258,11 @@
     <Compile Include="FormReportPurchases.Designer.cs">
       <DependentUpon>FormReportPurchases.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormSales.cs">
+    <Compile Include="FormPurchase.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormSales.Designer.cs">
-      <DependentUpon>FormSales.cs</DependentUpon>
+    <Compile Include="FormPurchase.Designer.cs">
+      <DependentUpon>FormPurchase.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -278,6 +290,9 @@
     <EmbeddedResource Include="FormPayment.resx">
       <DependentUpon>FormPayment.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormPurchaseFurniture.resx">
+      <DependentUpon>FormPurchaseFurniture.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormPurchases.resx">
       <DependentUpon>FormPurchases.cs</DependentUpon>
     </EmbeddedResource>
@@ -293,8 +308,8 @@
     <EmbeddedResource Include="FormReportPurchases.resx">
       <DependentUpon>FormReportPurchases.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormSales.resx">
-      <DependentUpon>FormSales.cs</DependentUpon>
+    <EmbeddedResource Include="FormPurchase.resx">
+      <DependentUpon>FormPurchase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -318,6 +333,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FurnitureFactoruBusinessLogics\FurnitureFactoryBusinessLogics.csproj">
+      <Project>{12eae9b2-900c-4058-915b-d78df99516ea}</Project>
+      <Name>FurnitureFactoryBusinessLogics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FurnitureFactoryDatabaseImplement\FurnitureFactoryDatabaseImplement.csproj">
+      <Project>{a6098a36-cb64-45d7-9a9a-ab8bef214283}</Project>
+      <Name>FurnitureFactoryDatabaseImplement</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.1.1.0\build\net46\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.1.1.0\build\net46\Microsoft.Data.SqlClient.SNI.targets')" />

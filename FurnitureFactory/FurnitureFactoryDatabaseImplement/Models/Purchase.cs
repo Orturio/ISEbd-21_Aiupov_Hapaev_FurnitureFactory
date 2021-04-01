@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System;
 
 namespace FurnitureFactoryDatabaseImplement.Models
 {
@@ -26,6 +26,6 @@ namespace FurnitureFactoryDatabaseImplement.Models
         public virtual List<Payment> Payment { get; set; }
 
         [ForeignKey("PurchasesId")]
-        public virtual List<PurchaseFurniture> PurchasesFurniture { get; set; }
+        public virtual List<PurchaseFurniture> PurchaseFurniture { get; set; }
     }
 }
