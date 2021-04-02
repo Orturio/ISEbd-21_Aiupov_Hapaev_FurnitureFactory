@@ -18,6 +18,9 @@ namespace FurnitureFactoryDatabaseImplement.Models
         public decimal PurchaseSum { get; set; }
 
         [Required]
+        public decimal  PurchaseSumToPayment { get; set; }
+
+        [Required]
         public DateTime DateOfCreation { get; set; }
 
         public DateTime? DateOfPayment { get; set; }

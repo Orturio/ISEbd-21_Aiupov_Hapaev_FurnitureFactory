@@ -176,6 +176,7 @@ namespace FurnitureFactoryView
                         Id = id,
                         PurchaseName = textBoxName.Text,
                         PurchaseSum = Convert.ToDecimal(textBoxPrice.Text),
+                        PurchaseSumToPayment = Convert.ToDecimal(textBoxPrice.Text),
                         DateOfCreation = view.DateOfCreation,
                         PurchaseFurnitures = purchaseFurniture,
                     });
@@ -187,6 +188,7 @@ namespace FurnitureFactoryView
                         Id = id,
                         PurchaseName = textBoxName.Text,
                         PurchaseSum = Convert.ToDecimal(textBoxPrice.Text),
+                        PurchaseSumToPayment = Convert.ToDecimal(textBoxPrice.Text),
                         DateOfCreation = DateTime.Now,
                         PurchaseFurnitures = purchaseFurniture,
                     });

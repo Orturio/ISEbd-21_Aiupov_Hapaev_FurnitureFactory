@@ -25,6 +25,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     UserId = rec.UserId,
                     PurchaseName = rec.PurchaseName,
                     PurchaseSum = rec.PurchaseSum,
+                    PurchaseSumToPayment = rec.PurchaseSumToPayment,
                     DateOfCreation = rec.DateOfCreation,
                     DateOfPayment = rec.DateOfPayment,
                     PurchaseFurniture = rec.PurchaseFurniture
@@ -53,6 +54,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     UserId = rec.UserId,
                     PurchaseName = rec.PurchaseName,
                     PurchaseSum = rec.PurchaseSum,
+                    PurchaseSumToPayment = rec.PurchaseSumToPayment,
                     DateOfCreation = rec.DateOfCreation,
                     DateOfPayment = rec.DateOfPayment,
                     PurchaseFurniture = rec.PurchaseFurniture
@@ -80,6 +82,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     UserId = purchase.UserId,
                     PurchaseName = purchase.PurchaseName,
                     PurchaseSum = purchase.PurchaseSum,
+                    PurchaseSumToPayment = purchase.PurchaseSumToPayment,
                     DateOfCreation = purchase.DateOfCreation,
                     DateOfPayment = purchase.DateOfPayment,
                     PurchaseFurniture = purchase.PurchaseFurniture
@@ -162,6 +165,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             purchase.UserId = model.UserId;
             purchase.PurchaseName = model.PurchaseName;
             purchase.PurchaseSum = model.PurchaseSum;
+            purchase.PurchaseSumToPayment = model.PurchaseSumToPayment;
             purchase.DateOfCreation = model.DateOfCreation;
             purchase.DateOfPayment = model.DateOfPayment;
             return purchase;
@@ -172,6 +176,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             purchase.UserId = model.UserId;
             purchase.PurchaseName = model.PurchaseName;
             purchase.PurchaseSum = model.PurchaseSum;
+            purchase.PurchaseSumToPayment = model.PurchaseSumToPayment;
             purchase.DateOfCreation = model.DateOfCreation;
             purchase.DateOfPayment = model.DateOfPayment;
 

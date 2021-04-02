@@ -75,6 +75,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     UserId = table.Column<int>(nullable: true),
                     PurchaseName = table.Column<string>(nullable: false),
                     PurchaseSum = table.Column<decimal>(nullable: false),
+                    PurchaseSumToPayment = table.Column<decimal>(nullable: false),
                     DateOfCreation = table.Column<DateTime>(nullable: false),
                     DateOfPayment = table.Column<DateTime>(nullable: true)
                 },

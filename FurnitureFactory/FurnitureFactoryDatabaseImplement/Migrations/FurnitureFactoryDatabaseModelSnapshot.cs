@@ -121,6 +121,9 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     b.Property<decimal>("PurchaseSum")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal>("PurchaseSumToPayment")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 

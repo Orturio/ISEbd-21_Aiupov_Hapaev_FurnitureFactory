@@ -51,12 +51,14 @@ namespace FurnitureFactoryView
                 comboBoxFurniture.ValueMember = "Id";
                 comboBoxFurniture.DataSource = list;
                 comboBoxFurniture.SelectedItem = null;
+
+                textBoxPrice.Text = null;
             }
         }
 
         private void ComboBoxFurniture_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Id != 0)
+            if (comboBoxFurniture.SelectedValue != null)
             {
                 textBoxPrice.Text = list.FirstOrDefault(x => x.Id == Id).FurniturePrice.ToString();
             }
@@ -73,7 +75,7 @@ namespace FurnitureFactoryView
 
             if (comboBoxFurniture.SelectedValue == null)
             {
-                MessageBox.Show("Выберите компонент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Выберите мебель", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

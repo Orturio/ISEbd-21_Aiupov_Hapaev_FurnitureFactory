@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FurnitureFactoryDatabaseImplement.Migrations
 {
     [DbContext(typeof(FurnitureFactoryDatabase))]
-    [Migration("20210402124102_InitialCreate")]
+    [Migration("20210402141430_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -121,6 +121,9 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PurchaseSum")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PurchaseSumToPayment")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("UserId")
