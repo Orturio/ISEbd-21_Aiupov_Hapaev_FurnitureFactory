@@ -30,9 +30,9 @@ namespace FurnitureFactoryView
                     var view = logic.Read(new FurnitureBindingModel { Id = id })?[0];
                     if (view != null)
                     {
-                        textBoxName.Text = view.Name;
+                        textBoxName.Text = view.FurnitureName;
                         textBoxMaterial.Text = view.Material;
-                        textBoxPrice.Text = view.Price.ToString();
+                        textBoxPrice.Text = view.FurniturePrice.ToString();
                     }
                 }
                 catch (Exception ex)
@@ -64,9 +64,9 @@ namespace FurnitureFactoryView
                 logic.CreateOrUpdate(new FurnitureBindingModel
                 {
                     Id = id,
-                    Name = textBoxName.Text,
+                    FurnitureName = textBoxName.Text,
                     Material = textBoxMaterial.Text,
-                    Price = Convert.ToDecimal(textBoxPrice.Text)
+                    FurniturePrice = Convert.ToDecimal(textBoxPrice.Text)
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;

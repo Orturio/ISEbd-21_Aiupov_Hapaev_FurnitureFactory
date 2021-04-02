@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FurnitureFactoryDatabaseImplement.Migrations
 {
     [DbContext(typeof(FurnitureFactoryDatabase))]
-    [Migration("20210401162746_InitialCreate")]
+    [Migration("20210402124102_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,11 +28,11 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<decimal>("CostPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("Count")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("PurchaseName")
                         .IsRequired()
@@ -53,16 +53,16 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     b.Property<int?>("CostsId")
                         .HasColumnType("int");
 
+                    b.Property<string>("FurnitureName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("FurniturePrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Material")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
@@ -87,14 +87,14 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .IsRequired()
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("PaymentSum")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("PurchaseId")
                         .HasColumnType("int");
 
                     b.Property<int?>("PurchasesId")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("Sum")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -116,11 +116,11 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     b.Property<DateTime?>("DateOfPayment")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("PurchaseName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Sum")
+                    b.Property<decimal>("PurchaseSum")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("UserId")

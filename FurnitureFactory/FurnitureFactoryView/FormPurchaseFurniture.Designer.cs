@@ -34,6 +34,8 @@
             this.textBoxCount = new System.Windows.Forms.TextBox();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.labelPrice = new System.Windows.Forms.Label();
+            this.textBoxPrice = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // labelFurniture
@@ -48,15 +50,16 @@
             // comboBoxFurniture
             // 
             this.comboBoxFurniture.FormattingEnabled = true;
-            this.comboBoxFurniture.Location = new System.Drawing.Point(99, 22);
+            this.comboBoxFurniture.Location = new System.Drawing.Point(110, 22);
             this.comboBoxFurniture.Name = "comboBoxFurniture";
-            this.comboBoxFurniture.Size = new System.Drawing.Size(173, 21);
+            this.comboBoxFurniture.Size = new System.Drawing.Size(162, 21);
             this.comboBoxFurniture.TabIndex = 1;
+            this.comboBoxFurniture.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFurniture_SelectedIndexChanged);
             // 
             // LabelCount
             // 
             this.LabelCount.AutoSize = true;
-            this.LabelCount.Location = new System.Drawing.Point(12, 71);
+            this.LabelCount.Location = new System.Drawing.Point(12, 67);
             this.LabelCount.Name = "LabelCount";
             this.LabelCount.Size = new System.Drawing.Size(69, 13);
             this.LabelCount.TabIndex = 2;
@@ -64,14 +67,14 @@
             // 
             // textBoxCount
             // 
-            this.textBoxCount.Location = new System.Drawing.Point(99, 68);
+            this.textBoxCount.Location = new System.Drawing.Point(110, 64);
             this.textBoxCount.Name = "textBoxCount";
-            this.textBoxCount.Size = new System.Drawing.Size(173, 20);
+            this.textBoxCount.Size = new System.Drawing.Size(162, 20);
             this.textBoxCount.TabIndex = 3;
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(46, 127);
+            this.buttonSave.Location = new System.Drawing.Point(42, 136);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(100, 31);
             this.buttonSave.TabIndex = 4;
@@ -81,7 +84,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(173, 127);
+            this.buttonCancel.Location = new System.Drawing.Point(173, 136);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(99, 31);
             this.buttonCancel.TabIndex = 5;
@@ -89,11 +92,29 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
+            // labelPrice
+            // 
+            this.labelPrice.AutoSize = true;
+            this.labelPrice.Location = new System.Drawing.Point(12, 108);
+            this.labelPrice.Name = "labelPrice";
+            this.labelPrice.Size = new System.Drawing.Size(92, 13);
+            this.labelPrice.TabIndex = 6;
+            this.labelPrice.Text = "Цена за 1 штуку:";
+            // 
+            // textBoxPrice
+            // 
+            this.textBoxPrice.Location = new System.Drawing.Point(110, 105);
+            this.textBoxPrice.Name = "textBoxPrice";
+            this.textBoxPrice.Size = new System.Drawing.Size(162, 20);
+            this.textBoxPrice.TabIndex = 7;
+            // 
             // FormPurchaseFurniture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(304, 170);
+            this.ClientSize = new System.Drawing.Size(306, 178);
+            this.Controls.Add(this.textBoxPrice);
+            this.Controls.Add(this.labelPrice);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBoxCount);
@@ -115,5 +136,7 @@
         private System.Windows.Forms.TextBox textBoxCount;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Label labelPrice;
+        private System.Windows.Forms.TextBox textBoxPrice;
     }
 }

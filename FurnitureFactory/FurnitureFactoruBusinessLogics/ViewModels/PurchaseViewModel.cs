@@ -16,11 +16,11 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
 
         [DataMember]
         [DisplayName("Название покупки")]
-        public string Name { get; set; }
+        public string PurchaseName { get; set; }
 
         [DataMember]
         [DisplayName("Сумма покупки")]
-        public decimal Sum { get; set; }
+        public decimal PurchaseSum { get; set; }
 
         [DataMember]
         [DisplayName("Дата создания")]
@@ -31,6 +31,6 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
         public DateTime? DateOfPayment { get; set; }
 
         [DataMember]
-        public Dictionary<int, (string, int)> PurchaseFurniture { get; set; }
+        public Dictionary<int, (string, int, decimal)> PurchaseFurniture { get; set; }
     }
 }

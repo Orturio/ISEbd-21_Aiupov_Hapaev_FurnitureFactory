@@ -31,7 +31,7 @@ namespace FurnitureFactoryView
                 var list = logicP.Read(null);
                 foreach (var p in list)
                 {
-                    comboBoxPurchase.DisplayMember = "Name";
+                    comboBoxPurchase.DisplayMember = "PurchaseName";
                     comboBoxPurchase.ValueMember = "Id";
                     comboBoxPurchase.DataSource = list;
                     comboBoxPurchase.SelectedItem = null;
@@ -52,7 +52,7 @@ namespace FurnitureFactoryView
                     int id = Convert.ToInt32(comboBoxPurchase.SelectedValue);
                     PurchaseViewModel purchase = logicP.Read(new PurchaseBindingModel { Id = id })?[0];
                     int count = Convert.ToInt32(textBoxCount.Text);
-                    textBoxPrice.Text = (count * purchase?.Sum ?? 0).ToString();
+                    textBoxPrice.Text = (count * purchase?.PurchaseSum ?? 0).ToString();
                 }
                 catch (Exception ex)
                 {
@@ -88,6 +88,7 @@ namespace FurnitureFactoryView
                 logicC.CreateOrUpdate(new CostBindingModel
                 {
                     Id = id,
+                    PurchaseName = comboBoxPurchase.Text,
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Price = Convert.ToDecimal(textBoxPrice.Text)
                 });

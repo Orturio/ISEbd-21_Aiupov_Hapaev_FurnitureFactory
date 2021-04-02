@@ -19,7 +19,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     PurchaseId = rec.PurchaseId,
-                    Sum = rec.Sum,
+                    Sum = rec.PaymentSum,
                     DateOfPayment = rec.DateOfPayment
                 })
                 .ToList();
@@ -39,7 +39,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     PurchaseId = rec.PurchaseId,
-                    Sum = rec.Sum,
+                    Sum = rec.PaymentSum,
                     DateOfPayment = rec.DateOfPayment
                 })
                 .ToList();
@@ -60,7 +60,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 {
                     Id = payment.Id,
                     PurchaseId = payment.PurchaseId,
-                    Sum = payment.Sum,
+                    Sum = payment.PaymentSum,
                     DateOfPayment = payment.DateOfPayment
                 } :
                 null;
@@ -110,7 +110,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
         private Payment CreateModel(PaymentBindingModel model, Payment payment)
         {
             payment.PurchaseId = model.PurchaseId;
-            payment.Sum = model.Sum;
+            payment.PaymentSum = model.Sum;
             payment.DateOfPayment = model.DateOfPayment;
             return payment;
         }

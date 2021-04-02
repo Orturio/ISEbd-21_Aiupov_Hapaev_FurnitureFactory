@@ -23,12 +23,12 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     UserId = rec.UserId,
-                    Name = rec.Name,
-                    Sum = rec.Sum,
+                    PurchaseName = rec.PurchaseName,
+                    PurchaseSum = rec.PurchaseSum,
                     DateOfCreation = rec.DateOfCreation,
                     DateOfPayment = rec.DateOfPayment,
                     PurchaseFurniture = rec.PurchaseFurniture
-                .ToDictionary(recPC => recPC.FurnitureId, recPC => (recPC.Furniture?.Name, recPC.Count))
+                .ToDictionary(recPC => recPC.FurnitureId, recPC => (recPC.Furniture?.FurnitureName, recPC.Count, recPC.Furniture.FurniturePrice))
                 })
                 .ToList();
             }
@@ -45,18 +45,18 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 return context.Purchases
                 .Include(rec => rec.PurchaseFurniture)
                 .ThenInclude(rec => rec.Furniture)
-                .Where(rec => rec.Name.Contains(model.Name))
+                .Where(rec => rec.PurchaseName.Contains(model.PurchaseName))
                 .ToList()
                 .Select(rec => new PurchaseViewModel
                 {
                     Id = rec.Id,
                     UserId = rec.UserId,
-                    Name = rec.Name,
-                    Sum = rec.Sum,
+                    PurchaseName = rec.PurchaseName,
+                    PurchaseSum = rec.PurchaseSum,
                     DateOfCreation = rec.DateOfCreation,
                     DateOfPayment = rec.DateOfPayment,
                     PurchaseFurniture = rec.PurchaseFurniture
-                .ToDictionary(recPC => recPC.FurnitureId, recPC => (recPC.Furniture?.Name, recPC.Count))
+                .ToDictionary(recPC => recPC.FurnitureId, recPC => (recPC.Furniture?.FurnitureName, recPC.Count, recPC.Furniture.FurniturePrice))
                 }).ToList();
             }
         }
@@ -72,18 +72,18 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 var purchase = context.Purchases
                 .Include(rec => rec.PurchaseFurniture)
                 .ThenInclude(rec => rec.Furniture)
-                .FirstOrDefault(rec => rec.Name == model.Name || rec.Id == model.Id);
+                .FirstOrDefault(rec => rec.PurchaseName == model.PurchaseName || rec.Id == model.Id);
                 return purchase != null ?
                 new PurchaseViewModel
                 {
                     Id = purchase.Id,
                     UserId = purchase.UserId,
-                    Name = purchase.Name,
-                    Sum = purchase.Sum,
+                    PurchaseName = purchase.PurchaseName,
+                    PurchaseSum = purchase.PurchaseSum,
                     DateOfCreation = purchase.DateOfCreation,
                     DateOfPayment = purchase.DateOfPayment,
                     PurchaseFurniture = purchase.PurchaseFurniture
-                .ToDictionary(recPC => recPC.FurnitureId, recPC => (recPC.Furniture?.Name, recPC.Count))
+                .ToDictionary(recPC => recPC.FurnitureId, recPC => (recPC.Furniture?.FurnitureName, recPC.Count, recPC.Furniture.FurniturePrice))
                 } :
                 null;
             }
@@ -160,8 +160,8 @@ namespace FurnitureFactoryDatabaseImplement.Implements
         private Purchase CreateModel(PurchaseBindingModel model, Purchase purchase)
         {
             purchase.UserId = model.UserId;
-            purchase.Name = model.Name;
-            purchase.Sum = model.Sum;
+            purchase.PurchaseName = model.PurchaseName;
+            purchase.PurchaseSum = model.PurchaseSum;
             purchase.DateOfCreation = model.DateOfCreation;
             purchase.DateOfPayment = model.DateOfPayment;
             return purchase;
@@ -170,8 +170,8 @@ namespace FurnitureFactoryDatabaseImplement.Implements
         private Purchase CreateModel(PurchaseBindingModel model, Purchase purchase, FurnitureFactoryDatabase context)
         {
             purchase.UserId = model.UserId;
-            purchase.Name = model.Name;
-            purchase.Sum = model.Sum;
+            purchase.PurchaseName = model.PurchaseName;
+            purchase.PurchaseSum = model.PurchaseSum;
             purchase.DateOfCreation = model.DateOfCreation;
             purchase.DateOfPayment = model.DateOfPayment;
 
@@ -189,7 +189,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 }
                 context.SaveChanges();
             }
-            // добавили новые
+            //добавили новые
             foreach (var pc in model.PurchaseFurnitures)
             {
                 context.PurchaseFurnitures.Add(new PurchaseFurniture

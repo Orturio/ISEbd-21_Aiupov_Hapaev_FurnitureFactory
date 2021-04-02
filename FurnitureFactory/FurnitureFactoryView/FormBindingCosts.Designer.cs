@@ -36,7 +36,7 @@ namespace FurnitureFactoryView
             this.textBoxAdditionalCost = new System.Windows.Forms.TextBox();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.textBoxCost = new System.Windows.Forms.TextBox();
+            this.labelCostSum = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // comboBoxCost
@@ -90,6 +90,7 @@ namespace FurnitureFactoryView
             this.buttonSave.TabIndex = 6;
             this.buttonSave.Text = "Сохранить";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.ButtonSave_Click);
             // 
             // buttonCancel
             // 
@@ -99,20 +100,22 @@ namespace FurnitureFactoryView
             this.buttonCancel.TabIndex = 7;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
-            // textBoxCost
+            // labelCostSum
             // 
-            this.textBoxCost.Location = new System.Drawing.Point(161, 95);
-            this.textBoxCost.Name = "textBoxCost";
-            this.textBoxCost.Size = new System.Drawing.Size(76, 22);
-            this.textBoxCost.TabIndex = 8;
+            this.labelCostSum.AutoSize = true;
+            this.labelCostSum.Location = new System.Drawing.Point(165, 98);
+            this.labelCostSum.Name = "labelCostSum";
+            this.labelCostSum.Size = new System.Drawing.Size(0, 13);
+            this.labelCostSum.TabIndex = 8;
             // 
             // FormBindingCosts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(254, 209);
-            this.Controls.Add(this.textBoxCost);
+            this.Controls.Add(this.labelCostSum);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBoxAdditionalCost);
@@ -122,6 +125,7 @@ namespace FurnitureFactoryView
             this.Controls.Add(this.comboBoxCost);
             this.Name = "FormBindingCosts";
             this.Text = "Привязка затрат";
+            this.Load += new System.EventHandler(this.FormCost_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -136,6 +140,6 @@ namespace FurnitureFactoryView
         private System.Windows.Forms.TextBox textBoxAdditionalCost;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.TextBox textBoxCost;
+        private System.Windows.Forms.Label labelCostSum;
     }
 }

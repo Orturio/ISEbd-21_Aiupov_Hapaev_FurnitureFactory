@@ -15,7 +15,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PurchaseName = table.Column<string>(nullable: false),
                     Count = table.Column<int>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false)
+                    CostPrice = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -45,8 +45,8 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(nullable: true),
                     CostsId = table.Column<int>(nullable: true),
-                    Name = table.Column<string>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false),
+                    FurnitureName = table.Column<string>(nullable: false),
+                    FurniturePrice = table.Column<decimal>(nullable: false),
                     Material = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -73,8 +73,8 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(nullable: true),
-                    Name = table.Column<string>(nullable: false),
-                    Sum = table.Column<decimal>(nullable: false),
+                    PurchaseName = table.Column<string>(nullable: false),
+                    PurchaseSum = table.Column<decimal>(nullable: false),
                     DateOfCreation = table.Column<DateTime>(nullable: false),
                     DateOfPayment = table.Column<DateTime>(nullable: true)
                 },
@@ -96,7 +96,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PurchaseId = table.Column<int>(nullable: false),
-                    Sum = table.Column<decimal>(nullable: false),
+                    PaymentSum = table.Column<decimal>(nullable: false),
                     DateOfPayment = table.Column<DateTime>(nullable: false),
                     PurchasesId = table.Column<int>(nullable: true)
                 },

@@ -20,7 +20,9 @@ namespace FurnitureFactoryView
 
         private int? id;
 
-        private Dictionary<int, (string, int)> purchaseFurniture;
+        private decimal Price { get; set; }
+
+        private Dictionary<int, (string, int, decimal)> purchaseFurniture;
 
         public FormPurchase(PurchaseLogic service)
         {
@@ -28,18 +30,20 @@ namespace FurnitureFactoryView
             this.logic = service;
         }
 
+        PurchaseViewModel view;
+
         private void FormPurchase_Load(object sender, EventArgs e)
         {
             if (id.HasValue)
             {
                 try
                 {
-                    PurchaseViewModel view = logic.Read(new PurchaseBindingModel { Id = id.Value })?[0];
+                    view = logic.Read(new PurchaseBindingModel { Id = id.Value })?[0];
 
                     if (view != null)
                     {
-                        textBoxName.Text = view.Name;
-                        textBoxPrice.Text = view.Sum.ToString();
+                        textBoxName.Text = view.PurchaseName;
+                        textBoxPrice.Text = view.PurchaseSum.ToString();
                         purchaseFurniture = view.PurchaseFurniture;
                         LoadData();
                     }
@@ -53,9 +57,11 @@ namespace FurnitureFactoryView
 
             else
             {
-                purchaseFurniture = new Dictionary<int, (string, int)>();
+                purchaseFurniture = new Dictionary<int, (string, int, decimal)>();
             }
         }
+
+
 
         private void LoadData()
         {
@@ -66,8 +72,11 @@ namespace FurnitureFactoryView
                     dataGridView.Rows.Clear();
                     foreach (var pc in purchaseFurniture)
                     {
-                        dataGridView.Rows.Add(new object[] {pc.Key, pc.Value.Item1, pc.Value.Item2});
+                        Price += pc.Value.Item3 * pc.Value.Item2;
+                        textBoxPrice.Text = Price.ToString();
+                        dataGridView.Rows.Add(new object[] {pc.Key, pc.Value.Item1, pc.Value.Item2, pc.Value.Item3});
                     }
+                    Price = 0;
                 }
             }
 
@@ -85,12 +94,12 @@ namespace FurnitureFactoryView
             {
                 if (purchaseFurniture.ContainsKey(form.Id))
                 {
-                    purchaseFurniture[form.Id] = (form.FurnitureName, form.Count);
+                    purchaseFurniture[form.Id] = (form.FurnitureName, form.Count, form.Price);
                 }
 
                 else
                 {
-                    purchaseFurniture.Add(form.Id, (form.FurnitureName, form.Count));
+                    purchaseFurniture.Add(form.Id, (form.FurnitureName, form.Count, form.Price));
                 }
                 LoadData();
             }
@@ -107,7 +116,7 @@ namespace FurnitureFactoryView
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    purchaseFurniture[form.Id] = (form.FurnitureName, form.Count);
+                    purchaseFurniture[form.Id] = (form.FurnitureName, form.Count, form.Price);
                     LoadData();
                 }
             }
@@ -160,13 +169,28 @@ namespace FurnitureFactoryView
 
             try
             {
-                logic.CreateOrUpdate(new PurchaseBindingModel
+                if (view != null)
                 {
-                    Id = id,
-                    Name = textBoxName.Text,
-                    Sum = Convert.ToDecimal(textBoxPrice.Text),
-                    PurchaseFurnitures = purchaseFurniture
-                });
+                    logic.UpdatePurchase(new PurchaseBindingModel
+                    {
+                        Id = id,
+                        PurchaseName = textBoxName.Text,
+                        PurchaseSum = Convert.ToDecimal(textBoxPrice.Text),
+                        DateOfCreation = view.DateOfCreation,
+                        PurchaseFurnitures = purchaseFurniture,
+                    });
+                }
+                else
+                {
+                    logic.CreatePurchase(new PurchaseBindingModel
+                    {
+                        Id = id,
+                        PurchaseName = textBoxName.Text,
+                        PurchaseSum = Convert.ToDecimal(textBoxPrice.Text),
+                        DateOfCreation = DateTime.Now,
+                        PurchaseFurnitures = purchaseFurniture,
+                    });
+                }
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();
@@ -180,6 +204,10 @@ namespace FurnitureFactoryView
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void textBoxPrice_TextChanged(object sender, EventArgs e)
+        {
         }
     }
 }

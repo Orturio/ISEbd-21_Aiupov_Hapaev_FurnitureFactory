@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Unity;
+using System.Linq;
 
 namespace FurnitureFactoryView
 {
@@ -11,6 +12,8 @@ namespace FurnitureFactoryView
     {
         [Dependency]
         public new IUnityContainer Container { get; set; }
+
+        List<FurnitureViewModel> list;
 
         public int Id
         {
@@ -29,19 +32,35 @@ namespace FurnitureFactoryView
             }
         }
 
+        public decimal Price
+        {
+            get { return Convert.ToDecimal(textBoxPrice.Text); }
+
+            set {textBoxPrice.Text = value.ToString() ; }
+        }
+
         public FormPurchaseFurniture(FurnitureLogic logic)
         {
             InitializeComponent();
 
-            List<FurnitureViewModel> list = logic.Read(null);
+            list = logic.Read(null);
 
             if (list != null)
             {
-                comboBoxFurniture.DisplayMember = "Name";
+                comboBoxFurniture.DisplayMember = "FurnitureName";
                 comboBoxFurniture.ValueMember = "Id";
                 comboBoxFurniture.DataSource = list;
                 comboBoxFurniture.SelectedItem = null;
             }
+        }
+
+        private void ComboBoxFurniture_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Id != 0)
+            {
+                textBoxPrice.Text = list.FirstOrDefault(x => x.Id == Id).FurniturePrice.ToString();
+            }
+            Id = Convert.ToInt32(comboBoxFurniture.SelectedValue);
         }
 
         private void buttonSave_Click(object sender, EventArgs e)

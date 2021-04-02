@@ -12,7 +12,7 @@ namespace FurnitureFactoryDatabaseImplement.Models
         public int PurchaseId { get; set; }
 
         [Required]
-        public decimal Sum { get; set; }
+        public decimal PaymentSum { get; set; }
 
         [Required]
         public DateTime? DateOfPayment { get; set; }

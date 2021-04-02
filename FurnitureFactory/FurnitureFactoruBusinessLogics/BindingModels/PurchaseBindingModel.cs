@@ -10,9 +10,9 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
 
         public int? UserId { get; set; }
 
-        public string Name { get; set; }
+        public string PurchaseName { get; set; }
 
-        public decimal Sum { get; set; }
+        public decimal PurchaseSum { get; set; }
 
         public DateTime DateOfCreation { get; set; }
 
@@ -22,6 +22,6 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
 
         public DateTime? DateTo { get; set; }
 
-        public Dictionary<int, (string, int)> PurchaseFurnitures { get; set; }
+        public Dictionary<int, (string, int, decimal)> PurchaseFurnitures { get; set; }
     }
 }

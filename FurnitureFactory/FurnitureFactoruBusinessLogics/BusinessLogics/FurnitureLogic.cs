@@ -32,7 +32,7 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
         {
             var element = _furnitureStorage.GetElement(new FurnitureBindingModel
             {
-                Name = model.Name
+                FurnitureName = model.FurnitureName
             });
             if (element != null && element.Id != model.Id)
             {

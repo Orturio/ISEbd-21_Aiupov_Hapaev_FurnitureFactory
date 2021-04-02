@@ -28,25 +28,18 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             return _purchasesStorage.GetFilteredList(model);
         }
 
-        public void CreateOrUpdate(PurchaseBindingModel model)
+        public void CreatePurchase(PurchaseBindingModel model)
         {
-            var element = _purchasesStorage.GetElement(new PurchaseBindingModel
-            {
-                Name = model.Name
-            });
-            if (element != null && element.Id != model.Id)
-            {
-                throw new Exception("Уже есть покупка с таким названием");
-            }
-            if (model.Id.HasValue)
-            {
-                _purchasesStorage.Update(model);
-            }
-            else
-            {
-                _purchasesStorage.Insert(model);
-            }
+            _purchasesStorage.Insert(model); 
         }
+
+        public void UpdatePurchase(PurchaseBindingModel model)
+        {
+            
+            _purchasesStorage.Update(model);
+            
+        }
+
         public void Delete(PurchaseBindingModel model)
         {
             var element = _purchasesStorage.GetElement(new PurchaseBindingModel

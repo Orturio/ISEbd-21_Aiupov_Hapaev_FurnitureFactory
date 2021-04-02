@@ -13,10 +13,10 @@ namespace FurnitureFactoryDatabaseImplement.Models
         public int? CostsId { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string FurnitureName { get; set; }
 
         [Required]
-        public decimal Price { get; set; }
+        public decimal FurniturePrice { get; set; }
 
         [Required]
         public string Material { get; set; }

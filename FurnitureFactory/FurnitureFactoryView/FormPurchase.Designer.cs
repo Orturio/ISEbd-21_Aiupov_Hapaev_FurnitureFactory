@@ -43,6 +43,7 @@
             this.ColumnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnFurniture = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnPriceOfOneThing = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox.SuspendLayout();
             this.SuspendLayout();
@@ -94,7 +95,8 @@
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnId,
             this.ColumnFurniture,
-            this.ColumnPrice});
+            this.ColumnPrice,
+            this.ColumnPriceOfOneThing});
             this.dataGridView.Location = new System.Drawing.Point(13, 19);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.Size = new System.Drawing.Size(499, 264);
@@ -124,7 +126,7 @@
             this.labelName.AutoSize = true;
             this.labelName.Location = new System.Drawing.Point(38, 31);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(61, 13);
+            this.labelName.Size = new System.Drawing.Size(60, 13);
             this.labelName.TabIndex = 10;
             this.labelName.Text = "Название:";
             // 
@@ -133,7 +135,7 @@
             this.LabelPrice.AutoSize = true;
             this.LabelPrice.Location = new System.Drawing.Point(38, 58);
             this.LabelPrice.Name = "LabelPrice";
-            this.LabelPrice.Size = new System.Drawing.Size(38, 13);
+            this.LabelPrice.Size = new System.Drawing.Size(36, 13);
             this.LabelPrice.TabIndex = 11;
             this.LabelPrice.Text = "Цена:";
             // 
@@ -141,14 +143,15 @@
             // 
             this.textBoxName.Location = new System.Drawing.Point(121, 28);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(128, 22);
+            this.textBoxName.Size = new System.Drawing.Size(128, 20);
             this.textBoxName.TabIndex = 12;
+            this.textBoxName.TextChanged += new System.EventHandler(this.textBoxPrice_TextChanged);
             // 
             // textBoxPrice
             // 
             this.textBoxPrice.Location = new System.Drawing.Point(121, 58);
             this.textBoxPrice.Name = "textBoxPrice";
-            this.textBoxPrice.Size = new System.Drawing.Size(128, 22);
+            this.textBoxPrice.Size = new System.Drawing.Size(128, 20);
             this.textBoxPrice.TabIndex = 13;
             // 
             // groupBox
@@ -175,13 +178,18 @@
             // 
             this.ColumnFurniture.HeaderText = "Мебель";
             this.ColumnFurniture.Name = "ColumnFurniture";
-            this.ColumnFurniture.Width = 333;
+            this.ColumnFurniture.Width = 233;
             // 
             // ColumnPrice
             // 
             this.ColumnPrice.HeaderText = "Количество";
             this.ColumnPrice.Name = "ColumnPrice";
             this.ColumnPrice.Width = 123;
+            // 
+            // ColumnPriceOfOneThing
+            // 
+            this.ColumnPriceOfOneThing.HeaderText = "Цена за одну штуку";
+            this.ColumnPriceOfOneThing.Name = "ColumnPriceOfOneThing";
             // 
             // FormPurchase
             // 
@@ -221,5 +229,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnFurniture;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPriceOfOneThing;
     }
 }

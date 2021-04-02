@@ -19,11 +19,11 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 .ThenInclude(rec => rec.Purchases).Select(rec => new FurnitureViewModel
                 {
                     Id = rec.Id,
-                    EmployeeId = rec.UserId,
-                    CostsId = rec.CostsId,
-                    Name = rec.Name,
+                    UserId = rec.UserId,
+                    CostId = rec.CostsId,
+                    FurnitureName = rec.FurnitureName,
                     Material = rec.Material,
-                    Price = rec.Price
+                    FurniturePrice = rec.FurniturePrice
                 })
                 .ToList();
             }
@@ -38,15 +38,15 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             using (var context = new FurnitureFactoryDatabase())
             {
                 return context.Furnitures.Include(rec => rec.PurchaseFurniture)
-                .ThenInclude(rec => rec.Purchases).Where(rec => rec.Id == model.Id && rec.Name == rec.Name)
+                .ThenInclude(rec => rec.Purchases).Where(rec => rec.Id == model.Id && rec.FurnitureName == rec.FurnitureName)
                 .Select(rec => new FurnitureViewModel
                 {
                     Id = rec.Id,
-                    EmployeeId = rec.UserId,
-                    CostsId = rec.CostsId,
-                    Name = rec.Name,
+                    UserId = rec.UserId,
+                    CostId = rec.CostsId,
+                    FurnitureName = rec.FurnitureName,
                     Material = rec.Material,
-                    Price = rec.Price
+                    FurniturePrice = rec.FurniturePrice
                 })
                 .ToList();
             }
@@ -62,16 +62,16 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             {
                 var furniture = context.Furnitures.Include(rec => rec.PurchaseFurniture)
                 .ThenInclude(rec => rec.Purchases)
-                .FirstOrDefault(rec => rec.Name == model.Name || rec.Id == model.Id); 
+                .FirstOrDefault(rec => rec.FurnitureName == model.FurnitureName || rec.Id == model.Id); 
                 return furniture != null ?
                 new FurnitureViewModel
                 {
                     Id = furniture.Id,
-                    EmployeeId = furniture.UserId,
-                    CostsId = furniture.CostsId,
-                    Name = furniture.Name,
+                    UserId = furniture.UserId,
+                    CostId = furniture.CostsId,
+                    FurnitureName = furniture.FurnitureName,
                     Material = furniture.Material,
-                    Price = furniture.Price
+                    FurniturePrice = furniture.FurniturePrice
                 } :
                 null;
             }
@@ -119,11 +119,11 @@ namespace FurnitureFactoryDatabaseImplement.Implements
 
         private Furniture CreateModel(FurnitureBindingModel model, Furniture furniture)
         {
-            furniture.UserId = model.EmployeeId;
+            furniture.UserId = model.UserId;
             furniture.CostsId = model.CostsId;
-            furniture.Name = model.Name;
+            furniture.FurnitureName = model.FurnitureName;
             furniture.Material = model.Material;
-            furniture.Price = model.Price;           
+            furniture.FurniturePrice = model.FurniturePrice;           
             return furniture;
         }
     }

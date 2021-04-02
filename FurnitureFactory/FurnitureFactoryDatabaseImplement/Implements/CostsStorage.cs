@@ -18,9 +18,9 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 return context.Costs.Select(rec => new CostViewModel
                 {
                     Id = rec.Id,
-                    PurchaseName = rec.PurchaseName,
+                    PurchaseName = context.Purchases.Include(x => x.PurchaseFurniture).FirstOrDefault(x => x.PurchaseName == rec.PurchaseName).PurchaseName,
                     Count = rec.Count,
-                    Price = rec.Price
+                    Price = rec.CostPrice
                 })
                 .ToList();
             }
@@ -39,9 +39,9 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 .Select(rec => new CostViewModel
                 {
                     Id = rec.Id,
-                    PurchaseName = rec.PurchaseName,
+                    PurchaseName = context.Purchases.Include(x => x.PurchaseFurniture).FirstOrDefault(x => x.PurchaseName == rec.PurchaseName).PurchaseName,
                     Count = rec.Count,
-                    Price = rec.Price
+                    Price = rec.CostPrice
                 })
                 .ToList();
             }
@@ -61,9 +61,9 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 new CostViewModel
                 {
                     Id = cost.Id,
-                    PurchaseName = cost.PurchaseName,
+                    PurchaseName = context.Purchases.Include(x => x.PurchaseFurniture).FirstOrDefault(x => x.PurchaseName == cost.PurchaseName).PurchaseName,
                     Count = cost.Count,
-                    Price = cost.Price
+                    Price = cost.CostPrice
                 } :
                 null;
             }
@@ -115,7 +115,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
         {
             cost.PurchaseName = model.PurchaseName;
             cost.Count = model.Count;
-            cost.Price = model.Price;
+            cost.CostPrice = model.Price;
             return cost;
         }
     }
