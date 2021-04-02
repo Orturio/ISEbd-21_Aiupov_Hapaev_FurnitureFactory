@@ -207,9 +207,5 @@ namespace FurnitureFactoryView
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void textBoxPrice_TextChanged(object sender, EventArgs e)
-        {
-        }
     }
 }

@@ -94,10 +94,7 @@ namespace FurnitureFactoryView
             if (dataGridView.SelectedRows.Count == 1)
             {
                 var form = Container.Resolve<FormBindingCosts>();
-                form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
-                form.purchaseName = Convert.ToString(dataGridView.SelectedRows[0].Cells[1].Value);
-                form.count = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[2].Value);
-                form.sum = Convert.ToDecimal(dataGridView.SelectedRows[0].Cells[3].Value);
+                form.Sum = Convert.ToDecimal(dataGridView.SelectedRows[0].Cells[3].Value);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     LoadData();

@@ -12,13 +12,13 @@ namespace FurnitureFactoryView
     {
         [Dependency]
         public new IUnityContainer Container { get; set; }
-        public int Id { set { id = value; } }
         private readonly CostLogic logicC;
         private readonly FurnitureLogic logicF;
-        private int? id;
-        public string purchaseName { get; set; }
-        public int count { get; set; }
-        public decimal sum { get; set; }
+        private int Id { get; set; }
+        public decimal Sum { get; set; }
+
+        FurnitureViewModel furnitureView;
+        CostViewModel costView;
 
         public FormBindingCosts(CostLogic logicC, FurnitureLogic logicF)
         {
@@ -43,12 +43,12 @@ namespace FurnitureFactoryView
                 var listFurnitures = logicF.Read(null);
                 foreach (var f in listFurnitures)
                 {
-                    comboBoxCost.DisplayMember = "FurnitureName";
-                    comboBoxCost.ValueMember = "Id";
-                    comboBoxCost.DataSource = listFurnitures;
-                    comboBoxCost.SelectedItem = null;
+                    comboBoxFurniture.DisplayMember = "FurnitureName";
+                    comboBoxFurniture.ValueMember = "Id";
+                    comboBoxFurniture.DataSource = listFurnitures;
+                    comboBoxFurniture.SelectedItem = null;
                 }
-                labelCostSum.Text = $"{sum}";
+                labelCostSum.Text = $"{Sum}";
             }
             catch (Exception ex)
             {
@@ -63,11 +63,11 @@ namespace FurnitureFactoryView
                 MessageBox.Show("Выберите затрату", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            //if (comboBoxFurniture.SelectedValue == null)
-            //{
-            //    MessageBox.Show("Выберите мебель", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
+            if (comboBoxFurniture.SelectedValue == null)
+            {
+                MessageBox.Show("Выберите мебель", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             if (string.IsNullOrEmpty(textBoxAdditionalCost.Text))
             {
                 MessageBox.Show("Заполните дополнительные затраты", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -75,28 +75,34 @@ namespace FurnitureFactoryView
             }
             try
             {
+                Id = Convert.ToInt32(comboBoxCost.SelectedValue);
+
+                costView = logicC.Read(new CostBindingModel { Id = Id })?[0];
+
                 logicC.CreateOrUpdate(new CostBindingModel
                 {
-                    Id = id,
-                    PurchaseName = purchaseName,
-                    Count = count,
-                    Price = sum + Convert.ToDecimal(textBoxAdditionalCost.Text)
+                    Id = costView.Id,
+                    PurchaseName = costView.PurchaseName,
+                    Count = costView.Count,
+                    Price = Sum + Convert.ToDecimal(textBoxAdditionalCost.Text)
                 });
-                //logicF.CreateOrUpdate(new FurnitureBindingModel
-                //{
-                //    Id = id,
-                //    PurchaseName = comboBoxPurchase.Text,
-                //    Count = Convert.ToInt32(textBoxCount.Text),
-                //    Price = Convert.ToDecimal(textBoxPrice.Text)
-                //});
+
+                Id = Convert.ToInt32(comboBoxFurniture.SelectedValue);
+                
+                furnitureView = logicF.Read(new FurnitureBindingModel { Id = Id })?[0];
+                
+                logicF.CreateOrUpdate(new FurnitureBindingModel
+                {
+                    Id = furnitureView.Id,
+                    CostsId = costView.Id,
+                    FurnitureName = furnitureView.FurnitureName,
+                    Material = furnitureView.Material,
+                    FurniturePrice = furnitureView.FurniturePrice
+                });
+
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();
-            }
-            catch (DbUpdateException exe)
-            {
-                MessageBox.Show(exe?.InnerException?.Message, "Ошибка", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
