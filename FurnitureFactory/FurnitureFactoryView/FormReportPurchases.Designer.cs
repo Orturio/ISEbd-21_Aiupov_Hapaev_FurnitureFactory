@@ -28,46 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.dateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
+            this.buttonMake = new System.Windows.Forms.Button();
+            this.buttonToEmail = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             this.SuspendLayout();
             // 
-            // dateTimePicker1
+            // dateTimePickerFrom
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(32, 12);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(111, 20);
-            this.dateTimePicker1.TabIndex = 0;
+            this.dateTimePickerFrom.Location = new System.Drawing.Point(32, 12);
+            this.dateTimePickerFrom.Name = "dateTimePickerFrom";
+            this.dateTimePickerFrom.Size = new System.Drawing.Size(111, 20);
+            this.dateTimePickerFrom.TabIndex = 0;
             // 
-            // dateTimePicker2
+            // dateTimePickerTo
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(189, 12);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(111, 20);
-            this.dateTimePicker2.TabIndex = 1;
+            this.dateTimePickerTo.Location = new System.Drawing.Point(189, 12);
+            this.dateTimePickerTo.Name = "dateTimePickerTo";
+            this.dateTimePickerTo.Size = new System.Drawing.Size(111, 20);
+            this.dateTimePickerTo.TabIndex = 1;
             // 
-            // button1
+            // buttonMake
             // 
-            this.button1.Location = new System.Drawing.Point(318, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(96, 20);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Показать";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonMake.Location = new System.Drawing.Point(523, 9);
+            this.buttonMake.Name = "buttonMake";
+            this.buttonMake.Size = new System.Drawing.Size(96, 20);
+            this.buttonMake.TabIndex = 2;
+            this.buttonMake.Text = "Сформировать";
+            this.buttonMake.UseVisualStyleBackColor = true;
+            this.buttonMake.Click += new System.EventHandler(this.buttonMake_Click);
             // 
-            // button2
+            // buttonToEmail
             // 
-            this.button2.Location = new System.Drawing.Point(420, 12);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(96, 20);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "На почту";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonToEmail.Location = new System.Drawing.Point(630, 9);
+            this.buttonToEmail.Name = "buttonToEmail";
+            this.buttonToEmail.Size = new System.Drawing.Size(96, 20);
+            this.buttonToEmail.TabIndex = 3;
+            this.buttonToEmail.Text = "На почту";
+            this.buttonToEmail.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -87,29 +88,30 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "По";
             // 
-            // label3
+            // reportViewer
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(243, 139);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(107, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Таблица для отчёта";
+            this.reportViewer.LocalReport.ReportEmbeddedResource = "FurnitureFactoryView.ReportPurchase.rdlc";
+            this.reportViewer.Location = new System.Drawing.Point(1, 38);
+            this.reportViewer.Name = "reportViewer";
+            this.reportViewer.ServerReport.BearerToken = null;
+            this.reportViewer.Size = new System.Drawing.Size(738, 428);
+            this.reportViewer.TabIndex = 6;
             // 
-            // ReportForm
+            // FormReportPurchases
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(571, 341);
-            this.Controls.Add(this.label3);
+            this.ClientSize = new System.Drawing.Size(738, 468);
+            this.Controls.Add(this.reportViewer);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Name = "ReportForm";
+            this.Controls.Add(this.buttonToEmail);
+            this.Controls.Add(this.buttonMake);
+            this.Controls.Add(this.dateTimePickerTo);
+            this.Controls.Add(this.dateTimePickerFrom);
+            this.Name = "FormReportPurchases";
             this.Text = "Отчёт";
+            this.Load += new System.EventHandler(this.FormReportPurchases_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -117,12 +119,12 @@
 
         #endregion
 
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DateTimePicker dateTimePickerFrom;
+        private System.Windows.Forms.DateTimePicker dateTimePickerTo;
+        private System.Windows.Forms.Button buttonMake;
+        private System.Windows.Forms.Button buttonToEmail;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private Microsoft.Reporting.WinForms.ReportViewer reportViewer;
     }
 }

@@ -43,15 +43,27 @@ namespace FurnitureFactoryView
             form.ShowDialog();
         }
 
-        private void отчетToolStripMenuItem_Click(object sender, EventArgs e)
+        private void отчетПоПокупкамToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportPurchases>();
+            form.ShowDialog();
+        }
+
+        private void отчетПоМебелиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormReportFurnitures>();
             form.ShowDialog();
         }
 
-        private void отчетПоПокупкамToolStripMenuItem_Click(object sender, EventArgs e)
+        private void покупочныйОтчетToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormReportPurchases>();
+            var form = Container.Resolve<FormPurchasesList>();
+            form.ShowDialog();
+        }
+
+        private void мебельныйОтчетToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormFurnitureList>();
             form.ShowDialog();
         }
     }

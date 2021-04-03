@@ -41,6 +41,7 @@ namespace FurnitureFactoryView
             currentContainer.RegisterType<PaymentLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<PurchaseLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<UserLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<ReportLogic>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }

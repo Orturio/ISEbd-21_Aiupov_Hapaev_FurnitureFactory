@@ -46,7 +46,8 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 return context.Purchases
                 .Include(rec => rec.PurchaseFurniture)
                 .ThenInclude(rec => rec.Furniture)
-                .Where(rec => rec.PurchaseName.Contains(model.PurchaseName))
+                .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateOfCreation.Date == model.DateOfCreation.Date) ||
+(model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateOfCreation.Date >= model.DateFrom.Value.Date && rec.DateOfCreation.Date <= model.DateTo.Value.Date))
                 .ToList()
                 .Select(rec => new PurchaseViewModel
                 {
