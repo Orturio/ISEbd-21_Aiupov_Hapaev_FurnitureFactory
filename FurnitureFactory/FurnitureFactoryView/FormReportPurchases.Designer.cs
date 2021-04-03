@@ -69,6 +69,7 @@
             this.buttonToEmail.TabIndex = 3;
             this.buttonToEmail.Text = "На почту";
             this.buttonToEmail.UseVisualStyleBackColor = true;
+            this.buttonToEmail.Click += new System.EventHandler(this.buttonToEmail_Click);
             // 
             // labelFrom
             // 

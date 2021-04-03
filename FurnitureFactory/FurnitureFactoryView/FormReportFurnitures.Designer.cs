@@ -62,6 +62,7 @@ namespace FurnitureFactoryView
             this.buttonToEmail.TabIndex = 5;
             this.buttonToEmail.Text = "На почту";
             this.buttonToEmail.UseVisualStyleBackColor = true;
+            this.buttonToEmail.Click += new System.EventHandler(this.buttonToEmail_Click);
             // 
             // buttonMake
             // 
