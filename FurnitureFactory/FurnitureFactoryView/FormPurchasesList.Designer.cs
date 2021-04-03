@@ -32,10 +32,10 @@ namespace FurnitureFactoryView
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonToWord = new System.Windows.Forms.Button();
             this.buttonToExcel = new System.Windows.Forms.Button();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.ColumnPurchaseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnFurnitureName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnFurnitureName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnPurchaseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,6 +69,24 @@ namespace FurnitureFactoryView
             this.buttonToExcel.UseVisualStyleBackColor = true;
             this.buttonToExcel.Click += new System.EventHandler(this.buttonToExcel_Click);
             // 
+            // ColumnCount
+            // 
+            this.ColumnCount.HeaderText = "Количество";
+            this.ColumnCount.Name = "ColumnCount";
+            this.ColumnCount.Width = 140;
+            // 
+            // ColumnFurnitureName
+            // 
+            this.ColumnFurnitureName.HeaderText = "Мебель";
+            this.ColumnFurnitureName.Name = "ColumnFurnitureName";
+            this.ColumnFurnitureName.Width = 206;
+            // 
+            // ColumnPurchaseName
+            // 
+            this.ColumnPurchaseName.HeaderText = "Покупка";
+            this.ColumnPurchaseName.Name = "ColumnPurchaseName";
+            this.ColumnPurchaseName.Width = 250;
+            // 
             // dataGridView
             // 
             this.dataGridView.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
@@ -81,24 +99,6 @@ namespace FurnitureFactoryView
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.Size = new System.Drawing.Size(639, 333);
             this.dataGridView.TabIndex = 10;
-            // 
-            // ColumnPurchaseName
-            // 
-            this.ColumnPurchaseName.HeaderText = "Покупка";
-            this.ColumnPurchaseName.Name = "ColumnPurchaseName";
-            this.ColumnPurchaseName.Width = 250;
-            // 
-            // ColumnFurnitureName
-            // 
-            this.ColumnFurnitureName.HeaderText = "Мебель";
-            this.ColumnFurnitureName.Name = "ColumnFurnitureName";
-            this.ColumnFurnitureName.Width = 206;
-            // 
-            // ColumnCount
-            // 
-            this.ColumnCount.HeaderText = "Количество";
-            this.ColumnCount.Name = "ColumnCount";
-            this.ColumnCount.Width = 140;
             // 
             // FormPurchasesList
             // 
@@ -121,9 +121,9 @@ namespace FurnitureFactoryView
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonToWord;
         private System.Windows.Forms.Button buttonToExcel;
-        private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPurchaseName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnFurnitureName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnFurnitureName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPurchaseName;
+        private System.Windows.Forms.DataGridView dataGridView;
     }
 }

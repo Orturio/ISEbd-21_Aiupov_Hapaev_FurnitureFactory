@@ -122,7 +122,7 @@ namespace FurnitureFactoryView
             this.Controls.Add(this.labelName);
             this.Name = "FormFurniture";
             this.Text = "Создание мебели";
-            this.Click += new System.EventHandler(this.FormFurniture_Load);
+            this.Load += new System.EventHandler(this.FormFurniture_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

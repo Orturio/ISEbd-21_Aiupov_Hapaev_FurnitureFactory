@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FurnitureFactoryDatabaseImplement.Migrations
 {
     [DbContext(typeof(FurnitureFactoryDatabase))]
-    [Migration("20210402141430_InitialCreate")]
+    [Migration("20210403120119_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,6 +52,9 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
 
                     b.Property<int?>("CostsId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DateOfCreation")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("FurnitureName")
                         .IsRequired()

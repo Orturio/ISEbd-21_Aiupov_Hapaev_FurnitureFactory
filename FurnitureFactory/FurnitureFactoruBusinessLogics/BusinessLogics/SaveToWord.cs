@@ -34,7 +34,46 @@ WordTextProperties {Bold = true, Size = "24", } ) },
                     docBody.AppendChild(CreateParagraph(new WordParagraph
                     {
                         Texts = new List<(string, WordTextProperties)> {
-("Название: " + purchase.PurchaseName, new WordTextProperties {Bold = true, Size = "24", }), (" || Сумма покупки : " + purchase.PurchaseSum.ToString(), new WordTextProperties {Bold = false, Size = "24", }) },
+("Название: " + purchase.PurchaseName, new WordTextProperties {Bold = true, Size = "24", }), (" || Сумма покупки: " + purchase.PurchaseSum.ToString(), new WordTextProperties {Bold = false, Size = "24", }) },
+                        TextProperties = new WordTextProperties
+                        {
+                            Size = "24",
+                            JustificationValues = JustificationValues.Both
+                        }
+                    })); ;
+                }
+                docBody.AppendChild(CreateSectionProperties());
+
+                wordDocument.MainDocumentPart.Document.Save();
+            }
+        }
+
+        public static void CreateDocFurniture(WordInfo info)
+        {
+            using (WordprocessingDocument wordDocument = WordprocessingDocument.Create(info.FileName, WordprocessingDocumentType.Document))
+            {
+                MainDocumentPart mainPart = wordDocument.AddMainDocumentPart();
+
+                mainPart.Document = new Document();
+
+                Body docBody = mainPart.Document.AppendChild(new Body());
+
+                docBody.AppendChild(CreateParagraph(new WordParagraph
+                {
+                    Texts = new List<(string, WordTextProperties)> { (info.Title, new WordTextProperties {Bold = true, Size = "24", } ) },
+                    TextProperties = new WordTextProperties
+                    {
+                        Size = "24",
+                        JustificationValues = JustificationValues.Center
+                    }
+                }));
+
+                foreach (var furniture in info.Furnitures)
+                {
+                    docBody.AppendChild(CreateParagraph(new WordParagraph
+                    {
+                        Texts = new List<(string, WordTextProperties)> {("Название: " + furniture.FurnitureName, new WordTextProperties {Bold = true, Size = "24", }), 
+                            (" Материал: " + furniture.Material.ToString() + " Цена: " + furniture.FurniturePrice, new WordTextProperties {Bold = false, Size = "24", }) },
                         TextProperties = new WordTextProperties
                         {
                             Size = "24",

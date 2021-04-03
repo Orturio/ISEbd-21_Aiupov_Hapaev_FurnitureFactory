@@ -32,8 +32,8 @@
             this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
             this.buttonMake = new System.Windows.Forms.Button();
             this.buttonToEmail = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelFrom = new System.Windows.Forms.Label();
+            this.labelTo = new System.Windows.Forms.Label();
             this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             this.SuspendLayout();
             // 
@@ -41,14 +41,14 @@
             // 
             this.dateTimePickerFrom.Location = new System.Drawing.Point(32, 12);
             this.dateTimePickerFrom.Name = "dateTimePickerFrom";
-            this.dateTimePickerFrom.Size = new System.Drawing.Size(111, 20);
+            this.dateTimePickerFrom.Size = new System.Drawing.Size(111, 22);
             this.dateTimePickerFrom.TabIndex = 0;
             // 
             // dateTimePickerTo
             // 
             this.dateTimePickerTo.Location = new System.Drawing.Point(189, 12);
             this.dateTimePickerTo.Name = "dateTimePickerTo";
-            this.dateTimePickerTo.Size = new System.Drawing.Size(111, 20);
+            this.dateTimePickerTo.Size = new System.Drawing.Size(111, 22);
             this.dateTimePickerTo.TabIndex = 1;
             // 
             // buttonMake
@@ -70,23 +70,23 @@
             this.buttonToEmail.Text = "На почту";
             this.buttonToEmail.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // labelFrom
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(14, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "С";
+            this.labelFrom.AutoSize = true;
+            this.labelFrom.Location = new System.Drawing.Point(12, 16);
+            this.labelFrom.Name = "labelFrom";
+            this.labelFrom.Size = new System.Drawing.Size(14, 13);
+            this.labelFrom.TabIndex = 4;
+            this.labelFrom.Text = "С";
             // 
-            // label2
+            // labelTo
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(162, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(21, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "По";
+            this.labelTo.AutoSize = true;
+            this.labelTo.Location = new System.Drawing.Point(162, 16);
+            this.labelTo.Name = "labelTo";
+            this.labelTo.Size = new System.Drawing.Size(22, 13);
+            this.labelTo.TabIndex = 5;
+            this.labelTo.Text = "По";
             // 
             // reportViewer
             // 
@@ -103,8 +103,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(738, 468);
             this.Controls.Add(this.reportViewer);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelTo);
+            this.Controls.Add(this.labelFrom);
             this.Controls.Add(this.buttonToEmail);
             this.Controls.Add(this.buttonMake);
             this.Controls.Add(this.dateTimePickerTo);
@@ -123,8 +123,8 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerTo;
         private System.Windows.Forms.Button buttonMake;
         private System.Windows.Forms.Button buttonToEmail;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelFrom;
+        private System.Windows.Forms.Label labelTo;
         private Microsoft.Reporting.WinForms.ReportViewer reportViewer;
     }
 }

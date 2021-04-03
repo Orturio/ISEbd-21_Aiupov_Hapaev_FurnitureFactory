@@ -23,7 +23,8 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     CostId = rec.CostsId,
                     FurnitureName = rec.FurnitureName,
                     Material = rec.Material,
-                    FurniturePrice = rec.FurniturePrice
+                    FurniturePrice = rec.FurniturePrice,
+                    DateOfCreation = rec.DateOfCreation
                 })
                 .ToList();
             }
@@ -38,7 +39,8 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             using (var context = new FurnitureFactoryDatabase())
             {
                 return context.Furnitures.Include(rec => rec.PurchaseFurniture)
-                .ThenInclude(rec => rec.Purchases).Where(rec => rec.Id == model.Id && rec.FurnitureName == rec.FurnitureName)
+                .ThenInclude(rec => rec.Purchases).Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateOfCreation.Date == model.DateOfCreation.Date) ||
+                    (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateOfCreation.Date >= model.DateFrom.Value.Date && rec.DateOfCreation.Date <= model.DateTo.Value.Date))
                 .Select(rec => new FurnitureViewModel
                 {
                     Id = rec.Id,
@@ -46,7 +48,8 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     CostId = rec.CostsId,
                     FurnitureName = rec.FurnitureName,
                     Material = rec.Material,
-                    FurniturePrice = rec.FurniturePrice
+                    FurniturePrice = rec.FurniturePrice,
+                    DateOfCreation = rec.DateOfCreation
                 })
                 .ToList();
             }
@@ -71,7 +74,8 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     CostId = furniture.CostsId,
                     FurnitureName = furniture.FurnitureName,
                     Material = furniture.Material,
-                    FurniturePrice = furniture.FurniturePrice
+                    FurniturePrice = furniture.FurniturePrice,
+                    DateOfCreation = furniture.DateOfCreation
                 } :
                 null;
             }
@@ -123,7 +127,8 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             furniture.CostsId = model.CostsId;
             furniture.FurnitureName = model.FurnitureName;
             furniture.Material = model.Material;
-            furniture.FurniturePrice = model.FurniturePrice;           
+            furniture.FurniturePrice = model.FurniturePrice;
+            furniture.DateOfCreation = model.DateOfCreation;
             return furniture;
         }
     }

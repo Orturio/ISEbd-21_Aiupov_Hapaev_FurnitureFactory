@@ -51,6 +51,9 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     b.Property<int?>("CostsId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DateOfCreation")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("FurnitureName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

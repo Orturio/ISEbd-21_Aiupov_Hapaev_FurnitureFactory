@@ -20,12 +20,7 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             _furnitureStorage = furnitureStorage;
         }
 
-        /// <summary>
-        /// Получение списка компонент с указанием, в каких изделиях используются
-        /// </summary>
-        /// <returns></returns>
-
-        public List<ReportPurchaseFurnitureViewModel> GetFurniturePurchases()
+        public List<ReportPurchaseFurnitureViewModel> GetPurchasesFurniture()
         {
             var furnitures = _furnitureStorage.GetFullList();
             var purchases = _purchaseStorage.GetFullList();
@@ -52,6 +47,33 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             return list;
         }
 
+        public List<ReportPurchaseFurnitureViewModel> GetFurniturePurchases()
+        {
+            var furnitures = _furnitureStorage.GetFullList();
+            var purchases = _purchaseStorage.GetFullList();
+            var list = new List<ReportPurchaseFurnitureViewModel>();
+            foreach (var furniture in furnitures)
+            {
+                var record = new ReportPurchaseFurnitureViewModel
+                {
+                    FurnitureName = furniture.FurnitureName,
+                    Purchases = new List<Tuple<string, int>>(),
+                    TotalCount = 0
+                };
+                foreach (var purchase in purchases)
+                {
+                    if (purchase.PurchaseFurniture.ContainsKey(furniture.Id))
+                    {
+                        record.Purchases.Add(new Tuple<string, int>(purchase.PurchaseName,
+                        purchase.PurchaseFurniture[furniture.Id].Item2));
+                        record.TotalCount += purchase.PurchaseFurniture[furniture.Id].Item2;
+                    }
+                }
+                list.Add(record);
+            }
+            return list;
+        }
+
         public List<ReportPurchaseViewModel> GetPurchases(ReportBindingModel model)
         {
             return _purchaseStorage.GetFilteredList(new PurchaseBindingModel
@@ -67,10 +89,20 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             }).ToList();
         }
 
-        /// <summary>
-        /// Сохранение компонент в файл-Word
-        /// </summary>
-        /// <param name="model"></param>
+        public List<ReportFurnitureViewModel> GetFurnitures(ReportBindingModel model)
+        {
+            return _furnitureStorage.GetFilteredList(new FurnitureBindingModel
+            {
+                DateFrom = model.DateFrom,
+                DateTo = model.DateTo
+            }).Select(x => new ReportFurnitureViewModel
+            {
+                DateOfCreation = x.DateOfCreation,
+                FurnitureName = x.FurnitureName,
+                Material = x.Material,
+                FurniturePrice =x.FurniturePrice
+            }).ToList();
+        }
 
         public void SavePurchaseToWordFile(ReportBindingModel model)
         {
@@ -82,10 +114,15 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             });
         }
 
-        /// <summary>
-        /// Сохранение компонент с указаеним продуктов в файл-Excel
-        /// </summary>
-        /// <param name="model"></param>
+        public void SaveFurnitureToWordFile(ReportBindingModel model)
+        {
+            SaveToWord.CreateDocFurniture(new WordInfo
+            {
+                FileName = model.FileName,
+                Title = "Список мебели",
+                Furnitures = _furnitureStorage.GetFullList()
+            });
+        }
 
         public void SavePurchaseInfoToExcelFile(ReportBindingModel model)
         {
@@ -93,6 +130,16 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             {
                 FileName = model.FileName,
                 Title = "Список покупок",
+                PurchaseFurnitures = GetPurchasesFurniture()
+            });
+        }
+
+        public void SaveFurnitureInfoToExcelFile(ReportBindingModel model)
+        {
+            SaveToExcel.CreateDocFurniture(new ExcelInfo
+            {
+                FileName = model.FileName,
+                Title = "Список мебели",
                 PurchaseFurnitures = GetFurniturePurchases()
             });
         }

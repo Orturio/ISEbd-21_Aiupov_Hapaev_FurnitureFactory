@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,6 +21,9 @@ namespace FurnitureFactoryDatabaseImplement.Models
 
         [Required]
         public string Material { get; set; }
+
+        [Required]
+        public DateTime DateOfCreation { get; set; }
 
         [ForeignKey("FurnitureId")]
         public virtual List<PurchaseFurniture> PurchaseFurniture { get; set; }

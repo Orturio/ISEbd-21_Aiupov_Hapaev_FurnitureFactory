@@ -20,7 +20,7 @@ namespace FurnitureFactoryView
         {
             try
             {
-                var dict = logic.GetFurniturePurchases();
+                var dict = logic.GetPurchasesFurniture();
 
                 if (dict != null)
                 {

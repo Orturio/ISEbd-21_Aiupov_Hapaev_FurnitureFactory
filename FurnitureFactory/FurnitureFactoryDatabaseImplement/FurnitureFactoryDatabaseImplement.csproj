@@ -35,6 +35,8 @@
     <Compile Remove="Migrations\20210402122446_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20210402123044_InitialCreate.cs" />
     <Compile Remove="Migrations\20210402123044_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210402141430_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210402141430_InitialCreate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +50,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FurnitureFactoruBusinessLogics\FurnitureFactoryBusinessLogics.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

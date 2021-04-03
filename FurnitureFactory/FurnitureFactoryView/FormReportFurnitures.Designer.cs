@@ -30,47 +30,48 @@ namespace FurnitureFactoryView
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.buttonToMail = new System.Windows.Forms.Button();
-            this.buttonShow = new System.Windows.Forms.Button();
+            this.buttonToEmail = new System.Windows.Forms.Button();
+            this.buttonMake = new System.Windows.Forms.Button();
             this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
             this.labelTo = new System.Windows.Forms.Label();
             this.dateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
             this.labelFrom = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.buttonToMail);
-            this.groupBox1.Controls.Add(this.buttonShow);
+            this.groupBox1.Controls.Add(this.buttonToEmail);
+            this.groupBox1.Controls.Add(this.buttonMake);
             this.groupBox1.Controls.Add(this.dateTimePickerTo);
             this.groupBox1.Controls.Add(this.labelTo);
             this.groupBox1.Controls.Add(this.dateTimePickerFrom);
             this.groupBox1.Controls.Add(this.labelFrom);
             this.groupBox1.Location = new System.Drawing.Point(1, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(796, 37);
+            this.groupBox1.Size = new System.Drawing.Size(761, 37);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
-            // buttonToMail
+            // buttonToEmail
             // 
-            this.buttonToMail.Location = new System.Drawing.Point(476, 8);
-            this.buttonToMail.Name = "buttonToMail";
-            this.buttonToMail.Size = new System.Drawing.Size(75, 23);
-            this.buttonToMail.TabIndex = 5;
-            this.buttonToMail.Text = "На почту";
-            this.buttonToMail.UseVisualStyleBackColor = true;
+            this.buttonToEmail.Location = new System.Drawing.Point(598, 8);
+            this.buttonToEmail.Name = "buttonToEmail";
+            this.buttonToEmail.Size = new System.Drawing.Size(75, 23);
+            this.buttonToEmail.TabIndex = 5;
+            this.buttonToEmail.Text = "На почту";
+            this.buttonToEmail.UseVisualStyleBackColor = true;
             // 
-            // buttonShow
+            // buttonMake
             // 
-            this.buttonShow.Location = new System.Drawing.Point(377, 8);
-            this.buttonShow.Name = "buttonShow";
-            this.buttonShow.Size = new System.Drawing.Size(75, 23);
-            this.buttonShow.TabIndex = 4;
-            this.buttonShow.Text = "Показать";
-            this.buttonShow.UseVisualStyleBackColor = true;
+            this.buttonMake.Location = new System.Drawing.Point(426, 9);
+            this.buttonMake.Name = "buttonMake";
+            this.buttonMake.Size = new System.Drawing.Size(101, 23);
+            this.buttonMake.TabIndex = 4;
+            this.buttonMake.Text = "Сформировать";
+            this.buttonMake.UseVisualStyleBackColor = true;
+            this.buttonMake.Click += new System.EventHandler(this.buttonMake_Click);
             // 
             // dateTimePickerTo
             // 
@@ -106,40 +107,40 @@ namespace FurnitureFactoryView
             this.labelFrom.TabIndex = 0;
             this.labelFrom.Text = "C";
             // 
-            // label3
+            // reportViewer
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(221, 114);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(150, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Таблица для показа отчета";
+            this.reportViewer.LocalReport.ReportEmbeddedResource = "FurnitureFactoryView.ReportFurniture.rdlc";
+            this.reportViewer.Location = new System.Drawing.Point(11, 43);
+            this.reportViewer.Name = "reportViewer";
+            this.reportViewer.ServerReport.BearerToken = null;
+            this.reportViewer.Size = new System.Drawing.Size(751, 357);
+            this.reportViewer.TabIndex = 1;
             // 
             // FormReportFurnitures
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(581, 210);
-            this.Controls.Add(this.label3);
+            this.ClientSize = new System.Drawing.Size(774, 412);
+            this.Controls.Add(this.reportViewer);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormReportFurnitures";
             this.Text = "Отчет";
+            this.Load += new System.EventHandler(this.FormReportFurniture_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button buttonToMail;
-        private System.Windows.Forms.Button buttonShow;
+        private System.Windows.Forms.Button buttonToEmail;
+        private System.Windows.Forms.Button buttonMake;
         private System.Windows.Forms.DateTimePicker dateTimePickerTo;
         private System.Windows.Forms.Label labelTo;
         private System.Windows.Forms.DateTimePicker dateTimePickerFrom;
         private System.Windows.Forms.Label labelFrom;
-        private System.Windows.Forms.Label label3;
+        private Microsoft.Reporting.WinForms.ReportViewer reportViewer;
     }
 }

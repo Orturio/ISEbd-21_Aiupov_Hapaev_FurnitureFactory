@@ -28,26 +28,26 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             return _furnitureStorage.GetFilteredList(model);
         }
 
-        public void CreateOrUpdate(FurnitureBindingModel model)
+        public void CreateFurniture(FurnitureBindingModel model)
         {
             var element = _furnitureStorage.GetElement(new FurnitureBindingModel
             {
-                //FurnitureName = model.FurnitureName // надо потом пофиксить
-                Id = model.Id
+                FurnitureName = model.FurnitureName
             });
             if (element != null && element.Id != model.Id)
             {
                 throw new Exception("Уже есть мебель с таким названием");
             }
-            if (model.Id.HasValue)
-            {
-                _furnitureStorage.Update(model);
-            }
-            else
-            {
-                _furnitureStorage.Insert(model);
-            }
+            _furnitureStorage.Insert(model);
         }
+
+        public void UpdateFurniture(FurnitureBindingModel model)
+        {
+
+            _furnitureStorage.Update(model);
+
+        }
+
         public void Delete(FurnitureBindingModel model)
         {
             var element = _furnitureStorage.GetElement(new FurnitureBindingModel

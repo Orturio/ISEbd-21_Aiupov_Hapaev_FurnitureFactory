@@ -29,5 +29,9 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
         [DisplayName("Цена")]
         public decimal FurniturePrice { get; set; }
 
+        [DataMember]
+        [DisplayName("Дата создания")]
+        public DateTime DateOfCreation { get; set; }
+
     }
 }

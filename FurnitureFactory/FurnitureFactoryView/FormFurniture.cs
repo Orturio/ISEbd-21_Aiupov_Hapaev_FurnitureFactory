@@ -1,5 +1,6 @@
 ﻿using FurnitureFactoryBusinessLogics.BindingModels;
 using FurnitureFactoryBusinessLogics.BusinessLogics;
+using FurnitureFactoryBusinessLogics.ViewModels;
 using System;
 using System.Windows.Forms;
 using Unity;
@@ -21,13 +22,16 @@ namespace FurnitureFactoryView
             this.logic = logic;
         }
 
+        FurnitureViewModel view;
+
         private void FormFurniture_Load(object sender, EventArgs e)
         {
             if (id.HasValue)
             {
                 try
                 {
-                    var view = logic.Read(new FurnitureBindingModel { Id = id })?[0];
+                    view = logic.Read(new FurnitureBindingModel { Id = id})?[0];
+
                     if (view != null)
                     {
                         textBoxName.Text = view.FurnitureName;
@@ -61,13 +65,28 @@ namespace FurnitureFactoryView
             }
             try
             {
-                logic.CreateOrUpdate(new FurnitureBindingModel
+                if (view != null)
                 {
-                    Id = id,
-                    FurnitureName = textBoxName.Text,
-                    Material = textBoxMaterial.Text,
-                    FurniturePrice = Convert.ToDecimal(textBoxPrice.Text)
-                });
+                    logic.UpdateFurniture(new FurnitureBindingModel
+                    {
+                        Id = id,
+                        FurnitureName = textBoxName.Text,
+                        Material = textBoxMaterial.Text,
+                        FurniturePrice = Convert.ToDecimal(textBoxPrice.Text),
+                        DateOfCreation = view.DateOfCreation
+                    });
+                }
+                else
+                {
+                    logic.CreateFurniture(new FurnitureBindingModel
+                    {
+                        Id = id,
+                        FurnitureName = textBoxName.Text,
+                        Material = textBoxMaterial.Text,
+                        FurniturePrice = Convert.ToDecimal(textBoxPrice.Text),
+                        DateOfCreation = DateTime.Now,
+                    });
+                }
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();

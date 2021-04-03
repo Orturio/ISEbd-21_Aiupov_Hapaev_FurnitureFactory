@@ -47,7 +47,8 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     CostsId = table.Column<int>(nullable: true),
                     FurnitureName = table.Column<string>(nullable: false),
                     FurniturePrice = table.Column<decimal>(nullable: false),
-                    Material = table.Column<string>(nullable: false)
+                    Material = table.Column<string>(nullable: false),
+                    DateOfCreation = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

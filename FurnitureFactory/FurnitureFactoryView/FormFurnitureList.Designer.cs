@@ -28,69 +28,101 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.buttonToWord = new System.Windows.Forms.Button();
+            this.buttonToExcel = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.ColumnFurnitureName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnPurchaseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // dataGridView
             // 
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Location = new System.Drawing.Point(29, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(239, 79);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Выбранные покупки";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.dataGridView.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnFurnitureName,
+            this.ColumnPurchaseName,
+            this.ColumnCount});
+            this.dataGridView.Location = new System.Drawing.Point(1, 0);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.Size = new System.Drawing.Size(639, 333);
+            this.dataGridView.TabIndex = 11;
             // 
-            // button1
+            // buttonToWord
             // 
-            this.button1.Location = new System.Drawing.Point(29, 121);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(76, 29);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Word";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonToWord.Location = new System.Drawing.Point(23, 346);
+            this.buttonToWord.Name = "buttonToWord";
+            this.buttonToWord.Size = new System.Drawing.Size(102, 35);
+            this.buttonToWord.TabIndex = 12;
+            this.buttonToWord.Text = "Word";
+            this.buttonToWord.UseVisualStyleBackColor = true;
+            this.buttonToWord.Click += new System.EventHandler(this.buttonToWord_Click);
             // 
-            // button2
+            // buttonToExcel
             // 
-            this.button2.Location = new System.Drawing.Point(111, 121);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(69, 29);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Excel";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonToExcel.Location = new System.Drawing.Point(131, 346);
+            this.buttonToExcel.Name = "buttonToExcel";
+            this.buttonToExcel.Size = new System.Drawing.Size(102, 35);
+            this.buttonToExcel.TabIndex = 13;
+            this.buttonToExcel.Text = "Excel";
+            this.buttonToExcel.UseVisualStyleBackColor = true;
+            this.buttonToExcel.Click += new System.EventHandler(this.buttonToExcel_Click);
             // 
-            // button3
+            // buttonCancel
             // 
-            this.button3.Location = new System.Drawing.Point(186, 121);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(82, 29);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Отмена";
-            this.button3.UseVisualStyleBackColor = true;
+            this.buttonCancel.Location = new System.Drawing.Point(515, 346);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(102, 35);
+            this.buttonCancel.TabIndex = 14;
+            this.buttonCancel.Text = "Отмена";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // DictinForm
+            // ColumnFurnitureName
+            // 
+            this.ColumnFurnitureName.HeaderText = "Мебель";
+            this.ColumnFurnitureName.Name = "ColumnFurnitureName";
+            this.ColumnFurnitureName.Width = 250;
+            // 
+            // ColumnPurchaseName
+            // 
+            this.ColumnPurchaseName.HeaderText = "Покупка";
+            this.ColumnPurchaseName.Name = "ColumnPurchaseName";
+            this.ColumnPurchaseName.Width = 206;
+            // 
+            // ColumnCount
+            // 
+            this.ColumnCount.HeaderText = "Количество";
+            this.ColumnCount.Name = "ColumnCount";
+            this.ColumnCount.Width = 140;
+            // 
+            // FormFurnitureList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(329, 184);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
-            this.Name = "DictinForm";
+            this.ClientSize = new System.Drawing.Size(639, 393);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonToExcel);
+            this.Controls.Add(this.buttonToWord);
+            this.Controls.Add(this.dataGridView);
+            this.Name = "FormFurnitureList";
             this.Text = "Список мебели";
+            this.Load += new System.EventHandler(this.FormFurnitureList_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.Button buttonToWord;
+        private System.Windows.Forms.Button buttonToExcel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnFurnitureName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPurchaseName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCount;
+        private System.Windows.Forms.Button buttonCancel;
     }
 }

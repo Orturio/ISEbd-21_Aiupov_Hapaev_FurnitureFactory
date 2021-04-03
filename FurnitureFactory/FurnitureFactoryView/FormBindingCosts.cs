@@ -91,7 +91,7 @@ namespace FurnitureFactoryView
                 
                 furnitureView = logicF.Read(new FurnitureBindingModel { Id = Id })?[0];
                 
-                logicF.CreateOrUpdate(new FurnitureBindingModel
+                logicF.UpdateFurniture(new FurnitureBindingModel
                 {
                     Id = furnitureView.Id,
                     CostsId = costView.Id,
