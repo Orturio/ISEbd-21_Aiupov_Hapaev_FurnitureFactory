@@ -70,6 +70,7 @@ namespace FurnitureFactoryView
                     logic.UpdateFurniture(new FurnitureBindingModel
                     {
                         Id = id,
+                        UserId = view.UserId,
                         FurnitureName = textBoxName.Text,
                         Material = textBoxMaterial.Text,
                         FurniturePrice = Convert.ToDecimal(textBoxPrice.Text),
@@ -81,6 +82,7 @@ namespace FurnitureFactoryView
                     logic.CreateFurniture(new FurnitureBindingModel
                     {
                         Id = id,
+                        UserId = Program.User.Id,
                         FurnitureName = textBoxName.Text,
                         Material = textBoxMaterial.Text,
                         FurniturePrice = Convert.ToDecimal(textBoxPrice.Text),

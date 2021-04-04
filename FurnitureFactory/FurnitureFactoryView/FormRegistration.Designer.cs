@@ -28,83 +28,90 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonRegister = new System.Windows.Forms.Button();
+            this.buttonEnter = new System.Windows.Forms.Button();
+            this.labelEmail = new System.Windows.Forms.Label();
+            this.textBoxEmail = new System.Windows.Forms.TextBox();
+            this.labelPassword = new System.Windows.Forms.Label();
+            this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // label1
+            // buttonRegister
             // 
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Location = new System.Drawing.Point(23, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(156, 26);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Логин";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonRegister.Location = new System.Drawing.Point(23, 142);
+            this.buttonRegister.Name = "buttonRegister";
+            this.buttonRegister.Size = new System.Drawing.Size(162, 30);
+            this.buttonRegister.TabIndex = 3;
+            this.buttonRegister.Text = "Зарегистрироваться";
+            this.buttonRegister.UseVisualStyleBackColor = true;
+            this.buttonRegister.Click += new System.EventHandler(this.buttonRegister_Click);
             // 
-            // label2
+            // buttonEnter
             // 
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.Location = new System.Drawing.Point(23, 61);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(156, 25);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "email";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonEnter.Location = new System.Drawing.Point(23, 178);
+            this.buttonEnter.Name = "buttonEnter";
+            this.buttonEnter.Size = new System.Drawing.Size(162, 42);
+            this.buttonEnter.TabIndex = 4;
+            this.buttonEnter.Text = "Уже зарегистрирован, войти";
+            this.buttonEnter.UseVisualStyleBackColor = true;
+            this.buttonEnter.Click += new System.EventHandler(this.buttonEnter_Click);
             // 
-            // label3
+            // labelEmail
             // 
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Location = new System.Drawing.Point(23, 101);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(156, 23);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Пароль";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelEmail.AutoSize = true;
+            this.labelEmail.Location = new System.Drawing.Point(21, 21);
+            this.labelEmail.Name = "labelEmail";
+            this.labelEmail.Size = new System.Drawing.Size(38, 13);
+            this.labelEmail.TabIndex = 7;
+            this.labelEmail.Text = "Email:";
             // 
-            // button1
+            // textBoxEmail
             // 
-            this.button1.Location = new System.Drawing.Point(23, 142);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(155, 30);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Зарегистрироваться";
-            this.button1.UseVisualStyleBackColor = true;
+            this.textBoxEmail.Location = new System.Drawing.Point(23, 37);
+            this.textBoxEmail.Name = "textBoxEmail";
+            this.textBoxEmail.Size = new System.Drawing.Size(162, 22);
+            this.textBoxEmail.TabIndex = 8;
             // 
-            // button2
+            // labelPassword
             // 
-            this.button2.Location = new System.Drawing.Point(24, 178);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(155, 27);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Отмена";
-            this.button2.UseVisualStyleBackColor = true;
+            this.labelPassword.AutoSize = true;
+            this.labelPassword.Location = new System.Drawing.Point(21, 71);
+            this.labelPassword.Name = "labelPassword";
+            this.labelPassword.Size = new System.Drawing.Size(50, 13);
+            this.labelPassword.TabIndex = 9;
+            this.labelPassword.Text = "Пароль:";
             // 
-            // Form1
+            // textBoxPassword
+            // 
+            this.textBoxPassword.Location = new System.Drawing.Point(23, 96);
+            this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.Size = new System.Drawing.Size(162, 22);
+            this.textBoxPassword.TabIndex = 10;
+            // 
+            // FormRegistration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(221, 221);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Name = "Form1";
+            this.ClientSize = new System.Drawing.Size(221, 236);
+            this.Controls.Add(this.textBoxPassword);
+            this.Controls.Add(this.labelPassword);
+            this.Controls.Add(this.textBoxEmail);
+            this.Controls.Add(this.labelEmail);
+            this.Controls.Add(this.buttonEnter);
+            this.Controls.Add(this.buttonRegister);
+            this.Name = "FormRegistration";
             this.Text = "Регистрация";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonRegister;
+        private System.Windows.Forms.Button buttonEnter;
+        private System.Windows.Forms.Label labelEmail;
+        private System.Windows.Forms.TextBox textBoxEmail;
+        private System.Windows.Forms.Label labelPassword;
+        private System.Windows.Forms.TextBox textBoxPassword;
     }
 }

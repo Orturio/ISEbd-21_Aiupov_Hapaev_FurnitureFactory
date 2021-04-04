@@ -11,6 +11,8 @@ namespace FurnitureFactoryView
 {
     static class Program
     {
+        public static UserViewModel User { get; set; }
+
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
@@ -20,7 +22,7 @@ namespace FurnitureFactoryView
             var container = BuildUnityContainer();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(container.Resolve<FormMain>());
+            Application.Run(container.Resolve<FormRegistration>());
         }
 
         private static IUnityContainer BuildUnityContainer()

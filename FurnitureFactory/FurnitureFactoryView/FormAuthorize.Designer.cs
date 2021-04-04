@@ -28,70 +28,90 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonEnter = new System.Windows.Forms.Button();
+            this.textBoxEmail = new System.Windows.Forms.TextBox();
+            this.textBoxPassword = new System.Windows.Forms.TextBox();
+            this.labelEmail = new System.Windows.Forms.Label();
+            this.labelPassword = new System.Windows.Forms.Label();
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // buttonEnter
             // 
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Location = new System.Drawing.Point(39, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(162, 28);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "email или логин";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonEnter.Location = new System.Drawing.Point(39, 116);
+            this.buttonEnter.Name = "buttonEnter";
+            this.buttonEnter.Size = new System.Drawing.Size(162, 29);
+            this.buttonEnter.TabIndex = 2;
+            this.buttonEnter.Text = "Войти";
+            this.buttonEnter.UseVisualStyleBackColor = true;
+            this.buttonEnter.Click += new System.EventHandler(this.buttonEnter_Click);
             // 
-            // label2
+            // textBoxEmail
             // 
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.Location = new System.Drawing.Point(39, 62);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(162, 28);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Пароль";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.textBoxEmail.Location = new System.Drawing.Point(39, 33);
+            this.textBoxEmail.Name = "textBoxEmail";
+            this.textBoxEmail.Size = new System.Drawing.Size(162, 22);
+            this.textBoxEmail.TabIndex = 4;
             // 
-            // button1
+            // textBoxPassword
             // 
-            this.button1.Location = new System.Drawing.Point(39, 116);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(69, 29);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Войти";
-            this.button1.UseVisualStyleBackColor = true;
+            this.textBoxPassword.Location = new System.Drawing.Point(39, 73);
+            this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.Size = new System.Drawing.Size(162, 22);
+            this.textBoxPassword.TabIndex = 5;
             // 
-            // button2
+            // labelEmail
             // 
-            this.button2.Location = new System.Drawing.Point(131, 116);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(70, 29);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Отмена";
-            this.button2.UseVisualStyleBackColor = true;
+            this.labelEmail.AutoSize = true;
+            this.labelEmail.Location = new System.Drawing.Point(38, 11);
+            this.labelEmail.Name = "labelEmail";
+            this.labelEmail.Size = new System.Drawing.Size(38, 13);
+            this.labelEmail.TabIndex = 6;
+            this.labelEmail.Text = "Email:";
             // 
-            // Autorize
+            // labelPassword
+            // 
+            this.labelPassword.AutoSize = true;
+            this.labelPassword.Location = new System.Drawing.Point(38, 57);
+            this.labelPassword.Name = "labelPassword";
+            this.labelPassword.Size = new System.Drawing.Size(50, 13);
+            this.labelPassword.TabIndex = 7;
+            this.labelPassword.Text = "Пароль:";
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(39, 158);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(162, 29);
+            this.buttonCancel.TabIndex = 8;
+            this.buttonCancel.Text = "Отмена";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
+            // FormAuthorize
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(245, 168);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Name = "Autorize";
+            this.ClientSize = new System.Drawing.Size(245, 199);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.labelPassword);
+            this.Controls.Add(this.labelEmail);
+            this.Controls.Add(this.textBoxPassword);
+            this.Controls.Add(this.textBoxEmail);
+            this.Controls.Add(this.buttonEnter);
+            this.Name = "FormAuthorize";
             this.Text = "Авторизация";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonEnter;
+        private System.Windows.Forms.TextBox textBoxEmail;
+        private System.Windows.Forms.TextBox textBoxPassword;
+        private System.Windows.Forms.Label labelEmail;
+        private System.Windows.Forms.Label labelPassword;
+        private System.Windows.Forms.Button buttonCancel;
     }
 }

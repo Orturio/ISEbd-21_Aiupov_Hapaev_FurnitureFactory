@@ -54,16 +54,13 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             }
             using (var context = new FurnitureFactoryDatabase())
             {
-                var user = context.Users.FirstOrDefault(rec => rec.Id == model.Id);
-                return user != null ?
-                new UserViewModel
+                var user = context.Users.FirstOrDefault(rec => rec.Id == model.Id || rec.Email == model.Email);
+                if (user == null || (model.Password != null && user.Password != model.Password) 
+                    || model.Role == 0)
                 {
-                    Id = user.Id,
-                    Role = user.Role,
-                    Email = user.Email,
-                    Password = user.Password
-                } :
-                null;
+                    return null;
+                }
+                return CreateModel(user);
             }
         }
 
@@ -105,6 +102,16 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     throw new Exception("Клиент не найден");
                 }
             }
+        }
+
+        private UserViewModel CreateModel(User user)
+        {
+            return new UserViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Password = user.Password
+            };
         }
 
         private User CreateModel(UserBindingModel model, User user)

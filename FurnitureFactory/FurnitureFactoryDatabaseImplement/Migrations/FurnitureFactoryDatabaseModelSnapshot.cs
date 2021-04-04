@@ -65,7 +65,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -193,7 +193,9 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
 
                     b.HasOne("FurnitureFactoryDatabaseImplement.Models.User", null)
                         .WithMany("Furniture")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FurnitureFactoryDatabaseImplement.Models.Payment", b =>

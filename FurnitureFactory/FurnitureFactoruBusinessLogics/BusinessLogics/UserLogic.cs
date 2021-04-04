@@ -21,7 +21,7 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             {
                 return _userStorage.GetFullList();
             }
-            if (model.Id.HasValue)
+            if (model.Id.HasValue || model.Email != null)
             {
                 return new List<UserViewModel> { _userStorage.GetElement(model) };
             }

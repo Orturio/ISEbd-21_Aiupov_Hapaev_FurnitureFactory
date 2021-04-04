@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FurnitureFactoryDatabaseImplement.Migrations
 {
     [DbContext(typeof(FurnitureFactoryDatabase))]
-    [Migration("20210403120119_InitialCreate")]
+    [Migration("20210404120331_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,7 +67,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -195,7 +195,9 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
 
                     b.HasOne("FurnitureFactoryDatabaseImplement.Models.User", null)
                         .WithMany("Furniture")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FurnitureFactoryDatabaseImplement.Models.Payment", b =>

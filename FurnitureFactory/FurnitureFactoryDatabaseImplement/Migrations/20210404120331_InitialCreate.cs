@@ -43,7 +43,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(nullable: true),
+                    UserId = table.Column<int>(nullable: false),
                     CostsId = table.Column<int>(nullable: true),
                     FurnitureName = table.Column<string>(nullable: false),
                     FurniturePrice = table.Column<decimal>(nullable: false),
@@ -64,7 +64,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

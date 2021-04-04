@@ -73,6 +73,11 @@ namespace FurnitureFactoryView
                 MessageBox.Show("Заполните дополнительные затраты", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if (Convert.ToInt32(textBoxAdditionalCost.Text) < 0)
+            {
+                MessageBox.Show("Введите неотрицательную сумму дополнительных затрат", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             try
             {
                 Id = Convert.ToInt32(comboBoxCost.SelectedValue);
@@ -94,10 +99,12 @@ namespace FurnitureFactoryView
                 logicF.UpdateFurniture(new FurnitureBindingModel
                 {
                     Id = furnitureView.Id,
+                    UserId = furnitureView.UserId,
                     CostsId = costView.Id,
                     FurnitureName = furnitureView.FurnitureName,
                     Material = furnitureView.Material,
-                    FurniturePrice = furnitureView.FurniturePrice
+                    FurniturePrice = furnitureView.FurniturePrice,
+                    DateOfCreation = furnitureView.DateOfCreation
                 });
 
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
