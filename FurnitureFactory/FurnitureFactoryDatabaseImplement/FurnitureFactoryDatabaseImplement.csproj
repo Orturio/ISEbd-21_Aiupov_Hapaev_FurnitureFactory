@@ -39,6 +39,18 @@
     <Compile Remove="Migrations\20210402141430_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20210403120119_InitialCreate.cs" />
     <Compile Remove="Migrations\20210403120119_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210404120331_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210404120331_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210404140159_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210404140159_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210404144744_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210404144744_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210404153618_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210404153618_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210404160504_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210404160504_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210404163949_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210404163949_InitialCreate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,10 +64,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FurnitureFactoruBusinessLogics\FurnitureFactoryBusinessLogics.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

@@ -18,14 +18,14 @@ namespace FurnitureFactoryDatabaseImplement.Models
         public decimal PurchaseSum { get; set; }
 
         [Required]
-        public decimal  PurchaseSumToPayment { get; set; }
+        public decimal?  PurchaseSumToPayment { get; set; }
 
         [Required]
         public DateTime DateOfCreation { get; set; }
 
         public DateTime? DateOfPayment { get; set; }
 
-        [ForeignKey("PurchasesId")]
+        [ForeignKey("PurchaseId")]
         public virtual List<Payment> Payment { get; set; }
 
         [ForeignKey("PurchasesId")]

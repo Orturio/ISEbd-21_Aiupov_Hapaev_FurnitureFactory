@@ -11,11 +11,11 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
         public int Id { get; set; }
 
         [DataMember]
-        public int PurchaseId { get; set; }
+        public int? PurchaseId { get; set; }
 
         [DataMember]
         [DisplayName("Сумма оплаты")]
-        public decimal Sum { get; set; }
+        public decimal PaymentSum { get; set; }
 
         [DataMember]
         [DisplayName("Дата оплаты")]

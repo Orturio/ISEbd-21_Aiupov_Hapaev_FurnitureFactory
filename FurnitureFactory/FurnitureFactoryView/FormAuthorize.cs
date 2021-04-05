@@ -46,8 +46,6 @@ namespace FurnitureFactoryView
             var form = Container.Resolve<FormMain>();
             form.ShowDialog();
             Close();
-
-
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

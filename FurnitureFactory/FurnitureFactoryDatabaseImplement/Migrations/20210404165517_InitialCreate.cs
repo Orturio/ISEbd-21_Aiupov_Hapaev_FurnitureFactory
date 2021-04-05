@@ -99,18 +99,17 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PurchaseId = table.Column<int>(nullable: false),
                     PaymentSum = table.Column<decimal>(nullable: false),
-                    DateOfPayment = table.Column<DateTime>(nullable: false),
-                    PurchasesId = table.Column<int>(nullable: true)
+                    DateOfPayment = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Payments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Payments_Purchases_PurchasesId",
-                        column: x => x.PurchasesId,
+                        name: "FK_Payments_Purchases_PurchaseId",
+                        column: x => x.PurchaseId,
                         principalTable: "Purchases",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -151,9 +150,9 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Payments_PurchasesId",
+                name: "IX_Payments_PurchaseId",
                 table: "Payments",
-                column: "PurchasesId");
+                column: "PurchaseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PurchaseFurnitures_FurnitureId",

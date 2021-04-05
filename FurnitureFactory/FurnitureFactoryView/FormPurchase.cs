@@ -16,7 +16,9 @@ namespace FurnitureFactoryView
 
         public int Id { set { id = value; } }
 
-        private readonly PurchaseLogic logic;
+        private readonly PurchaseLogic logicPurchase;
+
+        private readonly PaymentLogic logicPayment;
 
         private int? id;
 
@@ -24,13 +26,16 @@ namespace FurnitureFactoryView
 
         private Dictionary<int, (string, int, decimal)> purchaseFurniture;
 
-        public FormPurchase(PurchaseLogic service)
+        public FormPurchase(PurchaseLogic logicPurchase, PaymentLogic logicPayment)
         {
             InitializeComponent();
-            this.logic = service;
+            this.logicPurchase = logicPurchase;
+            this.logicPayment = logicPayment;
         }
 
-        PurchaseViewModel view;
+        PurchaseViewModel viewPurchase;
+
+        PaymentViewModel viewPayment;
 
         private void FormPurchase_Load(object sender, EventArgs e)
         {
@@ -38,13 +43,14 @@ namespace FurnitureFactoryView
             {
                 try
                 {
-                    view = logic.Read(new PurchaseBindingModel { Id = id.Value })?[0];
+                    viewPurchase = logicPurchase.Read(new PurchaseBindingModel { Id = id.Value })?[0];
+                    viewPayment = logicPayment.Read(new PaymentBindingModel { PurchaseId = id.Value })?[0];
 
-                    if (view != null)
+                    if (viewPurchase != null)
                     {
-                        textBoxName.Text = view.PurchaseName;
-                        textBoxPrice.Text = view.PurchaseSum.ToString();
-                        purchaseFurniture = view.PurchaseFurniture;
+                        textBoxName.Text = viewPurchase.PurchaseName;
+                        textBoxPrice.Text = viewPurchase.PurchaseSum.ToString();
+                        purchaseFurniture = viewPurchase.PurchaseFurniture;
                         LoadData();
                     }
                 }
@@ -168,22 +174,22 @@ namespace FurnitureFactoryView
             }
 
             try
-            {
-                if (view != null)
+            {               
+                if (viewPurchase != null)
                 {
-                    logic.UpdatePurchase(new PurchaseBindingModel
+                    logicPurchase.UpdatePurchase(new PurchaseBindingModel
                     {
-                        Id = id,
+                        Id = viewPurchase.Id,
                         PurchaseName = textBoxName.Text,
                         PurchaseSum = Convert.ToDecimal(textBoxPrice.Text),
                         PurchaseSumToPayment = Convert.ToDecimal(textBoxPrice.Text),
-                        DateOfCreation = view.DateOfCreation,
+                        DateOfCreation = viewPurchase.DateOfCreation,
                         PurchaseFurnitures = purchaseFurniture,
                     });
                 }
                 else
                 {
-                    logic.CreatePurchase(new PurchaseBindingModel
+                    logicPurchase.CreatePurchase(new PurchaseBindingModel
                     {
                         Id = id,
                         PurchaseName = textBoxName.Text,
@@ -193,6 +199,7 @@ namespace FurnitureFactoryView
                         PurchaseFurnitures = purchaseFurniture,
                     });
                 }
+
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();

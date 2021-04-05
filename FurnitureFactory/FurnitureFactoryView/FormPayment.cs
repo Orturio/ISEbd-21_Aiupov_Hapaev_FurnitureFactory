@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Unity;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace FurnitureFactoryView
 {
@@ -14,7 +15,9 @@ namespace FurnitureFactoryView
         [Dependency]
         public new IUnityContainer Container { get; set; }
 
-        private readonly PurchaseLogic _logicP;
+        private readonly PurchaseLogic _logicPurchase;
+
+        private readonly PaymentLogic _logicPayment;
 
         private decimal DifferenceOfNumbers { get; set; }
 
@@ -22,26 +25,29 @@ namespace FurnitureFactoryView
 
         private Dictionary<int, (string, int, decimal)> purchaseFurniture;
 
-        List<PurchaseViewModel> listPayment;
+        List<PurchaseViewModel> listPurchase;
 
-        PurchaseViewModel view;
+        PurchaseViewModel viewPurchase;
 
-        public FormPayment(PurchaseLogic logicP)
+        PaymentViewModel viewPayment;
+
+        public FormPayment(PurchaseLogic logicPurchase, PaymentLogic logicPayment)
         {
             InitializeComponent();
-            _logicP = logicP;
+            _logicPurchase = logicPurchase;
+            _logicPayment = logicPayment;
         }
 
         private void FormPayment_Load(object sender, EventArgs e)
         {
             try
             {
-                listPayment = _logicP.Read(null);
-                foreach (var item in listPayment)
+                listPurchase = _logicPurchase.Read(null);
+                foreach (var item in listPurchase)
                 {
                     comboBoxPurchase.DisplayMember = "PurchaseName";
                     comboBoxPurchase.ValueMember = "Id";
-                    comboBoxPurchase.DataSource = listPayment;
+                    comboBoxPurchase.DataSource = listPurchase;
                     comboBoxPurchase.SelectedItem = null;
                 }
                 textBoxTotalSum.Text = null;
@@ -59,12 +65,20 @@ namespace FurnitureFactoryView
             Id = Convert.ToInt32(comboBoxPurchase.SelectedValue);
             if (comboBoxPurchase.SelectedValue != null && Id != 0)
             {
-                textBoxTotalSum.Text = listPayment.FirstOrDefault(x => x.Id == Id).PurchaseSumToPayment.ToString();
-                view = _logicP.Read(new PurchaseBindingModel { Id = Id })?[0];
-
-                if (view != null)
+                viewPurchase = _logicPurchase.Read(new PurchaseBindingModel { Id = Id })?[0];
+                var sumPurchase = listPurchase.FirstOrDefault(x => x.Id == Id).PurchaseSumToPayment;
+                if (sumPurchase == null)
                 {
-                    purchaseFurniture = view.PurchaseFurniture;
+                    textBoxTotalSum.Text = listPurchase.FirstOrDefault(x => x.Id == Id).PurchaseSum.ToString();
+                }
+                else
+                {
+                    textBoxTotalSum.Text = sumPurchase.ToString();
+                }
+                viewPayment = _logicPayment.Read(new PaymentBindingModel { PurchaseId = Id })?[0];
+                if (viewPurchase != null)
+                {
+                    purchaseFurniture = viewPurchase.PurchaseFurniture;
                 }
             }
         }
@@ -94,39 +108,49 @@ namespace FurnitureFactoryView
                 if (Convert.ToDecimal(textBoxTotalSum.Text) >= Convert.ToDecimal(textBoxSum.Text))
                 {
                     DifferenceOfNumbers = Convert.ToDecimal(textBoxTotalSum.Text) - Convert.ToDecimal(textBoxSum.Text);
-                    if (listPayment != null)
+                    if (listPurchase != null)
                     {
-                        _logicP.UpdatePurchase(new PurchaseBindingModel
+                        _logicPurchase.UpdatePurchase(new PurchaseBindingModel
                         {
-                            Id = view.Id,
-                            PurchaseName = view.PurchaseName,
-                            PurchaseSum = view.PurchaseSum,
+                            Id = viewPurchase.Id,
+                            PurchaseName = viewPurchase.PurchaseName,
+                            PurchaseSum = viewPurchase.PurchaseSum,
                             PurchaseSumToPayment = DifferenceOfNumbers,
-                            DateOfCreation = view.DateOfCreation,
-                            DateOfPayment = DateTime.Now,
-                            PurchaseFurnitures = view.PurchaseFurniture
+                            DateOfCreation = viewPurchase.DateOfCreation,
+                            PurchaseFurnitures = viewPurchase.PurchaseFurniture
                         });
+ 
+                        if (viewPayment != null)
+                        {
+                            _logicPayment.CreateOrUpdate(new PaymentBindingModel
+                            {
+                                Id = viewPayment.Id,
+                                PurchaseId = viewPurchase.Id,
+                                PaymentSum = DifferenceOfNumbers,
+                                DateOfPayment = DateTime.Now
+                            });
+                        }
+                        else
+                        {
+                            _logicPayment.CreateOrUpdate(new PaymentBindingModel
+                            {
+                                PurchaseId = viewPurchase.Id,
+                                PaymentSum = DifferenceOfNumbers,
+                                DateOfPayment = DateTime.Now                                
+                            });
+                        }
                     }
                 }
                 else
                 {
                     MessageBox.Show("Внесённая сумма больше необходимой", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    if (listPayment != null)
-                    {
-                        _logicP.UpdatePurchase(new PurchaseBindingModel
-                        {
-                            Id = view.Id,
-                            PurchaseName = view.PurchaseName,
-                            PurchaseSum = view.PurchaseSum,
-                            PurchaseSumToPayment = view.PurchaseSumToPayment,
-                            DateOfCreation = view.DateOfCreation,
-                            DateOfPayment = DateTime.Now,
-                            PurchaseFurnitures = view.PurchaseFurniture
-                        });
-                    }
                 }
             }
-
+            catch (DbUpdateException exe)
+            {
+                MessageBox.Show(exe?.InnerException?.Message, "Ошибка", MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);

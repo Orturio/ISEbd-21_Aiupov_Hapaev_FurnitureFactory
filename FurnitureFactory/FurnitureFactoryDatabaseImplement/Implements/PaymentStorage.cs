@@ -19,7 +19,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     PurchaseId = rec.PurchaseId,
-                    Sum = rec.PaymentSum,
+                    PaymentSum = rec.PaymentSum,
                     DateOfPayment = rec.DateOfPayment
                 })
                 .ToList();
@@ -39,7 +39,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     PurchaseId = rec.PurchaseId,
-                    Sum = rec.PaymentSum,
+                    PaymentSum = rec.PaymentSum,
                     DateOfPayment = rec.DateOfPayment
                 })
                 .ToList();
@@ -54,13 +54,13 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             }
             using (var context = new FurnitureFactoryDatabase())
             {
-                var payment = context.Payments.FirstOrDefault(rec => rec.Id == model.Id);
+                var payment = context.Payments.FirstOrDefault(rec => rec.PurchaseId == model.PurchaseId);
                 return payment != null ?
                 new PaymentViewModel
                 {
                     Id = payment.Id,
                     PurchaseId = payment.PurchaseId,
-                    Sum = payment.PaymentSum,
+                    PaymentSum = payment.PaymentSum,
                     DateOfPayment = payment.DateOfPayment
                 } :
                 null;
@@ -109,8 +109,8 @@ namespace FurnitureFactoryDatabaseImplement.Implements
 
         private Payment CreateModel(PaymentBindingModel model, Payment payment)
         {
-            payment.PurchaseId = model.PurchaseId;
-            payment.PaymentSum = model.Sum;
+            payment.PurchaseId = (int) model.PurchaseId;
+            payment.PaymentSum = model.PaymentSum;
             payment.DateOfPayment = model.DateOfPayment;
             return payment;
         }

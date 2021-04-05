@@ -55,8 +55,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             using (var context = new FurnitureFactoryDatabase())
             {
                 var user = context.Users.FirstOrDefault(rec => rec.Id == model.Id || rec.Email == model.Email);
-                if (user == null || (model.Password != null && user.Password != model.Password) 
-                    || model.Role == 0)
+                if (user == null || (model.Password != null && user.Password != model.Password))
                 {
                     return null;
                 }

@@ -14,7 +14,7 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
 
         public decimal PurchaseSum { get; set; }
 
-        public decimal PurchaseSumToPayment { get; set; }
+        public decimal? PurchaseSumToPayment { get; set; }
 
         public DateTime DateOfCreation { get; set; }
 

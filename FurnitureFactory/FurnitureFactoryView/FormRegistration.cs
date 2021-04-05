@@ -47,6 +47,10 @@ namespace FurnitureFactoryView
                 logic.CreateOrUpdate(model);
                 Program.User = logic.Read(model)?[0];
                 MessageBox.Show("Успешная регистрация", "Регистрация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                var form = Container.Resolve<FormAuthorize>();
+                form.ShowDialog();
+                Close();
             }
 
             catch (Exception ex)

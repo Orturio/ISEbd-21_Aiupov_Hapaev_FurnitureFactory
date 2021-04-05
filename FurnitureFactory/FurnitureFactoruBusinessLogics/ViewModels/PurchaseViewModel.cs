@@ -24,7 +24,7 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
 
         [DataMember]
         [DisplayName("Сумма покупки к оплате")]
-        public decimal PurchaseSumToPayment { get; set; }
+        public decimal? PurchaseSumToPayment { get; set; }
 
         [DataMember]
         [DisplayName("Дата создания")]

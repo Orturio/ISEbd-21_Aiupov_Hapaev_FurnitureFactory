@@ -91,15 +91,13 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     b.Property<decimal>("PaymentSum")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("PurchaseId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PurchasesId")
+                    b.Property<int?>("PurchaseId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PurchasesId");
+                    b.HasIndex("PurchaseId");
 
                     b.ToTable("Payments");
                 });
@@ -124,7 +122,8 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     b.Property<decimal>("PurchaseSum")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("PurchaseSumToPayment")
+                    b.Property<decimal?>("PurchaseSumToPayment")
+                        .IsRequired()
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("UserId")
@@ -202,7 +201,9 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 {
                     b.HasOne("FurnitureFactoryDatabaseImplement.Models.Purchase", null)
                         .WithMany("Payment")
-                        .HasForeignKey("PurchasesId");
+                        .HasForeignKey("PurchaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FurnitureFactoryDatabaseImplement.Models.Purchase", b =>

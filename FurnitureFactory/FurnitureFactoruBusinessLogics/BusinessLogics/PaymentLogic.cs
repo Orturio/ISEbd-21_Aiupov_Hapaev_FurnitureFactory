@@ -25,6 +25,10 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             {
                 return new List<PaymentViewModel> { _paymentStorage.GetElement(model) };
             }
+            if (model.PurchaseId.HasValue)
+            {
+                return new List<PaymentViewModel> { _paymentStorage.GetElement(model) };
+            }
             return _paymentStorage.GetFilteredList(model);
         }
 

@@ -17,7 +17,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             {
                 return context.Purchases
                 .Include(rec => rec.PurchaseFurniture)
-                .ThenInclude(rec => rec.Furniture)
+                .ThenInclude(rec => rec.Furniture).Include(rec => rec.Payment)
                 .ToList()
                 .Select(rec => new PurchaseViewModel
                 {
@@ -25,9 +25,9 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     UserId = rec.UserId,
                     PurchaseName = rec.PurchaseName,
                     PurchaseSum = rec.PurchaseSum,
-                    PurchaseSumToPayment = rec.PurchaseSumToPayment,
+                    PurchaseSumToPayment = rec.Payment.FirstOrDefault(x => x.PurchaseId == rec.Id)?.PaymentSum,
                     DateOfCreation = rec.DateOfCreation,
-                    DateOfPayment = rec.DateOfPayment,
+                    DateOfPayment = rec.Payment.FirstOrDefault(x => x.PurchaseId == rec.Id)?.DateOfPayment,
                     PurchaseFurniture = rec.PurchaseFurniture
                 .ToDictionary(recPC => recPC.FurnitureId, recPC => (recPC.Furniture?.FurnitureName, recPC.Count, recPC.Furniture.FurniturePrice))
                 })
@@ -45,7 +45,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             {
                 return context.Purchases
                 .Include(rec => rec.PurchaseFurniture)
-                .ThenInclude(rec => rec.Furniture)
+                .ThenInclude(rec => rec.Furniture).Include(rec => rec.Payment)
                 .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateOfCreation.Date == model.DateOfCreation.Date) ||
 (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateOfCreation.Date >= model.DateFrom.Value.Date && rec.DateOfCreation.Date <= model.DateTo.Value.Date))
                 .ToList()
@@ -55,9 +55,9 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     UserId = rec.UserId,
                     PurchaseName = rec.PurchaseName,
                     PurchaseSum = rec.PurchaseSum,
-                    PurchaseSumToPayment = rec.PurchaseSumToPayment,
+                    PurchaseSumToPayment = rec.Payment.FirstOrDefault(x => x.PurchaseId == rec.Id)?.PaymentSum,
                     DateOfCreation = rec.DateOfCreation,
-                    DateOfPayment = rec.DateOfPayment,
+                    DateOfPayment = rec.Payment.FirstOrDefault(x => x.PurchaseId == rec.Id)?.DateOfPayment,
                     PurchaseFurniture = rec.PurchaseFurniture
                 .ToDictionary(recPC => recPC.FurnitureId, recPC => (recPC.Furniture?.FurnitureName, recPC.Count, recPC.Furniture.FurniturePrice))
                 }).ToList();
@@ -74,7 +74,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             {
                 var purchase = context.Purchases
                 .Include(rec => rec.PurchaseFurniture)
-                .ThenInclude(rec => rec.Furniture)
+                .ThenInclude(rec => rec.Furniture).Include(rec => rec.Payment)
                 .FirstOrDefault(rec => rec.PurchaseName == model.PurchaseName || rec.Id == model.Id);
                 return purchase != null ?
                 new PurchaseViewModel
@@ -83,9 +83,9 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     UserId = purchase.UserId,
                     PurchaseName = purchase.PurchaseName,
                     PurchaseSum = purchase.PurchaseSum,
-                    PurchaseSumToPayment = purchase.PurchaseSumToPayment,
+                    PurchaseSumToPayment = purchase.Payment.FirstOrDefault(x => x.PurchaseId == purchase.Id)?.PaymentSum,
                     DateOfCreation = purchase.DateOfCreation,
-                    DateOfPayment = purchase.DateOfPayment,
+                    DateOfPayment = purchase.Payment.FirstOrDefault(x => x.PurchaseId == purchase.Id)?.DateOfPayment,
                     PurchaseFurniture = purchase.PurchaseFurniture
                 .ToDictionary(recPC => recPC.FurnitureId, recPC => (recPC.Furniture?.FurnitureName, recPC.Count, recPC.Furniture.FurniturePrice))
                 } :
@@ -183,15 +183,15 @@ namespace FurnitureFactoryDatabaseImplement.Implements
 
             if (model.Id.HasValue)
             {
-                var productComponents = context.PurchaseFurnitures.Where(rec => rec.PurchasesId == model.Id.Value).ToList();
+                var purchaseFurniture = context.PurchaseFurnitures.Where(rec => rec.PurchasesId == model.Id.Value).ToList();
                 // удалили те, которых нет в модели
-                context.PurchaseFurnitures.RemoveRange(productComponents.Where(rec => !model.PurchaseFurnitures.ContainsKey(rec.FurnitureId)).ToList());
+                context.PurchaseFurnitures.RemoveRange(purchaseFurniture.Where(rec => !model.PurchaseFurnitures.ContainsKey(rec.FurnitureId)).ToList());
                 context.SaveChanges();
                 // обновили количество у существующих записей
-                foreach (var updateComponent in productComponents)
+                foreach (var updateFurniture in purchaseFurniture)
                 {
-                    updateComponent.Count = model.PurchaseFurnitures[updateComponent.FurnitureId].Item2;
-                    model.PurchaseFurnitures.Remove(updateComponent.FurnitureId);
+                    updateFurniture.Count = model.PurchaseFurnitures[updateFurniture.FurnitureId].Item2;
+                    model.PurchaseFurnitures.Remove(updateFurniture.FurnitureId);
                 }
                 context.SaveChanges();
             }
