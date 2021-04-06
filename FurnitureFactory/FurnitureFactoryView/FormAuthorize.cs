@@ -33,7 +33,7 @@ namespace FurnitureFactoryView
                 return;
             }
             
-            var user = logic.Read(new UserBindingModel { Role = UserRole.Сотрудник, Email = textBoxEmail.Text, Password = textBoxPassword.Text })?[0];
+            var user = logic.Read(new UserBindingModel { Email = textBoxEmail.Text, Password = textBoxPassword.Text })?[0];
             if (user == null)
             {
                 MessageBox.Show("Неверный Email или пароль", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);

@@ -4,6 +4,7 @@ using System.Linq;
 using FurnitureFactoryBusinessLogics.BindingModels;
 using FurnitureFactoryBusinessLogics.Interfaces;
 using FurnitureFactoryBusinessLogics.ViewModels;
+using FurnitureFactoryBusinessLogics.Enums;
 using FurnitureFactoryDatabaseImplement.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,7 +35,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             }
             using (var context = new FurnitureFactoryDatabase())
             {
-                return context.Users.Where(rec => rec.Email == model.Email && rec.Password == rec.Password)
+                return context.Users.Where(rec => rec.Email == model.Email && rec.Password == rec.Password && rec.Role == model.Role)
                 .Select(rec => new UserViewModel
                 {
                     Id = rec.Id,
@@ -108,6 +109,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             return new UserViewModel
             {
                 Id = user.Id,
+                Role = user.Role,
                 Email = user.Email,
                 Password = user.Password
             };

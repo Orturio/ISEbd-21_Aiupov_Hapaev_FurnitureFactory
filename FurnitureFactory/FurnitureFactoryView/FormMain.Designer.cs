@@ -88,10 +88,10 @@
             // отчетыToolStripMenuItem
             // 
             this.отчетыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.отчетПоПокупкамToolStripMenuItem,
-            this.отчетПоМебелиToolStripMenuItem,
             this.покупочныйОтчетToolStripMenuItem,
-            this.мебельныйОтчетToolStripMenuItem});
+            this.мебельныйОтчетToolStripMenuItem,
+            this.отчетПоПокупкамToolStripMenuItem,
+            this.отчетПоМебелиToolStripMenuItem});
             this.отчетыToolStripMenuItem.Name = "отчетыToolStripMenuItem";
             this.отчетыToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
             this.отчетыToolStripMenuItem.Text = "Отчеты";
@@ -99,30 +99,30 @@
             // отчетПоПокупкамToolStripMenuItem
             // 
             this.отчетПоПокупкамToolStripMenuItem.Name = "отчетПоПокупкамToolStripMenuItem";
-            this.отчетПоПокупкамToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.отчетПоПокупкамToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.отчетПоПокупкамToolStripMenuItem.Text = "Отчет по покупкам";
-            this.отчетПоПокупкамToolStripMenuItem.Click += new System.EventHandler(this.отчетПоПокупкамToolStripMenuItem_Click_1);
+            this.отчетПоПокупкамToolStripMenuItem.Click += new System.EventHandler(this.отчетПоПокупкамЗаПериодToolStripMenuItem_Click);
             // 
             // отчетПоМебелиToolStripMenuItem
             // 
             this.отчетПоМебелиToolStripMenuItem.Name = "отчетПоМебелиToolStripMenuItem";
-            this.отчетПоМебелиToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.отчетПоМебелиToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.отчетПоМебелиToolStripMenuItem.Text = "Отчет по мебели";
-            this.отчетПоМебелиToolStripMenuItem.Click += new System.EventHandler(this.отчетПоМебелиToolStripMenuItem_Click);
+            this.отчетПоМебелиToolStripMenuItem.Click += new System.EventHandler(this.отчетПоМебелиЗаПериодToolStripMenuItem_Click);
             // 
             // покупочныйОтчетToolStripMenuItem
             // 
             this.покупочныйОтчетToolStripMenuItem.Name = "покупочныйОтчетToolStripMenuItem";
-            this.покупочныйОтчетToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.покупочныйОтчетToolStripMenuItem.Text = "Покупочный отчет";
-            this.покупочныйОтчетToolStripMenuItem.Click += new System.EventHandler(this.покупочныйОтчетToolStripMenuItem_Click);
+            this.покупочныйОтчетToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.покупочныйОтчетToolStripMenuItem.Text = "Отчет по покупкам за период";
+            this.покупочныйОтчетToolStripMenuItem.Click += new System.EventHandler(this.отчетПоПокупкамToolStripMenuItem_Click_1);
             // 
             // мебельныйОтчетToolStripMenuItem
             // 
             this.мебельныйОтчетToolStripMenuItem.Name = "мебельныйОтчетToolStripMenuItem";
-            this.мебельныйОтчетToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.мебельныйОтчетToolStripMenuItem.Text = "Мебельный отчет";
-            this.мебельныйОтчетToolStripMenuItem.Click += new System.EventHandler(this.мебельныйОтчетToolStripMenuItem_Click);
+            this.мебельныйОтчетToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.мебельныйОтчетToolStripMenuItem.Text = "Отчет по мебели за период";
+            this.мебельныйОтчетToolStripMenuItem.Click += new System.EventHandler(this.отчетПоМебелиToolStripMenuItem_Click);
             // 
             // pictureBoxLogo
             // 

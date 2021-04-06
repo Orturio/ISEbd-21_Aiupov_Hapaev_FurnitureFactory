@@ -17,6 +17,7 @@ namespace FurnitureFactoryView
         public FormRegistration(UserLogic logic)
         {
             InitializeComponent();
+            comboBoxRole.Items.AddRange(new string[] { "Клиент", "Сотрудник"});
             this.logic = logic;
         }
 
@@ -35,12 +36,17 @@ namespace FurnitureFactoryView
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if (comboBoxRole.SelectedItem == null)
+            {
+                MessageBox.Show("Выберите роль", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             try
             {
                 UserBindingModel model = new UserBindingModel
                 {
-                    Role = (UserRole)1,
+                    Role = ((UserRole)Enum.Parse(typeof(UserRole), comboBoxRole.SelectedItem.ToString())),
                     Email = textBoxEmail.Text,
                     Password = textBoxPassword.Text
                 };
