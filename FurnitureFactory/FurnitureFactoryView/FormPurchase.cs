@@ -180,21 +180,21 @@ namespace FurnitureFactoryView
                     logicPurchase.UpdatePurchase(new PurchaseBindingModel
                     {
                         Id = viewPurchase.Id,
+                        UserId = Program.User.Id,
                         PurchaseName = textBoxName.Text,
                         PurchaseSum = Convert.ToDecimal(textBoxPrice.Text),
-                        PurchaseSumToPayment = Convert.ToDecimal(textBoxPrice.Text),
                         DateOfCreation = viewPurchase.DateOfCreation,
                         PurchaseFurnitures = purchaseFurniture,
                     });
                 }
                 else
-                {
+                {                    
                     logicPurchase.CreatePurchase(new PurchaseBindingModel
                     {
                         Id = id,
+                        UserId = Program.User.Id,
                         PurchaseName = textBoxName.Text,
                         PurchaseSum = Convert.ToDecimal(textBoxPrice.Text),
-                        PurchaseSumToPayment = Convert.ToDecimal(textBoxPrice.Text),
                         DateOfCreation = DateTime.Now,
                         PurchaseFurnitures = purchaseFurniture,
                     });
@@ -204,11 +204,13 @@ namespace FurnitureFactoryView
                 DialogResult = DialogResult.OK;
                 Close();
             }
+
             catch (DbUpdateException exe)
             {
                 MessageBox.Show(exe?.InnerException?.Message, "Ошибка", MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);

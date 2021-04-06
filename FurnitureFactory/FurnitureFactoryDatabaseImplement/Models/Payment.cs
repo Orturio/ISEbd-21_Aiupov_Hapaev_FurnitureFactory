@@ -14,7 +14,6 @@ namespace FurnitureFactoryDatabaseImplement.Models
         [Required]
         public decimal PaymentSum { get; set; }
 
-        [Required]
         public DateTime? DateOfPayment { get; set; }
     }
 }

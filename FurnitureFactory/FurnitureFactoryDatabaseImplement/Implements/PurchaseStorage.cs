@@ -47,7 +47,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 .Include(rec => rec.PurchaseFurniture)
                 .ThenInclude(rec => rec.Furniture).Include(rec => rec.Payment)
                 .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateOfCreation.Date == model.DateOfCreation.Date) ||
-(model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateOfCreation.Date >= model.DateFrom.Value.Date && rec.DateOfCreation.Date <= model.DateTo.Value.Date))
+(model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateOfCreation.Date >= model.DateFrom.Value.Date && rec.DateOfCreation.Date <= model.DateTo.Value.Date) || (model.UserId.HasValue && rec.UserId == model.UserId))
                 .ToList()
                 .Select(rec => new PurchaseViewModel
                 {
@@ -166,9 +166,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             purchase.UserId = model.UserId;
             purchase.PurchaseName = model.PurchaseName;
             purchase.PurchaseSum = model.PurchaseSum;
-            purchase.PurchaseSumToPayment = model.PurchaseSumToPayment;
             purchase.DateOfCreation = model.DateOfCreation;
-            purchase.DateOfPayment = model.DateOfPayment;
             return purchase;
         }
 
@@ -177,9 +175,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             purchase.UserId = model.UserId;
             purchase.PurchaseName = model.PurchaseName;
             purchase.PurchaseSum = model.PurchaseSum;
-            purchase.PurchaseSumToPayment = model.PurchaseSumToPayment;
             purchase.DateOfCreation = model.DateOfCreation;
-            purchase.DateOfPayment = model.DateOfPayment;
 
             if (model.Id.HasValue)
             {

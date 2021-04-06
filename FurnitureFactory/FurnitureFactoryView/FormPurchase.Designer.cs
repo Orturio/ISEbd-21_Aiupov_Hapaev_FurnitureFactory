@@ -150,7 +150,7 @@
             this.labelName.AutoSize = true;
             this.labelName.Location = new System.Drawing.Point(38, 31);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(61, 13);
+            this.labelName.Size = new System.Drawing.Size(60, 13);
             this.labelName.TabIndex = 10;
             this.labelName.Text = "Название:";
             // 
@@ -159,7 +159,7 @@
             this.LabelPrice.AutoSize = true;
             this.LabelPrice.Location = new System.Drawing.Point(38, 58);
             this.LabelPrice.Name = "LabelPrice";
-            this.LabelPrice.Size = new System.Drawing.Size(38, 13);
+            this.LabelPrice.Size = new System.Drawing.Size(36, 13);
             this.LabelPrice.TabIndex = 11;
             this.LabelPrice.Text = "Цена:";
             // 
@@ -167,14 +167,14 @@
             // 
             this.textBoxName.Location = new System.Drawing.Point(121, 28);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(128, 22);
+            this.textBoxName.Size = new System.Drawing.Size(128, 20);
             this.textBoxName.TabIndex = 12;
             // 
             // textBoxPrice
             // 
             this.textBoxPrice.Location = new System.Drawing.Point(121, 58);
             this.textBoxPrice.Name = "textBoxPrice";
-            this.textBoxPrice.Size = new System.Drawing.Size(128, 22);
+            this.textBoxPrice.Size = new System.Drawing.Size(128, 20);
             this.textBoxPrice.TabIndex = 13;
             // 
             // groupBox

@@ -85,7 +85,7 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
                 DateOfCreation = x.DateOfCreation,
                 PurchaseName = x.PurchaseName,
                 PurchaseSum = x.PurchaseSum,
-                PurchaseSumToPayment = (decimal) x.PurchaseSumToPayment,
+                PurchaseSumToPayment = x.PurchaseSumToPayment,
             }).ToList();
         }
 

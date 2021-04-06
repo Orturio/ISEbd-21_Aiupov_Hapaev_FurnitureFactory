@@ -47,6 +47,7 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
                 _userStorage.Insert(model);
             }
         }
+
         public void Delete(UserBindingModel model)
         {
             var element = _userStorage.GetElement(new UserBindingModel

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FurnitureFactoryDatabaseImplement.Migrations
 {
     [DbContext(typeof(FurnitureFactoryDatabase))]
-    [Migration("20210404165517_InitialCreate")]
+    [Migration("20210406142209_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -87,7 +87,6 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("DateOfPayment")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("PaymentSum")
@@ -114,18 +113,11 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     b.Property<DateTime>("DateOfCreation")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DateOfPayment")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("PurchaseName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PurchaseSum")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("PurchaseSumToPayment")
-                        .IsRequired()
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("UserId")

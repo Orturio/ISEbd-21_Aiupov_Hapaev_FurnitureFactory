@@ -29,7 +29,7 @@ namespace FurnitureFactoryView
             try
             {
 
-                var list = logic.Read(null);
+                var list = logic.Read(new PurchaseBindingModel { UserId = Program.User.Id});
 
                 if (list != null)
                 {

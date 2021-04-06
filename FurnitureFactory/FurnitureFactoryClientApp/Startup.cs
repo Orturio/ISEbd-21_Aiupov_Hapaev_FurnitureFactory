@@ -16,6 +16,7 @@ namespace FurnitureFactoryClientApp
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            APIUser.Connect(configuration);
         }
 
         public IConfiguration Configuration { get; }

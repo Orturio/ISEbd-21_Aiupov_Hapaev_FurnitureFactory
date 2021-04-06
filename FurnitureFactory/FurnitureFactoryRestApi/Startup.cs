@@ -25,9 +25,11 @@ namespace FurnitureFactoryRestApi
             services.AddTransient<IUserStorage, UserStorage>();
             services.AddTransient<IPurchaseStorage, PurchaseStorage>();
             services.AddTransient<IFurnitureStorage, FurnitureStorage>();
+            services.AddTransient<IPaymentStorage, PaymentStorage>();
             services.AddTransient<UserLogic>();
             services.AddTransient<PurchaseLogic>();
             services.AddTransient<FurnitureLogic>();
+            services.AddTransient<PaymentLogic>();
             services.AddControllers().AddNewtonsoftJson();
         }
 

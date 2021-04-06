@@ -1,8 +1,66 @@
-﻿@{
+﻿@using FurnitureFactoryBusinessLogics.ViewModels
+@model List<PurchaseViewModel>
+@{
     ViewData["Title"] = "Home Page";
 }
-
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Покупки</h1>
 </div>
+<div class="text-center">
+    @{
+        if (Model == null)
+        {
+            <h3 class="display-4">Авторизируйтесь</h3>
+            return;
+        }
+        <p>
+            <a asp-action="Create">Создать покупку</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Номер
+                    </th>
+                    <th>
+                        Покупка
+                    </th>
+                    <th>
+                        Сумма покупки
+                    </th>
+                    <th>
+                        Оставшаяся сумма к оплате
+                    </th>
+                    <th>
+                        Дата создания
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem =>
+                        item.PurchaseName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchaseSum)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchaseSumToPayment)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem =>
+                        item.DateOfCreation)
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+

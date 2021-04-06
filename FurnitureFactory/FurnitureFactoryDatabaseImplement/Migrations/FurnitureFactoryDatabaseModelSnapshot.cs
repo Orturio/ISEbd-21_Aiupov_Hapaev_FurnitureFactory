@@ -85,7 +85,6 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("DateOfPayment")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("PaymentSum")
@@ -112,18 +111,11 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     b.Property<DateTime>("DateOfCreation")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DateOfPayment")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("PurchaseName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PurchaseSum")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("PurchaseSumToPayment")
-                        .IsRequired()
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("UserId")

@@ -76,9 +76,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     UserId = table.Column<int>(nullable: true),
                     PurchaseName = table.Column<string>(nullable: false),
                     PurchaseSum = table.Column<decimal>(nullable: false),
-                    PurchaseSumToPayment = table.Column<decimal>(nullable: false),
-                    DateOfCreation = table.Column<DateTime>(nullable: false),
-                    DateOfPayment = table.Column<DateTime>(nullable: true)
+                    DateOfCreation = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,7 +97,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PurchaseId = table.Column<int>(nullable: false),
                     PaymentSum = table.Column<decimal>(nullable: false),
-                    DateOfPayment = table.Column<DateTime>(nullable: false)
+                    DateOfPayment = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {

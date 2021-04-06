@@ -113,9 +113,9 @@ namespace FurnitureFactoryView
                         _logicPurchase.UpdatePurchase(new PurchaseBindingModel
                         {
                             Id = viewPurchase.Id,
+                            UserId = Program.User.Id,
                             PurchaseName = viewPurchase.PurchaseName,
                             PurchaseSum = viewPurchase.PurchaseSum,
-                            PurchaseSumToPayment = DifferenceOfNumbers,
                             DateOfCreation = viewPurchase.DateOfCreation,
                             PurchaseFurnitures = viewPurchase.PurchaseFurniture
                         });
