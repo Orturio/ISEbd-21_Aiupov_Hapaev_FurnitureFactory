@@ -57,6 +57,13 @@
                         @Html.DisplayFor(modelItem =>
                         item.DateOfCreation)
                     </td>
+                    <td>
+                        <a asp-action="Update" asp-route-id="@item.Id" asp-route-datecreation="@item.DateOfCreation" asp-route-purchasename="@item.PurchaseName">Изменить</a> |
+                        <a asp-action="AddFurnitureToPurchase" asp-route-id="@item.Id" asp-route-purchasename="@item.PurchaseName"
+                           asp-route-datecreation="@item.DateOfCreation" asp-route-purchasesum="@item.PurchaseSum">Добавить мебель</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                        <a asp-action="Pay" asp-route-id="@item.Id" asp-route-purchasename="@item.PurchaseName" asp-route-purchasesum="@item.PurchaseSum" asp-route-purchasesumtopayment="@item.PurchaseSumToPayment">Оплатить</a>
+                    </td>
                 </tr>
                 }
             </tbody>

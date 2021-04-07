@@ -1,14 +1,14 @@
 ﻿@{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Update";
 }
 <div class="text-center">
-    <h2 class="display-4">Создание покупки</h2>
+    <h2 class="display-4">Изменение покупки</h2>
 </div>
 <form method="post">
     <div class="row">
         <div class="col-4">Покупка:</div>
         <div class="col-8">
-            <input type="text" name="purchase" id="purchase" />
+            <input type="text" name="purchase" id="purchase" value="@ViewBag.PurchaseName"/>
         </div>
     </div>
     <div class="row">
@@ -28,9 +28,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-8"></div>        
-            <div class="col-4"><input type="submit" value="Создать" class="btn btnprimary" /></div>
-        </div>
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Изменить" class="btn btnprimary" /></div>
+    </div>
 </form>
 <script>
     $('#furniture').on('change', function () {

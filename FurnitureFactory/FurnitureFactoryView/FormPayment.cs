@@ -43,11 +43,12 @@ namespace FurnitureFactoryView
             try
             {
                 listPurchase = _logicPurchase.Read(null);
+                
                 foreach (var item in listPurchase)
                 {
                     comboBoxPurchase.DisplayMember = "PurchaseName";
                     comboBoxPurchase.ValueMember = "Id";
-                    comboBoxPurchase.DataSource = listPurchase;
+                    comboBoxPurchase.DataSource = listPurchase.Where(x => x.UserId == Program.User.Id).ToList();
                     comboBoxPurchase.SelectedItem = null;
                 }
                 textBoxTotalSum.Text = null;
@@ -65,7 +66,7 @@ namespace FurnitureFactoryView
             Id = Convert.ToInt32(comboBoxPurchase.SelectedValue);
             if (comboBoxPurchase.SelectedValue != null && Id != 0)
             {
-                viewPurchase = _logicPurchase.Read(new PurchaseBindingModel { Id = Id })?[0];
+                viewPurchase = _logicPurchase.Read(new PurchaseBindingModel {Id = Id})?[0];
                 var sumPurchase = listPurchase.FirstOrDefault(x => x.Id == Id).PurchaseSumToPayment;
                 if (sumPurchase == null)
                 {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -29,7 +30,7 @@ namespace FurnitureFactoryClientApp
             {
                 throw new Exception(result);
             }
-        }
+        }  
 
         public static void PostRequest<T>(string requestUrl, T model)
         {

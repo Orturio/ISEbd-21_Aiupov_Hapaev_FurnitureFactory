@@ -6,10 +6,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.13" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FurnitureFactoruBusinessLogics\FurnitureFactoryBusinessLogics.csproj" />
+    <ProjectReference Include="..\FurnitureFactoryDatabaseImplement\FurnitureFactoryDatabaseImplement.csproj" />
   </ItemGroup>
 
 </Project>
