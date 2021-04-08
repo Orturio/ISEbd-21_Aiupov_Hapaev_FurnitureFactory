@@ -190,6 +190,7 @@ namespace FurnitureFactoryClientApp.Controllers
                 APIUser.PostRequest("api/main/createpayment", new PaymentBindingModel
                 {
                     Id = listPayment.FirstOrDefault(x => x.PurchaseId == id).Id,
+                    FurnitureId = listPayment.FirstOrDefault(x => x.PurchaseId == id).FurnitureId,
                     PurchaseId = listPayment.FirstOrDefault(x => x.PurchaseId == id).PurchaseId,
                     PaymentSum = sumToPaymentPurchase,
                 });
@@ -241,16 +242,22 @@ namespace FurnitureFactoryClientApp.Controllers
         [HttpPost]
         public void Pay(int id, decimal purchasesum, decimal sumToPayment)
         {
-           List<PaymentViewModel> listPayment = APIUser.GetRequest<List<PaymentViewModel>>($"api/main/getpayment?PurchaseId={id}");
-            
-           if (listPayment[0] == null)
-           {
+            List<PurchaseViewModel> listPurchase = APIUser.GetRequest<List<PurchaseViewModel>>($"api/main/getpurchase?Id={id}");
+            List<PaymentViewModel> listPayment = APIUser.GetRequest<List<PaymentViewModel>>($"api/main/getpayment?PurchaseId={id}");
+
+            purchaseFurniture = new Dictionary<int, (string, int, decimal)>();
+            purchaseFurniture = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseFurniture;
+            int FurnitureId = purchaseFurniture.ElementAt(0).Key;
+
+            if (listPayment[0] == null)
+            {
                 if ((purchasesum / 100) >= sumToPayment)
                 {
                     decimal sumToPaymentPurchase = (purchasesum / 100) - sumToPayment;
                     APIUser.PostRequest("api/main/createpayment", new PaymentBindingModel
                     {
                         PurchaseId = id,
+                        FurnitureId = FurnitureId,
                         PaymentSum = sumToPaymentPurchase,
                         DateOfPayment = DateTime.Now,
                     });
@@ -271,6 +278,7 @@ namespace FurnitureFactoryClientApp.Controllers
                     APIUser.PostRequest("api/main/createpayment", new PaymentBindingModel
                     {
                         Id = listPayment.FirstOrDefault(x => x.PurchaseId == id).Id,
+                        FurnitureId = FurnitureId,
                         PurchaseId = listPayment.FirstOrDefault(x => x.PurchaseId == id).PurchaseId,
                         PaymentSum = sumToPaymentPurchase,
                         DateOfPayment = DateTime.Now,

@@ -196,7 +196,7 @@ namespace FurnitureFactoryView
                         PurchaseName = textBoxName.Text,
                         PurchaseSum = Convert.ToDecimal(textBoxPrice.Text),
                         DateOfCreation = DateTime.Now,
-                        PurchaseFurnitures = purchaseFurniture,
+
                     });
                 }
 
