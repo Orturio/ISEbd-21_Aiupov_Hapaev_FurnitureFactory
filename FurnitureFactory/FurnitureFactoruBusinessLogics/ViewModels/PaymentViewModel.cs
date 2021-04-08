@@ -14,7 +14,7 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
         public int? PurchaseId { get; set; }
 
         [DataMember]
-        public int? FurnitureId { get; set; }
+        public int FurnitureId { get; set; }
 
         [DataMember]
         [DisplayName("Сумма оплаты")]

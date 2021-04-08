@@ -20,6 +20,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     PurchaseId = rec.Furniture.PurchaseFurniture.FirstOrDefault(x => x.PurchasesId == rec.Id).PurchasesId,
+                    FurnitureId = rec.FurnitureId,
                     PaymentSum = rec.PaymentSum,
                     DateOfPayment = rec.DateOfPayment
                 })
@@ -41,6 +42,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     PurchaseId = rec.Furniture.PurchaseFurniture.FirstOrDefault(x => x.PurchasesId == rec.Id).PurchasesId,
+                    FurnitureId = rec.FurnitureId,
                     PaymentSum = rec.PaymentSum,
                     DateOfPayment = rec.DateOfPayment
                 })
@@ -63,6 +65,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 {
                     Id = payment.Id,
                     PurchaseId = payment.PurchaseId,
+                    FurnitureId = payment.FurnitureId,
                     PaymentSum = payment.PaymentSum,
                     DateOfPayment = payment.DateOfPayment
                 } :
@@ -113,7 +116,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
         private Payment CreateModel(PaymentBindingModel model, Payment payment)
         {
             payment.PurchaseId = (int)model.PurchaseId;
-            payment.FurnitureId = (int)model.FurnitureId;
+            payment.FurnitureId = model.FurnitureId;
             payment.PaymentSum = model.PaymentSum;
             payment.DateOfPayment = model.DateOfPayment;
             return payment;

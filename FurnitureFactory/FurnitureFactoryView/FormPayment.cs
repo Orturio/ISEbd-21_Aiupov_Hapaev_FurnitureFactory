@@ -111,6 +111,7 @@ namespace FurnitureFactoryView
                     DifferenceOfNumbers = Convert.ToDecimal(textBoxTotalSum.Text) - Convert.ToDecimal(textBoxSum.Text);
                     if (listPurchase != null)
                     {
+                        int FurnitureId = viewPurchase.PurchaseFurniture.ElementAt(0).Key;
                         _logicPurchase.UpdatePurchase(new PurchaseBindingModel
                         {
                             Id = viewPurchase.Id,
@@ -127,7 +128,7 @@ namespace FurnitureFactoryView
                             {
                                 Id = viewPayment.Id,
                                 PurchaseId = viewPurchase.Id,
-                                FurnitureId = viewPurchase.PurchaseFurniture.ElementAt(0).Key,
+                                FurnitureId = FurnitureId,
                                 PaymentSum = DifferenceOfNumbers,
                                 DateOfPayment = DateTime.Now
                             }); ;
@@ -137,7 +138,7 @@ namespace FurnitureFactoryView
                             _logicPayment.CreateOrUpdate(new PaymentBindingModel
                             {
                                 PurchaseId = viewPurchase.Id,
-                                FurnitureId = viewPurchase.PurchaseFurniture.ElementAt(0).Key,
+                                FurnitureId = FurnitureId,
                                 PaymentSum = DifferenceOfNumbers,
                                 DateOfPayment = DateTime.Now                                
                             });
