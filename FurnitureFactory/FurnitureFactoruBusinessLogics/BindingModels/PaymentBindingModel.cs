@@ -10,6 +10,8 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
 
         public int? PurchaseId { get; set; }
 
+        public int? FurnitureId { get; set; }
+
         public decimal PaymentSum { get; set; }
 
         public DateTime? DateOfPayment { get; set; } 

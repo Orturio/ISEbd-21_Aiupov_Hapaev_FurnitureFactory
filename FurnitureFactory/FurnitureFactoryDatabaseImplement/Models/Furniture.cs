@@ -26,6 +26,9 @@ namespace FurnitureFactoryDatabaseImplement.Models
         public DateTime DateOfCreation { get; set; }
 
         [ForeignKey("FurnitureId")]
+        public virtual List<Payment> Payment { get; set; }
+
+        [ForeignKey("FurnitureId")]
         public virtual List<PurchaseFurniture> PurchaseFurniture { get; set; }
     }
 }

@@ -87,16 +87,23 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     b.Property<DateTime?>("DateOfPayment")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("FurnitureId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("PaymentSum")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("PurchaseId")
-                        .IsRequired()
+                    b.Property<int>("PurchaseId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PurchaseId");
+                    b.HasIndex("FurnitureId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Payments");
                 });
@@ -191,11 +198,13 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
 
             modelBuilder.Entity("FurnitureFactoryDatabaseImplement.Models.Payment", b =>
                 {
-                    b.HasOne("FurnitureFactoryDatabaseImplement.Models.Purchase", null)
+                    b.HasOne("FurnitureFactoryDatabaseImplement.Models.Furniture", "Furniture")
                         .WithMany("Payment")
-                        .HasForeignKey("PurchaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FurnitureId");
+
+                    b.HasOne("FurnitureFactoryDatabaseImplement.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("FurnitureFactoryDatabaseImplement.Models.Purchase", b =>

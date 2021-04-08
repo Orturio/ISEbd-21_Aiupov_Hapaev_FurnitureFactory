@@ -57,6 +57,20 @@
     <Compile Remove="Migrations\20210406142209_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20210406170306_InitialCreate.cs" />
     <Compile Remove="Migrations\20210406170306_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210406170528_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210406170528_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210408082924_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210408082924_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210408083419_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210408083419_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210408084019_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210408084019_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210408084950_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210408084950_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210408091517_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210408091517_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210408095819_InitialCreate.cs" />
+    <Compile Remove="Migrations\20210408095819_InitialCreate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

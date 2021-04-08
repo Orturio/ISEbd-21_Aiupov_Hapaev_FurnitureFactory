@@ -127,15 +127,17 @@ namespace FurnitureFactoryView
                             {
                                 Id = viewPayment.Id,
                                 PurchaseId = viewPurchase.Id,
+                                FurnitureId = viewPurchase.PurchaseFurniture.ElementAt(0).Key,
                                 PaymentSum = DifferenceOfNumbers,
                                 DateOfPayment = DateTime.Now
-                            });
+                            }); ;
                         }
                         else
                         {
                             _logicPayment.CreateOrUpdate(new PaymentBindingModel
                             {
                                 PurchaseId = viewPurchase.Id,
+                                FurnitureId = viewPurchase.PurchaseFurniture.ElementAt(0).Key,
                                 PaymentSum = DifferenceOfNumbers,
                                 DateOfPayment = DateTime.Now                                
                             });

@@ -15,10 +15,11 @@ namespace FurnitureFactoryDatabaseImplement.Implements
         {
             using (var context = new FurnitureFactoryDatabase())
             {
-                return context.Payments.Select(rec => new PaymentViewModel
+                return context.Payments.Include(rec => rec.Furniture).ThenInclude(rec => rec.PurchaseFurniture)
+                    .Select(rec => new PaymentViewModel
                 {
                     Id = rec.Id,
-                    PurchaseId = rec.PurchaseId,
+                    PurchaseId = rec.Furniture.PurchaseFurniture.FirstOrDefault(x => x.PurchasesId == rec.Id).PurchasesId,
                     PaymentSum = rec.PaymentSum,
                     DateOfPayment = rec.DateOfPayment
                 })
@@ -34,11 +35,12 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             }
             using (var context = new FurnitureFactoryDatabase())
             {
-                return context.Payments.Where(rec => rec.Id == model.Id)
+                return context.Payments.Include(rec => rec.Furniture).ThenInclude(rec => rec.PurchaseFurniture)
+                    .Where(rec => rec.Id == model.Id)
                 .Select(rec => new PaymentViewModel
                 {
                     Id = rec.Id,
-                    PurchaseId = rec.PurchaseId,
+                    PurchaseId = rec.Furniture.PurchaseFurniture.FirstOrDefault(x => x.PurchasesId == rec.Id).PurchasesId,
                     PaymentSum = rec.PaymentSum,
                     DateOfPayment = rec.DateOfPayment
                 })
@@ -54,7 +56,8 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             }
             using (var context = new FurnitureFactoryDatabase())
             {
-                var payment = context.Payments.FirstOrDefault(rec => rec.PurchaseId == model.PurchaseId);
+                var payment = context.Payments.Include(rec => rec.Furniture).ThenInclude(rec => rec.PurchaseFurniture).ThenInclude(rec => rec.Purchases)
+                    .FirstOrDefault(rec => rec.PurchaseId == model.PurchaseId);
                 return payment != null ?
                 new PaymentViewModel
                 {
@@ -109,7 +112,8 @@ namespace FurnitureFactoryDatabaseImplement.Implements
 
         private Payment CreateModel(PaymentBindingModel model, Payment payment)
         {
-            payment.PurchaseId = (int) model.PurchaseId;
+            payment.PurchaseId = (int)model.PurchaseId;
+            payment.FurnitureId = (int)model.FurnitureId;
             payment.PaymentSum = model.PaymentSum;
             payment.DateOfPayment = model.DateOfPayment;
             return payment;

@@ -96,18 +96,26 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PurchaseId = table.Column<int>(nullable: false),
+                    FurnitureId = table.Column<int>(nullable: true),
                     PaymentSum = table.Column<decimal>(nullable: false),
-                    DateOfPayment = table.Column<DateTime>(nullable: true)
+                    DateOfPayment = table.Column<DateTime>(nullable: true),
+                    UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Payments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Payments_Purchases_PurchaseId",
-                        column: x => x.PurchaseId,
-                        principalTable: "Purchases",
+                        name: "FK_Payments_Furnitures_FurnitureId",
+                        column: x => x.FurnitureId,
+                        principalTable: "Furnitures",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Payments_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -148,9 +156,14 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Payments_PurchaseId",
+                name: "IX_Payments_FurnitureId",
                 table: "Payments",
-                column: "PurchaseId");
+                column: "FurnitureId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_UserId",
+                table: "Payments",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PurchaseFurnitures_FurnitureId",

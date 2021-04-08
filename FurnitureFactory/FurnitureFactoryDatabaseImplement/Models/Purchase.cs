@@ -20,9 +20,6 @@ namespace FurnitureFactoryDatabaseImplement.Models
         [Required]
         public DateTime DateOfCreation { get; set; }
 
-        [ForeignKey("PurchaseId")]
-        public virtual List<Payment> Payment { get; set; }
-
         [ForeignKey("PurchasesId")]
         public virtual List<PurchaseFurniture> PurchaseFurniture { get; set; }
     }
