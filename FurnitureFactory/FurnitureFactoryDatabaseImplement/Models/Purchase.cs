@@ -22,5 +22,7 @@ namespace FurnitureFactoryDatabaseImplement.Models
 
         [ForeignKey("PurchasesId")]
         public virtual List<PurchaseFurniture> PurchaseFurniture { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

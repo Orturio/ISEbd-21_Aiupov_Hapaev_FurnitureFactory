@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FurnitureFactoryDatabaseImplement.Migrations
 {
     [DbContext(typeof(FurnitureFactoryDatabase))]
-    [Migration("20210408104922_InitialCreate")]
+    [Migration("20210408165917_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,7 +89,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     b.Property<DateTime?>("DateOfPayment")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("FurnitureId")
+                    b.Property<int>("FurnitureId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("PaymentSum")
@@ -202,7 +202,9 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 {
                     b.HasOne("FurnitureFactoryDatabaseImplement.Models.Furniture", "Furniture")
                         .WithMany("Payment")
-                        .HasForeignKey("FurnitureId");
+                        .HasForeignKey("FurnitureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("FurnitureFactoryDatabaseImplement.Models.User", "User")
                         .WithMany()
@@ -211,7 +213,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
 
             modelBuilder.Entity("FurnitureFactoryDatabaseImplement.Models.Purchase", b =>
                 {
-                    b.HasOne("FurnitureFactoryDatabaseImplement.Models.User", null)
+                    b.HasOne("FurnitureFactoryDatabaseImplement.Models.User", "User")
                         .WithMany("Purchases")
                         .HasForeignKey("UserId");
                 });

@@ -4,7 +4,6 @@ using FurnitureFactoryBusinessLogics.Interfaces;
 using FurnitureFactoryBusinessLogics.ViewModels;
 using System;
 using System.Collections.Generic;
-using FurnitureFactoryBusinessLogics.Enums;
 using System.Linq;
 
 namespace FurnitureFactoryBusinessLogics.BusinessLogics
@@ -20,10 +19,10 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             _furnitureStorage = furnitureStorage;
         }
 
-        public List<ReportPurchaseFurnitureViewModel> GetPurchasesFurniture()
+        public List<ReportPurchaseFurnitureViewModel> GetPurchasesFurniture(int UserId)
         {
             var furnitures = _furnitureStorage.GetFullList();
-            var purchases = _purchaseStorage.GetFullList();
+            var purchases = _purchaseStorage.GetFullList().Where(x => x.UserId == UserId);
             var list = new List<ReportPurchaseFurnitureViewModel>();
             foreach (var purchase in purchases)
             {
@@ -74,13 +73,13 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             return list;
         }
 
-        public List<ReportPurchaseViewModel> GetPurchases(ReportBindingModel model)
+        public List<ReportPurchaseViewModel> GetPurchases(ReportBindingModel model, int UserId)
         {
             return _purchaseStorage.GetFilteredList(new PurchaseBindingModel
             {
                 DateFrom = model.DateFrom,
                 DateTo = model.DateTo
-            }).Select(x => new ReportPurchaseViewModel
+            }).Where(x => x.UserId == UserId).Select(x => new ReportPurchaseViewModel
             {
                 DateOfCreation = x.DateOfCreation,
                 PurchaseName = x.PurchaseName,
@@ -104,13 +103,13 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             }).ToList();
         }
 
-        public void SavePurchaseToWordFile(ReportBindingModel model)
+        public void SavePurchaseToWordFile(ReportBindingModel model, int UserId)
         {
             SaveToWord.CreateDocPurchase(new WordInfo
             {
                 FileName = model.FileName,
                 Title = "Список покупок",
-                Purchases = _purchaseStorage.GetFullList()
+                Purchases = _purchaseStorage.GetFullList().Where(x => x.UserId == UserId).ToList()
             });
         }
 
@@ -124,13 +123,13 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             });
         }
 
-        public void SavePurchaseInfoToExcelFile(ReportBindingModel model)
+        public void SavePurchaseInfoToExcelFile(ReportBindingModel model, int UserId)
         {
             SaveToExcel.CreateDocPurchase(new ExcelInfo
             {
                 FileName = model.FileName,
                 Title = "Список покупок",
-                PurchaseFurnitures = GetPurchasesFurniture()
+                PurchaseFurnitures = GetPurchasesFurniture(UserId)
             });
         }
 
@@ -144,7 +143,7 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             });
         }
 
-        public void SavePurchasesToPdfFile(ReportBindingModel model)
+        public void SavePurchasesToPdfFile(ReportBindingModel model, int UserId)
         {
             SaveToPdf.CreateDocPurchase(new PdfInfo
             {
@@ -152,7 +151,7 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
                 Title = "Список покупок",
                 DateFrom = model.DateFrom.Value,
                 DateTo = model.DateTo.Value,
-                Purchases = GetPurchases(model)
+                Purchases = GetPurchases(model, UserId)
             });
         }
 

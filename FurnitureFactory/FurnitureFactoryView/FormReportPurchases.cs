@@ -42,7 +42,7 @@ dateTimePickerTo.Value.ToShortDateString());
                 {
                     DateFrom = dateTimePickerFrom.Value,
                     DateTo = dateTimePickerTo.Value
-                });
+                }, Program.User.Id);
                 ReportDataSource source = new ReportDataSource("DataSetPurchase", dataSource);
                 reportViewer.LocalReport.DataSources.Add(source);
                 reportViewer.RefreshReport();
@@ -74,7 +74,7 @@ dateTimePickerTo.Value.ToShortDateString());
                             FileName = dialog.FileName,
                             DateFrom = dateTimePickerFrom.Value,
                             DateTo = dateTimePickerTo.Value
-                        });
+                        }, Program.User.Id);
                         MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 

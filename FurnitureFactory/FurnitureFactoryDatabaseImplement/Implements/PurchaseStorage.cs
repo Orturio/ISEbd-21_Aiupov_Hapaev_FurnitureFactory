@@ -58,7 +58,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     PurchaseName = rec.PurchaseName,
                     PurchaseSum = rec.PurchaseSum,
                     PurchaseSumToPayment = rec.PurchaseFurniture.FirstOrDefault(x => x.PurchasesId == rec.Id)
-                    .Furniture.Payment.FirstOrDefault(x => x.Id == rec.Id)?.PaymentSum,
+                    .Furniture.Payment.FirstOrDefault(x => x.PurchaseId == rec.Id)?.PaymentSum,
                     DateOfCreation = rec.DateOfCreation,
                     DateOfPayment = rec.PurchaseFurniture.FirstOrDefault(x => x.PurchasesId == rec.Id)
                     .Furniture.Payment.FirstOrDefault(x => x.PurchaseId == rec.Id)?.DateOfPayment,

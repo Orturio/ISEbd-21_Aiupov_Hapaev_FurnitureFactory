@@ -96,7 +96,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PurchaseId = table.Column<int>(nullable: false),
-                    FurnitureId = table.Column<int>(nullable: true),
+                    FurnitureId = table.Column<int>(nullable: false),
                     PaymentSum = table.Column<decimal>(nullable: false),
                     DateOfPayment = table.Column<DateTime>(nullable: true),
                     UserId = table.Column<int>(nullable: true)
@@ -109,7 +109,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         column: x => x.FurnitureId,
                         principalTable: "Furnitures",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Payments_Users_UserId",
                         column: x => x.UserId,

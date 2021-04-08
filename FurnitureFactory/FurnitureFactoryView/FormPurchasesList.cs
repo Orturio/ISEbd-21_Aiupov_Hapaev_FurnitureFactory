@@ -20,7 +20,7 @@ namespace FurnitureFactoryView
         {
             try
             {
-                var dict = logic.GetPurchasesFurniture();
+                var dict = logic.GetPurchasesFurniture(Program.User.Id);
 
                 if (dict != null)
                 {
@@ -57,7 +57,7 @@ namespace FurnitureFactoryView
                         logic.SavePurchaseInfoToExcelFile(new ReportBindingModel
                         {
                             FileName = dialog.FileName
-                        });
+                        } , Program.User.Id);
                         MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
@@ -78,7 +78,7 @@ namespace FurnitureFactoryView
                     logic.SavePurchaseToWordFile(new ReportBindingModel
                     {
                         FileName = dialog.FileName
-                    });
+                    }, Program.User.Id);
                     MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
                    MessageBoxIcon.Information);
                 }
