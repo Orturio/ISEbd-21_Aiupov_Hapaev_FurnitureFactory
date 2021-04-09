@@ -35,6 +35,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxSum = new System.Windows.Forms.TextBox();
+            this.comboBoxFurniture = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // comboBoxPurchase
@@ -50,7 +51,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 94);
+            this.label1.Location = new System.Drawing.Point(22, 154);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(88, 13);
             this.label1.TabIndex = 1;
@@ -58,14 +59,14 @@
             // 
             // textBoxTotalSum
             // 
-            this.textBoxTotalSum.Location = new System.Drawing.Point(116, 91);
+            this.textBoxTotalSum.Location = new System.Drawing.Point(116, 153);
             this.textBoxTotalSum.Name = "textBoxTotalSum";
             this.textBoxTotalSum.Size = new System.Drawing.Size(141, 20);
             this.textBoxTotalSum.TabIndex = 2;
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(25, 122);
+            this.buttonSave.Location = new System.Drawing.Point(25, 179);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(108, 24);
             this.buttonSave.TabIndex = 3;
@@ -75,7 +76,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(139, 122);
+            this.buttonCancel.Location = new System.Drawing.Point(139, 179);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(118, 24);
             this.buttonCancel.TabIndex = 4;
@@ -86,7 +87,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 59);
+            this.label2.Location = new System.Drawing.Point(22, 112);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(101, 13);
             this.label2.TabIndex = 5;
@@ -94,16 +95,27 @@
             // 
             // textBoxSum
             // 
-            this.textBoxSum.Location = new System.Drawing.Point(121, 56);
+            this.textBoxSum.Location = new System.Drawing.Point(121, 109);
             this.textBoxSum.Name = "textBoxSum";
             this.textBoxSum.Size = new System.Drawing.Size(136, 20);
             this.textBoxSum.TabIndex = 6;
+            // 
+            // comboBoxFurniture
+            // 
+            this.comboBoxFurniture.FormattingEnabled = true;
+            this.comboBoxFurniture.Location = new System.Drawing.Point(25, 60);
+            this.comboBoxFurniture.Name = "comboBoxFurniture";
+            this.comboBoxFurniture.Size = new System.Drawing.Size(232, 21);
+            this.comboBoxFurniture.TabIndex = 7;
+            this.comboBoxFurniture.Text = "Выбранная мебель";
+            this.comboBoxFurniture.SelectedIndexChanged += new System.EventHandler(this.comboBoxFurniture_SelectedIndexChanged);
             // 
             // FormPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(285, 167);
+            this.ClientSize = new System.Drawing.Size(284, 215);
+            this.Controls.Add(this.comboBoxFurniture);
             this.Controls.Add(this.textBoxSum);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.buttonCancel);
@@ -128,5 +140,6 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxSum;
+        private System.Windows.Forms.ComboBox comboBoxFurniture;
     }
 }

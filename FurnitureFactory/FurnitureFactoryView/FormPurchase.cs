@@ -24,7 +24,7 @@ namespace FurnitureFactoryView
 
         private decimal Price { get; set; }
 
-        private Dictionary<int, (string, int, decimal)> purchaseFurniture;
+        private Dictionary<int, (string, int, decimal, decimal)> purchaseFurniture;
 
         public FormPurchase(PurchaseLogic logicPurchase, PaymentLogic logicPayment)
         {
@@ -63,7 +63,7 @@ namespace FurnitureFactoryView
 
             else
             {
-                purchaseFurniture = new Dictionary<int, (string, int, decimal)>();
+                purchaseFurniture = new Dictionary<int, (string, int, decimal, decimal)>();
             }
         }
 
@@ -100,12 +100,12 @@ namespace FurnitureFactoryView
             {
                 if (purchaseFurniture.ContainsKey(form.Id))
                 {
-                    purchaseFurniture[form.Id] = (form.FurnitureName, form.Count, form.Price);
+                    purchaseFurniture[form.Id] = (form.FurnitureName, form.Count, form.Price, form.Price * form.Count);
                 }
 
                 else
                 {
-                    purchaseFurniture.Add(form.Id, (form.FurnitureName, form.Count, form.Price));
+                    purchaseFurniture.Add(form.Id, (form.FurnitureName, form.Count, form.Price, form.Price * form.Count));
                 }
                 LoadData();
             }
@@ -122,7 +122,7 @@ namespace FurnitureFactoryView
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    purchaseFurniture[form.Id] = (form.FurnitureName, form.Count, form.Price);
+                    purchaseFurniture[form.Id] = (form.FurnitureName, form.Count, form.Price, form.Price * form.Count);
                     LoadData();
                 }
             }

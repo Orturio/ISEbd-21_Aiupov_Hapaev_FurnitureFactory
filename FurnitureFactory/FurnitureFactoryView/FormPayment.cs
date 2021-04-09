@@ -23,7 +23,11 @@ namespace FurnitureFactoryView
 
         private int Id { get; set; }
 
-        private Dictionary<int, (string, int, decimal)> purchaseFurniture;
+        List<int> KeysOfFurniture;
+
+        public int FurnitureIdForPayment {get; set;}
+
+        private Dictionary<int, (string, int, decimal, decimal)> purchaseFurniture;
 
         List<PurchaseViewModel> listPurchase;
 
@@ -67,20 +71,41 @@ namespace FurnitureFactoryView
             if (comboBoxPurchase.SelectedValue != null && Id != 0)
             {
                 viewPurchase = _logicPurchase.Read(new PurchaseBindingModel {Id = Id})?[0];
-                var sumPurchase = listPurchase.FirstOrDefault(x => x.Id == Id).PurchaseSumToPayment;
-                if (sumPurchase == null)
-                {
-                    textBoxTotalSum.Text = listPurchase.FirstOrDefault(x => x.Id == Id).PurchaseSum.ToString();
-                }
-                else
-                {
-                    textBoxTotalSum.Text = sumPurchase.ToString();
-                }
                 viewPayment = _logicPayment.Read(new PaymentBindingModel { PurchaseId = Id })?[0];
+
                 if (viewPurchase != null)
                 {
                     purchaseFurniture = viewPurchase.PurchaseFurniture;
+                    if (purchaseFurniture != null)
+                    {
+                        comboBoxFurniture.Items.Clear();
+                        comboBoxFurniture.ResetText();
+                        KeysOfFurniture = new List<int>();
+                        foreach (var item in purchaseFurniture)
+                        {
+                            comboBoxFurniture.DisplayMember = "FurnitureName";
+                            comboBoxFurniture.ValueMember = "FurnitureName";
+                            comboBoxFurniture.Items.Add(purchaseFurniture[item.Key].Item1);
+                            comboBoxFurniture.SelectedItem = null;
+
+                            KeysOfFurniture.Add(item.Key);
+                        }
+                    }
                 }
+            }  
+        }
+
+        private void comboBoxFurniture_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var sumPurchase = listPurchase.FirstOrDefault(x => x.Id == Id).PurchaseSumToPayment;
+            FurnitureIdForPayment = KeysOfFurniture[comboBoxFurniture.SelectedIndex];
+            if (sumPurchase == null)
+            {
+                textBoxTotalSum.Text = purchaseFurniture[FurnitureIdForPayment].Item4.ToString();
+            }
+            else
+            {
+                textBoxTotalSum.Text = purchaseFurniture[FurnitureIdForPayment].Item4.ToString();
             }
         }
 
@@ -111,7 +136,10 @@ namespace FurnitureFactoryView
                     DifferenceOfNumbers = Convert.ToDecimal(textBoxTotalSum.Text) - Convert.ToDecimal(textBoxSum.Text);
                     if (listPurchase != null)
                     {
+                        decimal purchaseSumToPayment = viewPurchase.PurchaseSum - Convert.ToDecimal(textBoxSum.Text);
                         int FurnitureId = viewPurchase.PurchaseFurniture.ElementAt(0).Key;
+                        viewPurchase.PurchaseFurniture[FurnitureIdForPayment] = (purchaseFurniture[FurnitureIdForPayment].Item1,  purchaseFurniture[FurnitureIdForPayment].Item2, 
+                            purchaseFurniture[FurnitureIdForPayment].Item3 ,DifferenceOfNumbers);
                         _logicPurchase.UpdatePurchase(new PurchaseBindingModel
                         {
                             Id = viewPurchase.Id,
@@ -129,7 +157,7 @@ namespace FurnitureFactoryView
                                 Id = viewPayment.Id,
                                 PurchaseId = viewPurchase.Id,
                                 FurnitureId = FurnitureId,
-                                PaymentSum = DifferenceOfNumbers,
+                                PaymentSum = purchaseSumToPayment,
                                 DateOfPayment = DateTime.Now
                             }); ;
                         }
@@ -139,7 +167,7 @@ namespace FurnitureFactoryView
                             {
                                 PurchaseId = viewPurchase.Id,
                                 FurnitureId = FurnitureId,
-                                PaymentSum = DifferenceOfNumbers,
+                                PaymentSum = purchaseSumToPayment,
                                 DateOfPayment = DateTime.Now                                
                             });
                         }

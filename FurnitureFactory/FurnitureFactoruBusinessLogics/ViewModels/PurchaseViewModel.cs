@@ -38,6 +38,6 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
         public DateTime? DateOfPayment { get; set; }
 
         [DataMember]
-        public Dictionary<int, (string, int, decimal)> PurchaseFurniture { get; set; }
+        public Dictionary<int, (string, int, decimal, decimal)> PurchaseFurniture { get; set; }
     }
 }

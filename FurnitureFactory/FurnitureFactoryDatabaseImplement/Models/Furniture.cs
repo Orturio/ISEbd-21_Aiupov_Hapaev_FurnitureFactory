@@ -13,8 +13,6 @@ namespace FurnitureFactoryDatabaseImplement.Models
 
         public virtual User User { get; set; }
 
-        public int? CostsId { get; set; }
-
         [Required]
         public string FurnitureName { get; set; }
 

@@ -16,7 +16,7 @@ namespace FurnitureFactoryClientApp.Controllers
         {         
         }
 
-        private Dictionary<int, (string, int, decimal)> purchaseFurniture = new Dictionary<int, (string, int, decimal)>();
+        private Dictionary<int, (string, int, decimal, decimal)> purchaseFurniture = new Dictionary<int, (string, int, decimal, decimal)>();
 
         public IActionResult Index()
         {
@@ -128,8 +128,8 @@ namespace FurnitureFactoryClientApp.Controllers
         public void Create(string purchase, string furniture, int count, decimal sum)
         {
 
-            purchaseFurniture = new Dictionary<int, (string, int, decimal)>();
-            purchaseFurniture.Add(Convert.ToInt32(furniture), (furniture, count, sum));
+            purchaseFurniture = new Dictionary<int, (string, int, decimal, decimal)>();
+            purchaseFurniture.Add(Convert.ToInt32(furniture), (furniture, count, sum, count*sum));
 
             APIUser.PostRequest("api/main/createpurchase", new PurchaseBindingModel
             {
@@ -154,8 +154,8 @@ namespace FurnitureFactoryClientApp.Controllers
         [HttpPost]
         public void Update(int id, string purchase, string furniture, int count, decimal sum, DateTime datecreation)
         {
-            purchaseFurniture = new Dictionary<int, (string, int, decimal)>();
-            purchaseFurniture.Add(Convert.ToInt32(furniture), (furniture, count, sum));
+            purchaseFurniture = new Dictionary<int, (string, int, decimal, decimal)>();
+            purchaseFurniture.Add(Convert.ToInt32(furniture), (furniture, count, sum, count*sum));
 
             APIUser.PostRequest("api/main/updatepurchase", new PurchaseBindingModel
             {
@@ -199,12 +199,12 @@ namespace FurnitureFactoryClientApp.Controllers
             purchaseFurniture = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseFurniture;
             if (purchaseFurniture.ContainsKey(Convert.ToInt32(furniture)))
             {
-                purchaseFurniture[Convert.ToInt32(furniture)] = (furniture, count, sum);
+                purchaseFurniture[Convert.ToInt32(furniture)] = (furniture, count, sum, count*sum);
             }
 
             else
             {
-                purchaseFurniture.Add(Convert.ToInt32(furniture), (furniture, count, sum));
+                purchaseFurniture.Add(Convert.ToInt32(furniture), (furniture, count, sum, count*sum));
             }
             
             decimal PurchaseSum = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseSum + sum;
@@ -245,7 +245,7 @@ namespace FurnitureFactoryClientApp.Controllers
             List<PurchaseViewModel> listPurchase = APIUser.GetRequest<List<PurchaseViewModel>>($"api/main/getpurchase?Id={id}");
             List<PaymentViewModel> listPayment = APIUser.GetRequest<List<PaymentViewModel>>($"api/main/getpayment?PurchaseId={id}");
 
-            purchaseFurniture = new Dictionary<int, (string, int, decimal)>();
+            purchaseFurniture = new Dictionary<int, (string, int, decimal, decimal)>();
             purchaseFurniture = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseFurniture;
             int FurnitureId = purchaseFurniture.ElementAt(0).Key;
 

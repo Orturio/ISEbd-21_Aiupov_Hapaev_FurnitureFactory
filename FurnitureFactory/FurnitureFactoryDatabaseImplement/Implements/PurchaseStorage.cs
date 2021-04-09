@@ -32,7 +32,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     DateOfPayment = rec.PurchaseFurniture.FirstOrDefault(x => x.PurchasesId == rec.Id)
                     .Furniture.Payment.FirstOrDefault(x => x.PurchaseId == rec.Id)?.DateOfPayment,
                     PurchaseFurniture = rec.PurchaseFurniture
-                .ToDictionary(recPC => recPC.FurnitureId, recPC => (recPC.Furniture?.FurnitureName, recPC.Count, recPC.Furniture.FurniturePrice))
+                .ToDictionary(recPC => recPC.FurnitureId, recPC => (recPC.Furniture?.FurnitureName, recPC.Count, recPC.Furniture.FurniturePrice, recPC.TotalPrice))
                 })
                 .ToList();
             }
@@ -65,7 +65,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     DateOfPayment = rec.PurchaseFurniture.FirstOrDefault(x => x.PurchasesId == rec.Id)
                     .Furniture.Payment.FirstOrDefault(x => x.PurchaseId == rec.Id)?.DateOfPayment,
                     PurchaseFurniture = rec.PurchaseFurniture
-                .ToDictionary(recPC => recPC.FurnitureId, recPC => (recPC.Furniture?.FurnitureName, recPC.Count, recPC.Furniture.FurniturePrice))
+                .ToDictionary(recPC => recPC.FurnitureId, recPC => (recPC.Furniture?.FurnitureName, recPC.Count, recPC.Furniture.FurniturePrice, recPC.TotalPrice))
                 }).ToList();
             }
         }
@@ -98,7 +98,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     DateOfPayment = purchase.PurchaseFurniture.FirstOrDefault(x => x.PurchasesId == purchase.Id)
                     .Furniture.Payment.FirstOrDefault(x => x.PurchaseId == purchase.Id)?.DateOfPayment,
                     PurchaseFurniture = purchase.PurchaseFurniture
-                .ToDictionary(recPC => recPC.FurnitureId, recPC => (recPC.Furniture?.FurnitureName, recPC.Count, recPC.Furniture.FurniturePrice))
+                .ToDictionary(recPC => recPC.FurnitureId, recPC => (recPC.Furniture?.FurnitureName, recPC.Count, recPC.Furniture.FurniturePrice, recPC.TotalPrice))
                 } :
                 null;
             }
@@ -199,6 +199,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 foreach (var updateFurniture in purchaseFurniture)
                 {
                     updateFurniture.Count = model.PurchaseFurnitures[updateFurniture.FurnitureId].Item2;
+                    updateFurniture.TotalPrice = model.PurchaseFurnitures[updateFurniture.FurnitureId].Item4;
                     model.PurchaseFurnitures.Remove(updateFurniture.FurnitureId);
                 }
                 context.SaveChanges();
@@ -210,11 +211,11 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 {
                     PurchasesId = purchase.Id,
                     FurnitureId = pc.Key,
-                    Count = pc.Value.Item2
+                    Count = pc.Value.Item2,
+                    TotalPrice = pc.Value.Item4
                 });
                 context.SaveChanges();
             }
-
             return purchase;
         }
     }

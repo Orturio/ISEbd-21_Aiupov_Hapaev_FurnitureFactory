@@ -50,7 +50,6 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(nullable: false),
-                    CostsId = table.Column<int>(nullable: true),
                     FurnitureName = table.Column<string>(nullable: false),
                     FurniturePrice = table.Column<decimal>(nullable: false),
                     Material = table.Column<string>(nullable: false),
@@ -133,7 +132,8 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PurchasesId = table.Column<int>(nullable: false),
                     FurnitureId = table.Column<int>(nullable: false),
-                    Count = table.Column<int>(nullable: false)
+                    Count = table.Column<int>(nullable: false),
+                    TotalPrice = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {

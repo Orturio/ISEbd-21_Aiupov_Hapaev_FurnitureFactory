@@ -55,7 +55,7 @@ namespace FurnitureFactoryView
             this.comboBoxFurniture.Name = "comboBoxFurniture";
             this.comboBoxFurniture.Size = new System.Drawing.Size(227, 21);
             this.comboBoxFurniture.TabIndex = 1;
-            this.comboBoxFurniture.Text = "Выбранная мебель";
+            this.comboBoxFurniture.Text = "Выбранная покупка";
             // 
             // labelCost
             // 
@@ -71,7 +71,7 @@ namespace FurnitureFactoryView
             this.labelAdditionalCost.AutoSize = true;
             this.labelAdditionalCost.Location = new System.Drawing.Point(9, 131);
             this.labelAdditionalCost.Name = "labelAdditionalCost";
-            this.labelAdditionalCost.Size = new System.Drawing.Size(148, 13);
+            this.labelAdditionalCost.Size = new System.Drawing.Size(143, 13);
             this.labelAdditionalCost.TabIndex = 4;
             this.labelAdditionalCost.Text = "Дополнительные затраты:";
             // 
@@ -79,7 +79,7 @@ namespace FurnitureFactoryView
             // 
             this.textBoxAdditionalCost.Location = new System.Drawing.Point(163, 128);
             this.textBoxAdditionalCost.Name = "textBoxAdditionalCost";
-            this.textBoxAdditionalCost.Size = new System.Drawing.Size(76, 22);
+            this.textBoxAdditionalCost.Size = new System.Drawing.Size(76, 20);
             this.textBoxAdditionalCost.TabIndex = 5;
             // 
             // buttonSave
