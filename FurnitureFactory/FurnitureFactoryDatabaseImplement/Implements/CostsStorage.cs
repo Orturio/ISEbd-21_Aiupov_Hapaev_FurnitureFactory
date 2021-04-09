@@ -83,8 +83,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
         {
             using (var context = new FurnitureFactoryDatabase())
             {
-                var element = context.Costs.Include(rec => rec.Furniture).ThenInclude(rec => rec.PurchaseFurniture)
-                    .ThenInclude(rec => rec.Purchases).FirstOrDefault(rec => rec.Id == model.Id);
+                var element = context.Costs.FirstOrDefault(rec => rec.Id == model.Id);
                 if (element == null)
                 {
                     throw new Exception("Затрата не найдена");
@@ -98,8 +97,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
         {
             using (var context = new FurnitureFactoryDatabase())
             {
-                Cost element = context.Costs.Include(rec => rec.Furniture).ThenInclude(rec => rec.PurchaseFurniture)
-                    .ThenInclude(rec => rec.Purchases).FirstOrDefault(rec => rec.Id == model.Id);
+                Cost element = context.Costs.FirstOrDefault(rec => rec.Id == model.Id);
                 if (element != null)
                 {
                     context.Costs.Remove(element);

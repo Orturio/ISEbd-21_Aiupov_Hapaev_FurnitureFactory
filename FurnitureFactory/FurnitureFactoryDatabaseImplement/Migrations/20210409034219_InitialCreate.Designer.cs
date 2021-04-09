@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FurnitureFactoryDatabaseImplement.Migrations
 {
     [DbContext(typeof(FurnitureFactoryDatabase))]
-    [Migration("20210409025001_InitialCreate")]
+    [Migration("20210409034219_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,7 +35,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     b.Property<decimal>("CostPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -73,8 +73,6 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CostsId");
 
                     b.HasIndex("UserId");
 
@@ -119,6 +117,9 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CostId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateOfCreation")
                         .HasColumnType("datetime2");
 
@@ -133,6 +134,8 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CostId");
 
                     b.HasIndex("UserId");
 
@@ -191,15 +194,13 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 {
                     b.HasOne("FurnitureFactoryDatabaseImplement.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FurnitureFactoryDatabaseImplement.Models.Furniture", b =>
                 {
-                    b.HasOne("FurnitureFactoryDatabaseImplement.Models.Cost", null)
-                        .WithMany("Furniture")
-                        .HasForeignKey("CostsId");
-
                     b.HasOne("FurnitureFactoryDatabaseImplement.Models.User", "User")
                         .WithMany("Furniture")
                         .HasForeignKey("UserId")
@@ -222,6 +223,10 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
 
             modelBuilder.Entity("FurnitureFactoryDatabaseImplement.Models.Purchase", b =>
                 {
+                    b.HasOne("FurnitureFactoryDatabaseImplement.Models.Cost", "Cost")
+                        .WithMany("Purchase")
+                        .HasForeignKey("CostId");
+
                     b.HasOne("FurnitureFactoryDatabaseImplement.Models.User", "User")
                         .WithMany("Purchases")
                         .HasForeignKey("UserId");

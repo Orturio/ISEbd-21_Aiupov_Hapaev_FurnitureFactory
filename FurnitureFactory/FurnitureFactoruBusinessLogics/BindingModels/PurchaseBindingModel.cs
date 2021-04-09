@@ -15,6 +15,9 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
         public int? UserId { get; set; }
 
         [DataMember]
+        public int? CostId { get; set; }
+
+        [DataMember]
         public string PurchaseName { get; set; }
 
         [DataMember]

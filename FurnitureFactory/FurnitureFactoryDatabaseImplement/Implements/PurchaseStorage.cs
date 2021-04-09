@@ -23,6 +23,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     UserId = rec.UserId,
+                    CostId = rec.CostId,
                     PurchaseName = rec.PurchaseName,
                     PurchaseSum = rec.PurchaseSum,
                     PurchaseSumToPayment = rec.PurchaseFurniture.FirstOrDefault(x => x.PurchasesId == rec.Id)
@@ -55,6 +56,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     UserId = rec.UserId,
+                    CostId = rec.CostId,
                     PurchaseName = rec.PurchaseName,
                     PurchaseSum = rec.PurchaseSum,
                     PurchaseSumToPayment = rec.PurchaseFurniture.FirstOrDefault(x => x.PurchasesId == rec.Id)
@@ -87,6 +89,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 {
                     Id = purchase.Id,
                     UserId = purchase.UserId,
+                    CostId = purchase.CostId,
                     PurchaseName = purchase.PurchaseName,
                     PurchaseSum = purchase.PurchaseSum,
                     PurchaseSumToPayment = purchase.PurchaseFurniture.FirstOrDefault(x => x.PurchasesId == purchase.Id)
@@ -171,6 +174,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
         private Purchase CreateModel(PurchaseBindingModel model, Purchase purchase)
         {
             purchase.UserId = model.UserId;
+            purchase.CostId = model.CostId;
             purchase.PurchaseName = model.PurchaseName;
             purchase.PurchaseSum = model.PurchaseSum;
             purchase.DateOfCreation = model.DateOfCreation;
@@ -180,6 +184,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
         private Purchase CreateModel(PurchaseBindingModel model, Purchase purchase, FurnitureFactoryDatabase context)
         {
             purchase.UserId = model.UserId;
+            purchase.CostId = model.CostId;
             purchase.PurchaseName = model.PurchaseName;
             purchase.PurchaseSum = model.PurchaseSum;
             purchase.DateOfCreation = model.DateOfCreation;

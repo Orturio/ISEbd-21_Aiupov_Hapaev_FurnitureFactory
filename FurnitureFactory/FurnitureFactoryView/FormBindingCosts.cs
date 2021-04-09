@@ -13,18 +13,18 @@ namespace FurnitureFactoryView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         private readonly CostLogic logicC;
-        private readonly FurnitureLogic logicF;
+        private readonly PurchaseLogic logicP;
         private int Id { get; set; }
         public decimal Sum { get; set; }
 
-        FurnitureViewModel furnitureView;
+        PurchaseViewModel purchaseView;
         CostViewModel costView;
 
-        public FormBindingCosts(CostLogic logicC, FurnitureLogic logicF)
+        public FormBindingCosts(CostLogic logicC, PurchaseLogic logicP)
         {
             InitializeComponent();
             this.logicC = logicC;
-            this.logicF = logicF;
+            this.logicP = logicP;
         }
 
         private void FormCost_Load(object sender, EventArgs e)
@@ -40,12 +40,12 @@ namespace FurnitureFactoryView
                     comboBoxCost.SelectedItem = null;
                 }
 
-                var listFurnitures = logicF.Read(null);
-                foreach (var f in listFurnitures)
+                var listPiurhcases = logicP.Read(null);
+                foreach (var f in listPiurhcases)
                 {
-                    comboBoxFurniture.DisplayMember = "FurnitureName";
+                    comboBoxFurniture.DisplayMember = "PurchaseName";
                     comboBoxFurniture.ValueMember = "Id";
-                    comboBoxFurniture.DataSource = listFurnitures;
+                    comboBoxFurniture.DataSource = listPiurhcases;
                     comboBoxFurniture.SelectedItem = null;
                 }
                 labelCostSum.Text = $"{Sum}";
@@ -87,23 +87,24 @@ namespace FurnitureFactoryView
                 logicC.CreateOrUpdate(new CostBindingModel
                 {
                     Id = costView.Id,
+                    UserId = costView.UserId,
                     CostName = costView.CostName,
                     Price = Sum + Convert.ToDecimal(textBoxAdditionalCost.Text)
                 });
 
                 Id = Convert.ToInt32(comboBoxFurniture.SelectedValue);
-                
-                furnitureView = logicF.Read(new FurnitureBindingModel { Id = Id })?[0];
-                
-                logicF.UpdateFurniture(new FurnitureBindingModel
+
+                purchaseView = logicP.Read(new PurchaseBindingModel { Id = Id })?[0];
+
+                logicP.UpdatePurchase(new PurchaseBindingModel
                 {
-                    Id = furnitureView.Id,
-                    UserId = furnitureView.UserId,
-                    CostsId = costView.Id,
-                    FurnitureName = furnitureView.FurnitureName,
-                    Material = furnitureView.Material,
-                    FurniturePrice = furnitureView.FurniturePrice,
-                    DateOfCreation = furnitureView.DateOfCreation
+                    Id = purchaseView.Id,
+                    UserId = purchaseView.UserId,
+                    CostId = costView.Id,
+                    PurchaseName = purchaseView.PurchaseName,
+                    PurchaseSum = purchaseView.PurchaseSum,
+                    DateOfCreation = purchaseView.DateOfCreation,
+                    PurchaseFurnitures = purchaseView.PurchaseFurniture
                 });
 
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);

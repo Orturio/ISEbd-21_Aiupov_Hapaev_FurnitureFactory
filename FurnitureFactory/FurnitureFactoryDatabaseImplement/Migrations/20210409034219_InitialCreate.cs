@@ -28,7 +28,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(nullable: true),
+                    UserId = table.Column<int>(nullable: false),
                     CostName = table.Column<string>(nullable: false),
                     CostPrice = table.Column<decimal>(nullable: false)
                 },
@@ -40,29 +40,7 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Purchases",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(nullable: true),
-                    PurchaseName = table.Column<string>(nullable: false),
-                    PurchaseSum = table.Column<decimal>(nullable: false),
-                    DateOfCreation = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Purchases", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Purchases_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,17 +60,40 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 {
                     table.PrimaryKey("PK_Furnitures", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Furnitures_Costs_CostsId",
-                        column: x => x.CostsId,
-                        principalTable: "Costs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Furnitures_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Purchases",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(nullable: true),
+                    CostId = table.Column<int>(nullable: true),
+                    PurchaseName = table.Column<string>(nullable: false),
+                    PurchaseSum = table.Column<decimal>(nullable: false),
+                    DateOfCreation = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Purchases", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Purchases_Costs_CostId",
+                        column: x => x.CostId,
+                        principalTable: "Costs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Purchases_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -157,11 +158,6 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Furnitures_CostsId",
-                table: "Furnitures",
-                column: "CostsId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Furnitures_UserId",
                 table: "Furnitures",
                 column: "UserId");
@@ -185,6 +181,11 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 name: "IX_PurchaseFurnitures_PurchasesId",
                 table: "PurchaseFurnitures",
                 column: "PurchasesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Purchases_CostId",
+                table: "Purchases",
+                column: "CostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Purchases_UserId",

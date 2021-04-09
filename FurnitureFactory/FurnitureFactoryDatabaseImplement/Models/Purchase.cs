@@ -11,6 +11,8 @@ namespace FurnitureFactoryDatabaseImplement.Models
 
         public int? UserId { get; set; }
 
+        public int? CostId { get; set; }
+
         [Required]
         public string PurchaseName { get; set; }
 
@@ -24,5 +26,7 @@ namespace FurnitureFactoryDatabaseImplement.Models
         public virtual List<PurchaseFurniture> PurchaseFurniture { get; set; }
 
         public virtual User User { get; set; }
+
+        public virtual Cost Cost { get; set; }
     }
 }

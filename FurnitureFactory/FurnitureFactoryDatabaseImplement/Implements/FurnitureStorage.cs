@@ -20,7 +20,6 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     Id = rec.Id,
                     UserId = rec.UserId,
                     UserEmail = rec.User.Email,
-                    CostId = rec.CostsId,
                     FurnitureName = rec.FurnitureName,
                     Material = rec.Material,
                     FurniturePrice = rec.FurniturePrice,
@@ -45,7 +44,6 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     Id = rec.Id,
                     UserId = rec.UserId,
                     UserEmail = rec.User.Email,
-                    CostId = rec.CostsId,
                     FurnitureName = rec.FurnitureName,
                     Material = rec.Material,
                     FurniturePrice = rec.FurniturePrice,
@@ -71,7 +69,6 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     Id = furniture.Id,
                     UserId = furniture.UserId,
                     UserEmail = furniture.User.Email,
-                    CostId = furniture.CostsId,
                     FurnitureName = furniture.FurnitureName,
                     Material = furniture.Material,
                     FurniturePrice = furniture.FurniturePrice,
@@ -124,7 +121,6 @@ namespace FurnitureFactoryDatabaseImplement.Implements
         private Furniture CreateModel(FurnitureBindingModel model, Furniture furniture)
         {
             furniture.UserId = model.UserId;
-            furniture.CostsId = model.CostsId;
             furniture.FurnitureName = model.FurnitureName;
             furniture.Material = model.Material;
             furniture.FurniturePrice = model.FurniturePrice;

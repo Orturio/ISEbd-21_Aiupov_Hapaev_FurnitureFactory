@@ -15,6 +15,9 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
         public int? UserId { get; set; }
 
         [DataMember]
+        public int? CostId { get; set; }
+
+        [DataMember]
         [DisplayName("Название покупки")]
         public string PurchaseName { get; set; }
 
