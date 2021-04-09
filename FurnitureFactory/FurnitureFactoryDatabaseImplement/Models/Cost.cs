@@ -8,11 +8,12 @@ namespace FurnitureFactoryDatabaseImplement.Models
     {
         public int Id { get; set; }
 
-        [Required]
-        public string PurchaseName { get; set; }
+        public int UserId { get; set; }
+
+        public virtual User User { get; set; }
 
         [Required]
-        public int Count { get; set; }
+        public string CostName { get; set; }
 
         [Required]
         public decimal CostPrice { get; set; }

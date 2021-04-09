@@ -15,11 +15,12 @@ namespace FurnitureFactoryDatabaseImplement.Implements
         {
             using (var context = new FurnitureFactoryDatabase())
             {
-                return context.Costs.Select(rec => new CostViewModel
+                return context.Costs.Include(rec => rec.User).Select(rec => new CostViewModel
                 {
                     Id = rec.Id,
-                    PurchaseName = context.Purchases.Include(x => x.PurchaseFurniture).FirstOrDefault(x => x.PurchaseName == rec.PurchaseName).PurchaseName,
-                    Count = rec.Count,
+                    UserId = rec.UserId,
+                    UserEmail = rec.User.Email,
+                    CostName = rec.CostName,
                     Price = rec.CostPrice
                 })
                 .ToList();
@@ -34,13 +35,13 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             }
             using (var context = new FurnitureFactoryDatabase())
             {
-                return context.Costs.Include(rec => rec.Furniture).ThenInclude(rec => rec.PurchaseFurniture)
-                    .ThenInclude(rec => rec.Purchases).Where(rec => rec.Id == model.Id)
+                return context.Costs.Include(rec => rec.User).Where(rec => rec.Id == model.Id)
                 .Select(rec => new CostViewModel
                 {
                     Id = rec.Id,
-                    PurchaseName = context.Purchases.Include(x => x.PurchaseFurniture).FirstOrDefault(x => x.PurchaseName == rec.PurchaseName).PurchaseName,
-                    Count = rec.Count,
+                    UserId = rec.UserId,
+                    UserEmail = rec.User.Email,
+                    CostName = rec.CostName,
                     Price = rec.CostPrice
                 })
                 .ToList();
@@ -55,14 +56,14 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             }
             using (var context = new FurnitureFactoryDatabase())
             {
-                var cost = context.Costs.Include(rec => rec.Furniture).ThenInclude(rec => rec.PurchaseFurniture)
-                    .ThenInclude(rec => rec.Purchases).FirstOrDefault(rec => rec.Id == model.Id);
+                var cost = context.Costs.Include(rec => rec.User).FirstOrDefault(rec => rec.Id == model.Id);
                 return cost != null ?
                 new CostViewModel
                 {
                     Id = cost.Id,
-                    PurchaseName = context.Purchases.Include(x => x.PurchaseFurniture).FirstOrDefault(x => x.PurchaseName == cost.PurchaseName).PurchaseName,
-                    Count = cost.Count,
+                    UserId = cost.UserId,
+                    UserEmail = cost.User.Email,
+                    CostName = cost.CostName,
                     Price = cost.CostPrice
                 } :
                 null;
@@ -113,8 +114,8 @@ namespace FurnitureFactoryDatabaseImplement.Implements
 
         private Cost CreateModel(CostBindingModel model, Cost cost)
         {
-            cost.PurchaseName = model.PurchaseName;
-            cost.Count = model.Count;
+            cost.UserId = model.UserId;
+            cost.CostName = model.CostName;
             cost.CostPrice = model.Price;
             return cost;
         }

@@ -15,11 +15,11 @@ namespace FurnitureFactoryDatabaseImplement.Implements
         {
             using (var context = new FurnitureFactoryDatabase())
             {
-                return context.Furnitures.Include(rec => rec.PurchaseFurniture)
-                .ThenInclude(rec => rec.Purchases).Select(rec => new FurnitureViewModel
+                return context.Furnitures.Include(rec => rec.User).Select(rec => new FurnitureViewModel
                 {
                     Id = rec.Id,
                     UserId = rec.UserId,
+                    UserEmail = rec.User.Email,
                     CostId = rec.CostsId,
                     FurnitureName = rec.FurnitureName,
                     Material = rec.Material,
@@ -38,13 +38,13 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             }
             using (var context = new FurnitureFactoryDatabase())
             {
-                return context.Furnitures.Include(rec => rec.PurchaseFurniture)
-                .ThenInclude(rec => rec.Purchases).Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateOfCreation.Date == model.DateOfCreation.Date) ||
-                    (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateOfCreation.Date >= model.DateFrom.Value.Date && rec.DateOfCreation.Date <= model.DateTo.Value.Date))
+                return context.Furnitures.Include(rec => rec.User).Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateOfCreation.Date == model.DateOfCreation.Date) ||
+                    (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateOfCreation.Date >= model.DateFrom.Value.Date && rec.DateOfCreation.Date <= model.DateTo.Value.Date) || (rec.UserId == model.UserId))
                 .Select(rec => new FurnitureViewModel
                 {
                     Id = rec.Id,
                     UserId = rec.UserId,
+                    UserEmail = rec.User.Email,
                     CostId = rec.CostsId,
                     FurnitureName = rec.FurnitureName,
                     Material = rec.Material,
@@ -63,14 +63,14 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             }
             using (var context = new FurnitureFactoryDatabase())
             {
-                var furniture = context.Furnitures.Include(rec => rec.PurchaseFurniture)
-                .ThenInclude(rec => rec.Purchases)
+                var furniture = context.Furnitures.Include(rec => rec.User)
                 .FirstOrDefault(rec => rec.FurnitureName == model.FurnitureName || rec.Id == model.Id); 
                 return furniture != null ?
                 new FurnitureViewModel
                 {
                     Id = furniture.Id,
                     UserId = furniture.UserId,
+                    UserEmail = furniture.User.Email,
                     CostId = furniture.CostsId,
                     FurnitureName = furniture.FurnitureName,
                     Material = furniture.Material,

@@ -26,17 +26,19 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("CostPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PurchaseName")
+                    b.Property<string>("CostName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("CostPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Costs");
                 });
@@ -183,13 +185,20 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("FurnitureFactoryDatabaseImplement.Models.Cost", b =>
+                {
+                    b.HasOne("FurnitureFactoryDatabaseImplement.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("FurnitureFactoryDatabaseImplement.Models.Furniture", b =>
                 {
                     b.HasOne("FurnitureFactoryDatabaseImplement.Models.Cost", null)
                         .WithMany("Furniture")
                         .HasForeignKey("CostsId");
 
-                    b.HasOne("FurnitureFactoryDatabaseImplement.Models.User", null)
+                    b.HasOne("FurnitureFactoryDatabaseImplement.Models.User", "User")
                         .WithMany("Furniture")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

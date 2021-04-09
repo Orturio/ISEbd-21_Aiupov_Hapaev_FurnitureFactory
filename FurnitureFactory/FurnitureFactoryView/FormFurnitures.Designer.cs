@@ -44,12 +44,12 @@ namespace FurnitureFactoryView
             this.dataGridView.Location = new System.Drawing.Point(-1, 1);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowTemplate.Height = 24;
-            this.dataGridView.Size = new System.Drawing.Size(458, 449);
+            this.dataGridView.Size = new System.Drawing.Size(649, 449);
             this.dataGridView.TabIndex = 1;
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(487, 30);
+            this.buttonAdd.Location = new System.Drawing.Point(654, 31);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonAdd.TabIndex = 2;
@@ -59,7 +59,7 @@ namespace FurnitureFactoryView
             // 
             // buttonUpd
             // 
-            this.buttonUpd.Location = new System.Drawing.Point(487, 71);
+            this.buttonUpd.Location = new System.Drawing.Point(654, 72);
             this.buttonUpd.Name = "buttonUpd";
             this.buttonUpd.Size = new System.Drawing.Size(75, 23);
             this.buttonUpd.TabIndex = 3;
@@ -69,7 +69,7 @@ namespace FurnitureFactoryView
             // 
             // buttonDel
             // 
-            this.buttonDel.Location = new System.Drawing.Point(487, 114);
+            this.buttonDel.Location = new System.Drawing.Point(654, 115);
             this.buttonDel.Name = "buttonDel";
             this.buttonDel.Size = new System.Drawing.Size(75, 23);
             this.buttonDel.TabIndex = 4;
@@ -79,7 +79,7 @@ namespace FurnitureFactoryView
             // 
             // buttonRef
             // 
-            this.buttonRef.Location = new System.Drawing.Point(487, 153);
+            this.buttonRef.Location = new System.Drawing.Point(654, 154);
             this.buttonRef.Name = "buttonRef";
             this.buttonRef.Size = new System.Drawing.Size(75, 23);
             this.buttonRef.TabIndex = 5;
@@ -91,7 +91,7 @@ namespace FurnitureFactoryView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(582, 450);
+            this.ClientSize = new System.Drawing.Size(749, 450);
             this.Controls.Add(this.buttonRef);
             this.Controls.Add(this.buttonDel);
             this.Controls.Add(this.buttonUpd);

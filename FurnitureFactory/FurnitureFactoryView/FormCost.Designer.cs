@@ -29,24 +29,22 @@ namespace FurnitureFactoryView
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelPurchase = new System.Windows.Forms.Label();
+            this.labelCost = new System.Windows.Forms.Label();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.labelCount = new System.Windows.Forms.Label();
-            this.textBoxCount = new System.Windows.Forms.TextBox();
             this.labelPrice = new System.Windows.Forms.Label();
             this.textBoxPrice = new System.Windows.Forms.TextBox();
-            this.comboBoxPurchase = new System.Windows.Forms.ComboBox();
+            this.textBoxCost = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // labelPurchase
+            // labelCost
             // 
-            this.labelPurchase.AutoSize = true;
-            this.labelPurchase.Location = new System.Drawing.Point(12, 16);
-            this.labelPurchase.Name = "labelPurchase";
-            this.labelPurchase.Size = new System.Drawing.Size(56, 13);
-            this.labelPurchase.TabIndex = 2;
-            this.labelPurchase.Text = "Покупка:";
+            this.labelCost.AutoSize = true;
+            this.labelCost.Location = new System.Drawing.Point(12, 16);
+            this.labelCost.Name = "labelCost";
+            this.labelCost.Size = new System.Drawing.Size(51, 13);
+            this.labelCost.TabIndex = 2;
+            this.labelCost.Text = "Затрата:";
             // 
             // buttonSave
             // 
@@ -68,27 +66,10 @@ namespace FurnitureFactoryView
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
-            // labelCount
-            // 
-            this.labelCount.AutoSize = true;
-            this.labelCount.Location = new System.Drawing.Point(12, 47);
-            this.labelCount.Name = "labelCount";
-            this.labelCount.Size = new System.Drawing.Size(72, 13);
-            this.labelCount.TabIndex = 8;
-            this.labelCount.Text = "Количество:";
-            // 
-            // textBoxCount
-            // 
-            this.textBoxCount.Location = new System.Drawing.Point(90, 40);
-            this.textBoxCount.Name = "textBoxCount";
-            this.textBoxCount.Size = new System.Drawing.Size(171, 22);
-            this.textBoxCount.TabIndex = 9;
-            this.textBoxCount.TextChanged += new System.EventHandler(this.TextBoxCount_TextChanged);
-            // 
             // labelPrice
             // 
             this.labelPrice.AutoSize = true;
-            this.labelPrice.Location = new System.Drawing.Point(12, 77);
+            this.labelPrice.Location = new System.Drawing.Point(12, 57);
             this.labelPrice.Name = "labelPrice";
             this.labelPrice.Size = new System.Drawing.Size(38, 13);
             this.labelPrice.TabIndex = 10;
@@ -96,33 +77,29 @@ namespace FurnitureFactoryView
             // 
             // textBoxPrice
             // 
-            this.textBoxPrice.Location = new System.Drawing.Point(90, 68);
+            this.textBoxPrice.Location = new System.Drawing.Point(90, 54);
             this.textBoxPrice.Name = "textBoxPrice";
             this.textBoxPrice.Size = new System.Drawing.Size(171, 22);
             this.textBoxPrice.TabIndex = 11;
             // 
-            // comboBoxPurchase
+            // textBoxCost
             // 
-            this.comboBoxPurchase.FormattingEnabled = true;
-            this.comboBoxPurchase.Location = new System.Drawing.Point(90, 13);
-            this.comboBoxPurchase.Name = "comboBoxPurchase";
-            this.comboBoxPurchase.Size = new System.Drawing.Size(171, 21);
-            this.comboBoxPurchase.TabIndex = 12;
-            this.comboBoxPurchase.SelectedIndexChanged += new System.EventHandler(this.ComboBoxPurchase_SelectedIndexChanged);
+            this.textBoxCost.Location = new System.Drawing.Point(90, 13);
+            this.textBoxCost.Name = "textBoxCost";
+            this.textBoxCost.Size = new System.Drawing.Size(171, 22);
+            this.textBoxCost.TabIndex = 13;
             // 
             // FormCost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(286, 135);
-            this.Controls.Add(this.comboBoxPurchase);
+            this.Controls.Add(this.textBoxCost);
             this.Controls.Add(this.textBoxPrice);
             this.Controls.Add(this.labelPrice);
-            this.Controls.Add(this.textBoxCount);
-            this.Controls.Add(this.labelCount);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
-            this.Controls.Add(this.labelPurchase);
+            this.Controls.Add(this.labelCost);
             this.Name = "FormCost";
             this.Text = "Создание статьи затрат";
             this.Load += new System.EventHandler(this.FormCost_Load);
@@ -133,13 +110,11 @@ namespace FurnitureFactoryView
 
         #endregion
 
-        private System.Windows.Forms.Label labelPurchase;
+        private System.Windows.Forms.Label labelCost;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Label labelCount;
-        private System.Windows.Forms.TextBox textBoxCount;
         private System.Windows.Forms.Label labelPrice;
         private System.Windows.Forms.TextBox textBoxPrice;
-        private System.Windows.Forms.ComboBox comboBoxPurchase;
+        private System.Windows.Forms.TextBox textBoxCost;
     }
 }

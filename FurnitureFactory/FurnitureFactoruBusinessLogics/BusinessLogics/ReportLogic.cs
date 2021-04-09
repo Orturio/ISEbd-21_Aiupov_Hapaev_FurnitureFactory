@@ -46,7 +46,7 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             return list;
         }
 
-        public List<ReportPurchaseFurnitureViewModel> GetFurniturePurchases()
+        public List<ReportPurchaseFurnitureViewModel> GetFurniturePurchases(int UserId)
         {
             var furnitures = _furnitureStorage.GetFullList();
             var purchases = _purchaseStorage.GetFullList();
@@ -88,13 +88,13 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             }).ToList();
         }
 
-        public List<ReportFurnitureViewModel> GetFurnitures(ReportBindingModel model)
+        public List<ReportFurnitureViewModel> GetFurnitures(ReportBindingModel model, int UserId)
         {
             return _furnitureStorage.GetFilteredList(new FurnitureBindingModel
             {
                 DateFrom = model.DateFrom,
                 DateTo = model.DateTo
-            }).Select(x => new ReportFurnitureViewModel
+            }).Where(x => x.UserId == UserId).Select(x => new ReportFurnitureViewModel
             {
                 DateOfCreation = x.DateOfCreation,
                 FurnitureName = x.FurnitureName,
@@ -113,13 +113,13 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             });
         }
 
-        public void SaveFurnitureToWordFile(ReportBindingModel model)
+        public void SaveFurnitureToWordFile(ReportBindingModel model, int UserId)
         {
             SaveToWord.CreateDocFurniture(new WordInfo
             {
                 FileName = model.FileName,
                 Title = "Список мебели",
-                Furnitures = _furnitureStorage.GetFullList()
+                Furnitures = _furnitureStorage.GetFullList().Where(x => x.UserId == UserId).ToList()
             });
         }
 
@@ -133,13 +133,13 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             });
         }
 
-        public void SaveFurnitureInfoToExcelFile(ReportBindingModel model)
+        public void SaveFurnitureInfoToExcelFile(ReportBindingModel model, int UserId)
         {
             SaveToExcel.CreateDocFurniture(new ExcelInfo
             {
                 FileName = model.FileName,
                 Title = "Список мебели",
-                PurchaseFurnitures = GetFurniturePurchases()
+                PurchaseFurnitures = GetFurniturePurchases(UserId)
             });
         }
 
@@ -155,7 +155,7 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             });
         }
 
-        public void SaveFurnitureToPdfFile(ReportBindingModel model)
+        public void SaveFurnitureToPdfFile(ReportBindingModel model, int UserId)
         {
             SaveToPdf.CreateDocFurniture(new PdfInfo
             {
@@ -163,7 +163,7 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
                 Title = "Список мебели",
                 DateFrom = model.DateFrom.Value,
                 DateTo = model.DateTo.Value,
-                Furnitures = GetFurnitures(model)
+                Furnitures = GetFurnitures(model, UserId)
             });
         }
     }

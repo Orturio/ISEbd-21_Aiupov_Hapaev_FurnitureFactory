@@ -18,6 +18,10 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
         public int? CostId { get; set; }
 
         [DataMember]
+        [DisplayName("Сотрудник")]
+        public string UserEmail { get; set; }
+
+        [DataMember]
         [DisplayName("Название")]
         public string FurnitureName { get; set; }
 

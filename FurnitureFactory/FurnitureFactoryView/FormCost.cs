@@ -13,46 +13,30 @@ namespace FurnitureFactoryView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         public int Id { set { id = value; } }
-        private readonly CostLogic logicC;
-        private readonly PurchaseLogic logicP;
+        private readonly CostLogic logic;
         private int? id;
 
-        public FormCost(CostLogic logicC, PurchaseLogic logicP)
+        public FormCost(CostLogic logicC)
         {
             InitializeComponent();
-            this.logicC = logicC;
-            this.logicP = logicP;
+            this.logic = logicC;
         }
+
+        CostViewModel view;
 
         private void FormCost_Load(object sender, EventArgs e)
         {
-            try
-            {
-                var list = logicP.Read(null);
-                foreach (var p in list)
-                {
-                    comboBoxPurchase.DisplayMember = "PurchaseName";
-                    comboBoxPurchase.ValueMember = "Id";
-                    comboBoxPurchase.DataSource = list;
-                    comboBoxPurchase.SelectedItem = null;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);             
-            }
-        }
-
-        private void CalcSum()
-        {
-            if (comboBoxPurchase.SelectedValue != null && !string.IsNullOrEmpty(textBoxCount.Text))
+            if (id.HasValue)
             {
                 try
                 {
-                    int id = Convert.ToInt32(comboBoxPurchase.SelectedValue);
-                    PurchaseViewModel purchase = logicP.Read(new PurchaseBindingModel { Id = id })?[0];
-                    int count = Convert.ToInt32(textBoxCount.Text);
-                    textBoxPrice.Text = (count * purchase?.PurchaseSum ?? 0).ToString();
+                    view = logic.Read(new CostBindingModel { Id = id })?[0];
+
+                    if (view != null)
+                    {
+                        textBoxCost.Text = view.CostName;
+                        textBoxPrice.Text = view.Price.ToString();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -61,35 +45,25 @@ namespace FurnitureFactoryView
             }
         }
 
-        private void TextBoxCount_TextChanged(object sender, EventArgs e)
-        {
-            CalcSum();
-        }
-
-        private void ComboBoxPurchase_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            CalcSum();
-        }
-
         private void ButtonSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(textBoxCount.Text))
+            if (string.IsNullOrEmpty(textBoxCost.Text))
             {
-                MessageBox.Show("Заполните количество", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Заполните затрату", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (comboBoxPurchase.SelectedValue == null)
+            if (string.IsNullOrEmpty(textBoxPrice.Text))
             {
-                MessageBox.Show("Выберите покупку", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Заполните цену", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
             {
-                logicC.CreateOrUpdate(new CostBindingModel
+                logic.CreateOrUpdate(new CostBindingModel
                 {
                     Id = id,
-                    PurchaseName = comboBoxPurchase.Text,
-                    Count = Convert.ToInt32(textBoxCount.Text),
+                    UserId = Program.User.Id,
+                    CostName = textBoxCost.Text,
                     Price = Convert.ToDecimal(textBoxPrice.Text)
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);

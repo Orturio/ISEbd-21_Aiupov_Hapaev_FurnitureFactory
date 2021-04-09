@@ -33,7 +33,8 @@ namespace FurnitureFactoryView
                 {
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
-                    dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[1].Visible = false;
+                    dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
             }
             catch (Exception ex)
@@ -94,7 +95,7 @@ namespace FurnitureFactoryView
             if (dataGridView.SelectedRows.Count == 1)
             {
                 var form = Container.Resolve<FormBindingCosts>();
-                form.Sum = Convert.ToDecimal(dataGridView.SelectedRows[0].Cells[3].Value);
+                form.Sum = Convert.ToDecimal(dataGridView.SelectedRows[0].Cells[4].Value);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     LoadData();

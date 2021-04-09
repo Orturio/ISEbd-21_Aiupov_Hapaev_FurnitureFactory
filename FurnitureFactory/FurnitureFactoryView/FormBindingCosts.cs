@@ -34,7 +34,7 @@ namespace FurnitureFactoryView
                 var listCosts = logicC.Read(null);
                 foreach (var c in listCosts)
                 {
-                    comboBoxCost.DisplayMember = "PurchaseName";
+                    comboBoxCost.DisplayMember = "CostName";
                     comboBoxCost.ValueMember = "Id";
                     comboBoxCost.DataSource = listCosts;
                     comboBoxCost.SelectedItem = null;
@@ -87,8 +87,7 @@ namespace FurnitureFactoryView
                 logicC.CreateOrUpdate(new CostBindingModel
                 {
                     Id = costView.Id,
-                    PurchaseName = costView.PurchaseName,
-                    Count = costView.Count,
+                    CostName = costView.CostName,
                     Price = Sum + Convert.ToDecimal(textBoxAdditionalCost.Text)
                 });
 

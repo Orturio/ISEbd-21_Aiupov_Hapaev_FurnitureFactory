@@ -11,12 +11,15 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
         public int Id { get; set; }
 
         [DataMember]
-        [DisplayName("Покупка")]
-        public string PurchaseName { get; set; }
+        public int UserId { get; set; }
 
         [DataMember]
-        [DisplayName("Количество")]
-        public int Count { get; set; }
+        [DisplayName("Сотрудник")]
+        public string UserEmail { get; set; }
+
+        [DataMember]
+        [DisplayName("Затрата")]
+        public string CostName { get; set; }
 
         [DataMember]
         [DisplayName("Цена")]
