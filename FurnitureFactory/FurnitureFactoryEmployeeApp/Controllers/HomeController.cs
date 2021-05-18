@@ -223,10 +223,29 @@ namespace FurnitureFactoryEmployeeApp.Controllers
         }
 
         [HttpPost]
-        public void BindCost(int id, string cost, decimal costprice)
+        public void BindCost(int id, string cost, decimal costprice, int purchase)
         {
-            var Cost = APIUser.GetRequest<CostViewModel>($"api/main/getcost?costId={id}");
-            
+            PurchaseViewModel Purchase = APIUser.GetRequest<PurchaseViewModel>($"api/main/getpurchasenl?Id={purchase}");
+            Dictionary<int, (string, decimal)> purchaseCosts = Purchase.PurchaseCosts;
+            if (purchaseCosts.ContainsKey(Convert.ToInt32(id)))
+            {
+                purchaseCosts[id] = (cost, costprice);
+            }
+            else
+            {
+                purchaseCosts.Add(id, (cost, costprice));
+            }
+
+            APIUser.PostRequest("api/main/updatepurchase", new PurchaseBindingModel
+            {
+                Id = Purchase.Id,
+                UserId = Purchase.UserId,
+                PurchaseName = Purchase.PurchaseName,
+                DateOfCreation = Purchase.DateOfCreation,
+                PurchaseSum = Purchase.PurchaseSum,
+                PurchaseFurnitures = Purchase.PurchaseFurniture,
+                PurchaseCosts = purchaseCosts
+            });
 
             Response.Redirect("../Costs");
         }
@@ -238,10 +257,10 @@ namespace FurnitureFactoryEmployeeApp.Controllers
         }
 
         [HttpPost]
-        public decimal Bind(int id, string purchase)
+        public decimal Bind(int purchase)
         {
-            PurchaseViewModel Purchase = APIUser.GetRequest<PurchaseViewModel>($"api/main/getpurchasenl?Id={id}");
+            PurchaseViewModel Purchase = APIUser.GetRequest<PurchaseViewModel>($"api/main/getpurchasenl?Id={purchase}");
             return Purchase.PurchaseSum;
-        }
+        }       
     }
 }
