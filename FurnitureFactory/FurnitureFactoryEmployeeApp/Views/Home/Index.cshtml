@@ -1,0 +1,69 @@
+﻿@using FurnitureFactoryBusinessLogics.ViewModels
+@model List<FurnitureViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="text-center">
+    <h1 class="display-4">Мебель</h1>
+</div>
+<div class="text-center">
+    @{
+        if (Model == null)
+        {
+            <h3 class="display-4">Авторизируйтесь</h3>
+            return;
+        }
+        <p>
+            <a asp-action="Create">Создать мебель</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Номер
+                    </th>
+                    <th>
+                        Название
+                    </th>
+                    <th>
+                        Материал
+                    </th>
+                    <th>
+                        Цена
+                    </th>
+                    <th>
+                        Дата создания
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FurnitureName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Material)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FurniturePrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateOfCreation)
+                        </td>
+                        <td>
+                            <a asp-action="Update" asp-route-id="@item.Id" asp-route-dateOfCreation="@item.DateOfCreation">Изменить</a> |    
+                            <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

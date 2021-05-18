@@ -12,10 +12,6 @@ namespace FurnitureFactoryClientApp.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController()
-        {         
-        }
-
         private Dictionary<int, (string, int, decimal, decimal)> purchaseFurniture = new Dictionary<int, (string, int, decimal, decimal)>();
 
         public IActionResult Index()
@@ -129,7 +125,7 @@ namespace FurnitureFactoryClientApp.Controllers
         {
 
             purchaseFurniture = new Dictionary<int, (string, int, decimal, decimal)>();
-            purchaseFurniture.Add(Convert.ToInt32(furniture), (furniture, count, sum, count*sum));
+            purchaseFurniture.Add(Convert.ToInt32(furniture), (furniture, count, sum / count, sum));
 
             APIUser.PostRequest("api/main/createpurchase", new PurchaseBindingModel
             {
@@ -155,7 +151,7 @@ namespace FurnitureFactoryClientApp.Controllers
         public void Update(int id, string purchase, string furniture, int count, decimal sum, DateTime datecreation)
         {
             purchaseFurniture = new Dictionary<int, (string, int, decimal, decimal)>();
-            purchaseFurniture.Add(Convert.ToInt32(furniture), (furniture, count, sum, count*sum));
+            purchaseFurniture.Add(Convert.ToInt32(furniture), (furniture, count, sum / count, count));
 
             APIUser.PostRequest("api/main/updatepurchase", new PurchaseBindingModel
             {
@@ -199,20 +195,20 @@ namespace FurnitureFactoryClientApp.Controllers
             purchaseFurniture = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseFurniture;
             if (purchaseFurniture.ContainsKey(Convert.ToInt32(furniture)))
             {
-                purchaseFurniture[Convert.ToInt32(furniture)] = (furniture, count, sum, count*sum);
+                purchaseFurniture[Convert.ToInt32(furniture)] = (furniture, count + purchaseFurniture[Convert.ToInt32(furniture)].Item2, sum / count, sum + purchaseFurniture[Convert.ToInt32(furniture)].Item4);
             }
 
             else
             {
-                purchaseFurniture.Add(Convert.ToInt32(furniture), (furniture, count, sum, count*sum));
+                purchaseFurniture.Add(Convert.ToInt32(furniture), (furniture, count, sum / count, sum));
             }
-            
+
             decimal PurchaseSum = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseSum + sum;
             APIUser.PostRequest("api/main/updatepurchase", new PurchaseBindingModel
             {
                 Id = listPurchase.FirstOrDefault(x => x.Id == id).Id,
                 UserId = Program.User.Id,
-                PurchaseName = listPurchase.FirstOrDefault(x=> x.Id == id).PurchaseName,
+                PurchaseName = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseName,
                 DateOfCreation = listPurchase.FirstOrDefault(x => x.Id == id).DateOfCreation,
                 PurchaseSum = PurchaseSum,
                 PurchaseFurnitures = purchaseFurniture
@@ -222,38 +218,36 @@ namespace FurnitureFactoryClientApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Pay(int id, string purchasename, decimal purchasesum)
+        public IActionResult Pay(int id)
         {
             List<PaymentViewModel> listPayment = APIUser.GetRequest<List<PaymentViewModel>>($"api/main/getpayment?PurchaseId={id}");
-            if (listPayment[0] == null)
+            List<PurchaseViewModel> listPurchase = APIUser.GetRequest<List<PurchaseViewModel>>($"api/main/getpurchase?Id={id}");
+            List<string> listFurniture = new List<string>();
+            purchaseFurniture = new Dictionary<int, (string, int, decimal, decimal)>();
+            purchaseFurniture = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseFurniture;
+
+            foreach (var furniture in purchaseFurniture)
             {
-               
-                ViewBag.PurchaseSum = purchasesum / 100;
+                listFurniture.Add($"{furniture.Value.Item1}");
             }
-            else
-            {
-                ViewBag.PurchaseSum = listPayment.FirstOrDefault(x => x.PurchaseId == id).PaymentSum;
-            }     
-            ViewBag.PurchaseName = purchasename;
-            ViewBag.Furnitures = APIUser.GetRequest<List<FurnitureViewModel>>("api/main/getfurniturelist");
+            ViewBag.Purchase = APIUser.GetRequest<PurchaseViewModel>($"api/main/GetPurchaseNL?Id={id}");
+            ViewBag.Furniture = listFurniture;
             return View();
         }
 
         [HttpPost]
-        public void Pay(int id, decimal purchasesum, decimal sumToPayment)
+        public void Pay(int id, string furniture, decimal sumToPayment, decimal sum)
         {
             List<PurchaseViewModel> listPurchase = APIUser.GetRequest<List<PurchaseViewModel>>($"api/main/getpurchase?Id={id}");
             List<PaymentViewModel> listPayment = APIUser.GetRequest<List<PaymentViewModel>>($"api/main/getpayment?PurchaseId={id}");
-
             purchaseFurniture = new Dictionary<int, (string, int, decimal, decimal)>();
             purchaseFurniture = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseFurniture;
             int FurnitureId = purchaseFurniture.ElementAt(0).Key;
-
             if (listPayment[0] == null)
             {
-                if ((purchasesum / 100) >= sumToPayment)
+                if (sum >= sumToPayment)
                 {
-                    decimal sumToPaymentPurchase = (purchasesum / 100) - sumToPayment;
+                    decimal sumToPaymentPurchase = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseSum - sumToPayment;
                     APIUser.PostRequest("api/main/createpayment", new PaymentBindingModel
                     {
                         PurchaseId = id,
@@ -271,7 +265,7 @@ namespace FurnitureFactoryClientApp.Controllers
             }
 
             else
-                {
+            {
                 if (listPayment.FirstOrDefault(x => x.PurchaseId == id).PaymentSum >= sumToPayment)
                 {
                     decimal sumToPaymentPurchase = listPayment.FirstOrDefault(x => x.PurchaseId == id).PaymentSum - sumToPayment;
@@ -286,8 +280,8 @@ namespace FurnitureFactoryClientApp.Controllers
                     Response.Redirect("../Index");
                     return;
                 }
-                
-                
+
+
                 else
                 {
                     throw new Exception("Внесённая сумма больше суммы к оплате");
@@ -306,6 +300,63 @@ namespace FurnitureFactoryClientApp.Controllers
         {
             FurnitureViewModel fur = APIUser.GetRequest<FurnitureViewModel>($"api/main/getfurniture?furnitureId={furniture}");
             return count * fur.FurniturePrice;
+        }
+
+        public decimal CalcTotalSum(string furniture, int id)
+        {
+            List<PurchaseViewModel> listPurchase = APIUser.GetRequest<List<PurchaseViewModel>>($"api/main/getpurchase?Id={id}");
+            purchaseFurniture = new Dictionary<int, (string, int, decimal, decimal)>();
+            purchaseFurniture = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseFurniture;
+            decimal sumToPayment = new decimal();
+            foreach (var furnitures in purchaseFurniture)
+            {
+                if (furnitures.Value.Item1 != furniture)
+                {
+                    continue;
+                }
+                else
+                {
+                    sumToPayment = furnitures.Value.Item4;
+                    break;
+                }
+            }
+            return sumToPayment;
+        }
+
+        public decimal ChangeTotalSum(string furniture, int id, decimal sumToPayment)
+        {
+            List<PurchaseViewModel> listPurchase = APIUser.GetRequest<List<PurchaseViewModel>>($"api/main/getpurchase?Id={id}");
+            purchaseFurniture = new Dictionary<int, (string, int, decimal, decimal)>();
+            purchaseFurniture = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseFurniture;
+            decimal totalSum = new decimal();
+            foreach (var furnitures in purchaseFurniture)
+            {
+                if (furnitures.Value.Item1 == furniture && sumToPayment <= furnitures.Value.Item4)
+                {
+                    purchaseFurniture[furnitures.Key] = (furnitures.Value.Item1, furnitures.Value.Item2, furnitures.Value.Item3, furnitures.Value.Item4 - sumToPayment);
+                    totalSum = furnitures.Value.Item4 - sumToPayment;
+                    APIUser.PostRequest("api/main/updatepurchase", new PurchaseBindingModel
+                    {
+                        Id = listPurchase.FirstOrDefault(x => x.Id == id).Id,
+                        UserId = Program.User.Id,
+                        PurchaseName = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseName,
+                        DateOfCreation = listPurchase.FirstOrDefault(x => x.Id == id).DateOfCreation,
+                        PurchaseSum = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseSum,
+                        PurchaseFurnitures = purchaseFurniture
+                    });
+                    break;
+                }
+                else if (furnitures.Value.Item1 == furniture && sumToPayment > furnitures.Value.Item4)
+                {
+                    throw new Exception("Внесённая сумма больше суммы к оплате");
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
+            return totalSum;
         }
     }
 }

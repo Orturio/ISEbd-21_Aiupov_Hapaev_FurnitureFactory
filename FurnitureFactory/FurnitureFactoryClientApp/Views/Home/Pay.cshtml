@@ -2,27 +2,73 @@
     ViewData["Title"] = "Pay";
 }
 <div class="text-center">
-    <h2 class="display-4">Создание покупки</h2>
+    <h2 class="display-4">Оплата покупки</h2>
 </div>
 <form method="post">
     <div class="row">
         <div class="col-4">Покупка:</div>
         <div class="col-8">
-            <input type="text" name="purchase" id="purchase" value="@ViewBag.PurchaseName" readonly="true"/>
+            <input type="text" name="purchase" id="purchase" value="@ViewBag.Purchase.PurchaseName" readonly="true" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Мебель:</div>
+        <div class="col-8">
+            <select id="furniture" name="furniture" class="form-control" asp-items="@(new SelectList(@ViewBag.Furniture))"></select>
         </div>
     </div>
     <div class="row">
         <div class="col-4">Внесённая сумма:</div>
-        <div class="col-8"><input type="text" name="sumToPayment" id="sumToPayment"/></div>
+        <div class="col-8"><input type="text" name="sumToPayment" id="sumToPayment" /></div>
     </div>
     <div class="row">
         <div class="col-4">Сумма к оплате:</div>
         <div class="col-8">
-            <input type="text" id="sum" name="sum" readonly="true" value="@ViewBag.PurchaseSum" asp-is-invariant="true"/>
+            <input type="text" id="sum" name="sum" readonly="true" , value="Выберите мебель к покупке" />
         </div>
     </div>
     <div class="row">
         <div class="col-8"></div>
-        <div class="col-4"><input type="submit" value="Оплатить" class="btn btnprimary" /></div>
+        <div class="col-4"><input id="button" type="submit" value="Оплатить" class="btn btnprimary" /></div>
     </div>
 </form>
+<script>
+    $('#furniture').on('click', function () {
+        check();
+    });
+
+    $('#button').on('click', function () {
+        checked();
+    });
+
+    function check() {
+        var furniture = $('#furniture').val();
+        var id = @ViewBag.Purchase.Id;
+        if (furniture) {
+            $.ajax({
+                method: "POST",
+                url: "/Home/CalcTotalSum",
+                data: { furniture: furniture, id : id},
+                success: function (result) {
+                    $("#sum").val(result);
+                }
+            });
+        };
+    }
+
+    function checked() {
+        var furniture = $('#furniture').val();
+        var id = @ViewBag.Purchase.Id;
+        var sumToPayment = $('#sumToPayment').val();
+        if (furniture) {
+            $.ajax({
+                method: "POST",
+                url: "/Home/ChangeTotalSum",
+                data: { furniture: furniture, id: id, sumToPayment: sumToPayment },
+                success: function (result) {
+                    $("#sum").val(result);
+                }
+            });
+        };
+    }
+</script>

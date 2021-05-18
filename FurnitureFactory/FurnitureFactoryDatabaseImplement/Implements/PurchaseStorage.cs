@@ -45,12 +45,13 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 return null;
             }
             using (var context = new FurnitureFactoryDatabase())
-            {               
+            {
                 return context.Purchases
                 .Include(rec => rec.PurchaseFurniture)
                 .ThenInclude(rec => rec.Furniture).ThenInclude(rec => rec.Payment)
                 .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateOfCreation.Date == model.DateOfCreation.Date) ||
-(model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateOfCreation.Date >= model.DateFrom.Value.Date && rec.DateOfCreation.Date <= model.DateTo.Value.Date) || (rec.UserId.HasValue && rec.UserId == model.UserId))
+(model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateOfCreation.Date >= model.DateFrom.Value.Date && rec.DateOfCreation.Date <= model.DateTo.Value.Date)
+|| (rec.UserId.HasValue && rec.UserId == model.UserId))
                 .ToList()
                 .Select(rec => new PurchaseViewModel
                 {

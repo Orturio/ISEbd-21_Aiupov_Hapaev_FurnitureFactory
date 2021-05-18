@@ -25,7 +25,9 @@ namespace FurnitureFactoryView
 
         List<int> KeysOfFurniture;
 
-        public int FurnitureIdForPayment {get; set;}
+        private int FurnitureIdForPayment { get; set; }
+
+        private decimal purchaseSumToPayment { get; set; }
 
         private Dictionary<int, (string, int, decimal, decimal)> purchaseFurniture;
 
@@ -47,7 +49,7 @@ namespace FurnitureFactoryView
             try
             {
                 listPurchase = _logicPurchase.Read(null);
-                
+
                 foreach (var item in listPurchase)
                 {
                     comboBoxPurchase.DisplayMember = "PurchaseName";
@@ -70,7 +72,7 @@ namespace FurnitureFactoryView
             Id = Convert.ToInt32(comboBoxPurchase.SelectedValue);
             if (comboBoxPurchase.SelectedValue != null && Id != 0)
             {
-                viewPurchase = _logicPurchase.Read(new PurchaseBindingModel {Id = Id})?[0];
+                viewPurchase = _logicPurchase.Read(new PurchaseBindingModel { Id = Id })?[0];
                 viewPayment = _logicPayment.Read(new PaymentBindingModel { PurchaseId = Id })?[0];
 
                 if (viewPurchase != null)
@@ -92,7 +94,7 @@ namespace FurnitureFactoryView
                         }
                     }
                 }
-            }  
+            }
         }
 
         private void comboBoxFurniture_SelectedIndexChanged(object sender, EventArgs e)
@@ -136,10 +138,14 @@ namespace FurnitureFactoryView
                     DifferenceOfNumbers = Convert.ToDecimal(textBoxTotalSum.Text) - Convert.ToDecimal(textBoxSum.Text);
                     if (listPurchase != null)
                     {
-                        decimal purchaseSumToPayment = viewPurchase.PurchaseSum - Convert.ToDecimal(textBoxSum.Text);
+                        foreach (var item in viewPurchase.PurchaseFurniture)
+                        {
+                            purchaseSumToPayment += viewPurchase.PurchaseFurniture[item.Key].Item4;
+                        }
+                        purchaseSumToPayment -= Convert.ToDecimal(textBoxSum.Text);
                         int FurnitureId = viewPurchase.PurchaseFurniture.ElementAt(0).Key;
-                        viewPurchase.PurchaseFurniture[FurnitureIdForPayment] = (purchaseFurniture[FurnitureIdForPayment].Item1,  purchaseFurniture[FurnitureIdForPayment].Item2, 
-                            purchaseFurniture[FurnitureIdForPayment].Item3 ,DifferenceOfNumbers);
+                        viewPurchase.PurchaseFurniture[FurnitureIdForPayment] = (purchaseFurniture[FurnitureIdForPayment].Item1, purchaseFurniture[FurnitureIdForPayment].Item2,
+                            purchaseFurniture[FurnitureIdForPayment].Item3, DifferenceOfNumbers);
                         _logicPurchase.UpdatePurchase(new PurchaseBindingModel
                         {
                             Id = viewPurchase.Id,
@@ -149,7 +155,7 @@ namespace FurnitureFactoryView
                             DateOfCreation = viewPurchase.DateOfCreation,
                             PurchaseFurnitures = viewPurchase.PurchaseFurniture
                         });
- 
+
                         if (viewPayment != null)
                         {
                             _logicPayment.CreateOrUpdate(new PaymentBindingModel
@@ -168,7 +174,7 @@ namespace FurnitureFactoryView
                                 PurchaseId = viewPurchase.Id,
                                 FurnitureId = FurnitureId,
                                 PaymentSum = purchaseSumToPayment,
-                                DateOfPayment = DateTime.Now                                
+                                DateOfPayment = DateTime.Now
                             });
                         }
                     }

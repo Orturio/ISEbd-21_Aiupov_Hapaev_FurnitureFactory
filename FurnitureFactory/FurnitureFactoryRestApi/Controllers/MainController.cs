@@ -31,7 +31,13 @@ namespace FurnitureFactoryRestApi.Controllers
         public FurnitureViewModel GetFurniture(int furnitureId) => _furniture.Read(new FurnitureBindingModel { Id = furnitureId })?[0];
 
         [HttpGet]
+        public List<FurnitureViewModel> GetFurnitures(int userId) => _furniture.Read(new FurnitureBindingModel { UserId = userId });
+
+        [HttpGet]
         public List<PurchaseViewModel> GetPurchaseList() => _purchase.Read(null)?.ToList();
+
+        [HttpGet]
+        public PurchaseViewModel GetPurchaseNL(int Id) => _purchase.Read(new PurchaseBindingModel { Id = Id })?[0];
 
         [HttpGet]
         public List<PurchaseViewModel> GetPurchases(int userId) => _purchase.Read(new PurchaseBindingModel { UserId = userId });
@@ -53,6 +59,12 @@ namespace FurnitureFactoryRestApi.Controllers
 
         [HttpPost]
         public void CreateFurniture(FurnitureBindingModel model) => _furniture.CreateFurniture(model);
+
+        [HttpPost]
+        public void UpdateFurniture(FurnitureBindingModel model) => _furniture.UpdateFurniture(model);
+
+        [HttpPost]
+        public void DeleteFurniture(FurnitureBindingModel model) => _furniture.Delete(model);
 
         public void CreatePayment(PaymentBindingModel model) => _payment.CreateOrUpdate(model);
     }
