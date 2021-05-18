@@ -112,9 +112,6 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CostId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DateOfCreation")
                         .HasColumnType("datetime2");
 
@@ -130,11 +127,34 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CostId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Purchases");
+                });
+
+            modelBuilder.Entity("FurnitureFactoryDatabaseImplement.Models.PurchaseCost", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CostId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("PurchasesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CostId");
+
+                    b.HasIndex("PurchasesId");
+
+                    b.ToTable("PurchaseCosts");
                 });
 
             modelBuilder.Entity("FurnitureFactoryDatabaseImplement.Models.PurchaseFurniture", b =>
@@ -221,13 +241,24 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
 
             modelBuilder.Entity("FurnitureFactoryDatabaseImplement.Models.Purchase", b =>
                 {
-                    b.HasOne("FurnitureFactoryDatabaseImplement.Models.Cost", "Cost")
-                        .WithMany("Purchase")
-                        .HasForeignKey("CostId");
-
                     b.HasOne("FurnitureFactoryDatabaseImplement.Models.User", "User")
                         .WithMany("Purchases")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("FurnitureFactoryDatabaseImplement.Models.PurchaseCost", b =>
+                {
+                    b.HasOne("FurnitureFactoryDatabaseImplement.Models.Cost", "Cost")
+                        .WithMany("PurchaseCost")
+                        .HasForeignKey("CostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FurnitureFactoryDatabaseImplement.Models.Purchase", "Purchases")
+                        .WithMany("PurchaseCost")
+                        .HasForeignKey("PurchasesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FurnitureFactoryDatabaseImplement.Models.PurchaseFurniture", b =>

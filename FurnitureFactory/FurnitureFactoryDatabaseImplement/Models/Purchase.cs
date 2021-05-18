@@ -11,8 +11,6 @@ namespace FurnitureFactoryDatabaseImplement.Models
 
         public int? UserId { get; set; }
 
-        public int? CostId { get; set; }
-
         [Required]
         public string PurchaseName { get; set; }
 
@@ -25,8 +23,10 @@ namespace FurnitureFactoryDatabaseImplement.Models
         [ForeignKey("PurchasesId")]
         public virtual List<PurchaseFurniture> PurchaseFurniture { get; set; }
 
+        [ForeignKey("PurchasesId")]
+        public virtual List<PurchaseCost> PurchaseCost { get; set; }
+
         public virtual User User { get; set; }
 
-        public virtual Cost Cost { get; set; }
     }
 }

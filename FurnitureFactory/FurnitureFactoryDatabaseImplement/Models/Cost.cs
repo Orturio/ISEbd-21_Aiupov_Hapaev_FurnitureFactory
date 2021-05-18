@@ -19,6 +19,6 @@ namespace FurnitureFactoryDatabaseImplement.Models
         public decimal CostPrice { get; set; }
 
         [ForeignKey("CostId")]
-        public virtual List<Purchase> Purchase { get; set; }
+        public virtual List<PurchaseCost> PurchaseCost { get; set; }
     }
 }

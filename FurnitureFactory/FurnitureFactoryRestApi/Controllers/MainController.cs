@@ -16,12 +16,14 @@ namespace FurnitureFactoryRestApi.Controllers
         private readonly FurnitureLogic _furniture;
         private readonly PurchaseLogic _main;
         private readonly PaymentLogic _payment;
-        public MainController(PurchaseLogic purchase, FurnitureLogic furniture, PurchaseLogic main, PaymentLogic payment)
+        private readonly CostLogic _cost;
+        public MainController(PurchaseLogic purchase, FurnitureLogic furniture, PurchaseLogic main, PaymentLogic payment, CostLogic cost)
         {
             _purchase = purchase;
             _furniture = furniture;
             _main = main;
             _payment = payment;
+            _cost = cost;
         }
 
         [HttpGet]
@@ -31,7 +33,13 @@ namespace FurnitureFactoryRestApi.Controllers
         public FurnitureViewModel GetFurniture(int furnitureId) => _furniture.Read(new FurnitureBindingModel { Id = furnitureId })?[0];
 
         [HttpGet]
+        public CostViewModel GetCost(int costId) => _cost.Read(new CostBindingModel { Id = costId })?[0];
+
+        [HttpGet]
         public List<FurnitureViewModel> GetFurnitures(int userId) => _furniture.Read(new FurnitureBindingModel { UserId = userId });
+
+        [HttpGet]
+        public List<CostViewModel> GetCosts(int userId) => _cost.Read(new CostBindingModel { UserId = userId });
 
         [HttpGet]
         public List<PurchaseViewModel> GetPurchaseList() => _purchase.Read(null)?.ToList();
@@ -65,6 +73,12 @@ namespace FurnitureFactoryRestApi.Controllers
 
         [HttpPost]
         public void DeleteFurniture(FurnitureBindingModel model) => _furniture.Delete(model);
+
+        [HttpPost]
+        public void CreateOrUpdateCost(CostBindingModel model) => _cost.CreateOrUpdate(model);
+
+        [HttpPost]
+        public void DeleteCost(CostBindingModel model) => _cost.Delete(model);
 
         public void CreatePayment(PaymentBindingModel model) => _payment.CreateOrUpdate(model);
     }

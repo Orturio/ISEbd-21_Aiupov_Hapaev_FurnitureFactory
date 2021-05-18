@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "BindCost";
+}
+<div class="text-center">
+    <h2 class="display-4">Привязка затраты</h2>
+</div>
+<form method="post">
+    <div class="row">
+        <div class="col-4">Цена:</div>
+        <div class="col-8">
+            <input type="text" name="costprice" id="costprice" value="@ViewBag.Cost.CostName" readonly="true"></input>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Покупка:</div>
+        <div class="col-8">
+            <select id="purchase" name="purchase" class="form-control" asp-items="@(new SelectList(@ViewBag.Purchases,"Id", "PurchaseName"))"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Сумма покупки:</div>
+        <div class="col-8">
+            <input type="text" name="purchasesum" id="purchasesum" readonly="true"></input>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Цена:</div>
+        <div class="col-8">
+            <input type="text" name="costprice" id="costprice" value="@ViewBag.Cost.Price" readonly="true"></input>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Создать" class="btn btnprimary" /></div>
+    </div>
+</form>
+<script>
+    $('#purchase').on('click', function () {
+        check();
+    });
+    function check() {
+        var id = Id;
+        var purchase = $('#purchase').val();
+        if (id && purchase) {
+            $.ajax({
+                method: "POST",
+                url: "/Home/Bind",
+                data: { id: id, purchase: purchase },
+                success: function (result) {
+                    $("#purchasesum").val(result);
+                }
+            });
+        };
+    }
+</script>

@@ -26,6 +26,16 @@ namespace FurnitureFactoryEmployeeApp.Controllers
             return View(APIUser.GetRequest<List<FurnitureViewModel>>($"api/main/getfurnitures?userId={Program.User.Id}"));
         }
 
+        public IActionResult Costs()
+        {
+            if (Program.User == null)
+            {
+                return Redirect("~/Home/Enter");
+            }
+            var a = APIUser.GetRequest<List<CostViewModel>>($"api/main/getcosts?userId={Program.User.Id}");
+            return View(APIUser.GetRequest<List<CostViewModel>>($"api/main/getcosts?userId={Program.User.Id}"));
+        }
+
         [HttpGet]
         public IActionResult Privacy()
         {
@@ -113,13 +123,13 @@ namespace FurnitureFactoryEmployeeApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult CreateFurniture()
         {
             return View();
         }
 
         [HttpPost]
-        public void Create(string furniture, string material, decimal price)
+        public void CreateFurniture(string furniture, string material, decimal price)
         {
             APIUser.PostRequest("api/main/createfurniture", new FurnitureBindingModel
             {
@@ -134,14 +144,14 @@ namespace FurnitureFactoryEmployeeApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Update(int id)
+        public IActionResult UpdateFurniture(int id)
         {
             ViewBag.Furniture = APIUser.GetRequest<FurnitureViewModel>($"api/main/getfurniture?furnitureId={id}");
             return View();
         }
 
         [HttpPost]
-        public void Update(int id, string furniture, string material, decimal price, DateTime dateOfCreation)
+        public void UpdateFurniture(int id, string furniture, string material, decimal price)
         {
             var Furniture = APIUser.GetRequest<FurnitureViewModel>($"api/main/getfurniture?furnitureId={id}");
             APIUser.PostRequest("api/main/updatefurniture", new FurnitureBindingModel
@@ -157,17 +167,81 @@ namespace FurnitureFactoryEmployeeApp.Controllers
             Response.Redirect("../Index");
         }
         
-        public void Delete(int id)
+        public void DeleteFurniture(int id)
         {
             APIUser.PostRequest("api/main/deletefurniture", new FurnitureBindingModel { Id = id });
             Response.Redirect("../Index");
         }
 
-        [HttpPost]
-        public decimal Calc(decimal count, int furniture)
+        [HttpGet]
+        public IActionResult CreateCost()
         {
-            FurnitureViewModel fur = APIUser.GetRequest<FurnitureViewModel>($"api/main/getfurniture?furnitureId={furniture}");
-            return count * fur.FurniturePrice;
+            return View();
+        }
+
+        [HttpPost]
+        public void CreateCost(string cost, decimal costprice)
+        {
+            APIUser.PostRequest("api/main/createorupdatecost", new CostBindingModel
+            {
+                UserId = Program.User.Id,
+                CostName = cost,
+                Price = costprice
+            });
+
+            Response.Redirect("Costs");
+        }
+
+        [HttpGet]
+        public IActionResult UpdateCost(int id)
+        {
+            ViewBag.Cost = APIUser.GetRequest<CostViewModel>($"api/main/getcost?costId={id}");
+            return View();
+        }
+
+        [HttpPost]
+        public void UpdateCost(int id, string cost, decimal costprice)
+        {
+            var Cost = APIUser.GetRequest<CostViewModel>($"api/main/getcost?costId={id}");
+            APIUser.PostRequest("api/main/createorupdatecost", new CostBindingModel
+            {
+                Id = id,
+                UserId = Cost.UserId,
+                CostName = cost,
+                Price = costprice
+            });
+
+            Response.Redirect("../Costs");
+        }
+
+        [HttpGet]
+        public IActionResult BindCost(int id)
+        {
+            ViewBag.Cost = APIUser.GetRequest<CostViewModel>($"api/main/getcost?costId={id}");            
+            ViewBag.Purchases = APIUser.GetRequest<List<PurchaseViewModel>>($"api/main/GetPurchaseList");
+            return View();
+        }
+
+        [HttpPost]
+        public void BindCost(int id, string cost, decimal costprice)
+        {
+            var Cost = APIUser.GetRequest<CostViewModel>($"api/main/getcost?costId={id}");
+            
+
+            Response.Redirect("../Costs");
+        }
+
+        public void DeleteCost(int id)
+        {
+            APIUser.PostRequest("api/main/deletecost", new CostBindingModel { Id = id });
+            Response.Redirect("../Costs");
+        }
+
+        [HttpPost]
+        public decimal Bind(int id, string purchase)
+        {
+            PurchaseViewModel Purchase = APIUser.GetRequest<PurchaseViewModel>($"api/main/getpurchasenl?Id={id}");
+            return Purchase.PurchaseSum;
         }
     }
 }

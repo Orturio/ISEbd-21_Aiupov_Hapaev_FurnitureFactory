@@ -19,6 +19,7 @@ namespace FurnitureFactoryDatabaseImplement
         public virtual DbSet<Payment> Payments { set; get; }
         public virtual DbSet<Purchase> Purchases { set; get; }
         public virtual DbSet<PurchaseFurniture> PurchaseFurnitures { set; get; }
+        public virtual DbSet<PurchaseCost> PurchaseCosts { set; get; }
         public virtual DbSet<User> Users { set; get; }
     }
 }

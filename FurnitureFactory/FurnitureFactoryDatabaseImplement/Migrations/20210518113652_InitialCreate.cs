@@ -73,7 +73,6 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(nullable: true),
-                    CostId = table.Column<int>(nullable: true),
                     PurchaseName = table.Column<string>(nullable: false),
                     PurchaseSum = table.Column<decimal>(nullable: false),
                     DateOfCreation = table.Column<DateTime>(nullable: false)
@@ -81,12 +80,6 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Purchases", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Purchases_Costs_CostId",
-                        column: x => x.CostId,
-                        principalTable: "Costs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Purchases_Users_UserId",
                         column: x => x.UserId,
@@ -122,6 +115,33 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PurchaseCosts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PurchasesId = table.Column<int>(nullable: false),
+                    CostId = table.Column<int>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PurchaseCosts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PurchaseCosts_Costs_CostId",
+                        column: x => x.CostId,
+                        principalTable: "Costs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PurchaseCosts_Purchases_PurchasesId",
+                        column: x => x.PurchasesId,
+                        principalTable: "Purchases",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -173,6 +193,16 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PurchaseCosts_CostId",
+                table: "PurchaseCosts",
+                column: "CostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PurchaseCosts_PurchasesId",
+                table: "PurchaseCosts",
+                column: "PurchasesId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PurchaseFurnitures_FurnitureId",
                 table: "PurchaseFurnitures",
                 column: "FurnitureId");
@@ -181,11 +211,6 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 name: "IX_PurchaseFurnitures_PurchasesId",
                 table: "PurchaseFurnitures",
                 column: "PurchasesId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Purchases_CostId",
-                table: "Purchases",
-                column: "CostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Purchases_UserId",
@@ -199,16 +224,19 @@ namespace FurnitureFactoryDatabaseImplement.Migrations
                 name: "Payments");
 
             migrationBuilder.DropTable(
+                name: "PurchaseCosts");
+
+            migrationBuilder.DropTable(
                 name: "PurchaseFurnitures");
+
+            migrationBuilder.DropTable(
+                name: "Costs");
 
             migrationBuilder.DropTable(
                 name: "Furnitures");
 
             migrationBuilder.DropTable(
                 name: "Purchases");
-
-            migrationBuilder.DropTable(
-                name: "Costs");
 
             migrationBuilder.DropTable(
                 name: "Users");

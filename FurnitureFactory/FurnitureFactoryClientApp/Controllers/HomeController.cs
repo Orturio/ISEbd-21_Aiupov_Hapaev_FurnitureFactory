@@ -151,16 +151,19 @@ namespace FurnitureFactoryClientApp.Controllers
         public void Update(int id, string purchase, string furniture, int count, decimal sum, DateTime datecreation)
         {
             purchaseFurniture = new Dictionary<int, (string, int, decimal, decimal)>();
-            purchaseFurniture.Add(Convert.ToInt32(furniture), (furniture, count, sum / count, count));
+            purchaseFurniture.Add(Convert.ToInt32(furniture), (furniture, count, sum / count, sum));
+
+            var Purchase = APIUser.GetRequest<PurchaseViewModel>($"api/main/GetPurchaseNL?Id={id}");
 
             APIUser.PostRequest("api/main/updatepurchase", new PurchaseBindingModel
             {
                 Id = id,
                 UserId = Program.User.Id,
                 PurchaseName = purchase,
-                DateOfCreation = datecreation,
+                DateOfCreation = Purchase.DateOfCreation,
                 PurchaseSum = sum,
-                PurchaseFurnitures = purchaseFurniture
+                PurchaseFurnitures = purchaseFurniture,
+                PurchaseCosts = Purchase.PurchaseCosts
             });
 
             Response.Redirect("../Index");
@@ -211,7 +214,8 @@ namespace FurnitureFactoryClientApp.Controllers
                 PurchaseName = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseName,
                 DateOfCreation = listPurchase.FirstOrDefault(x => x.Id == id).DateOfCreation,
                 PurchaseSum = PurchaseSum,
-                PurchaseFurnitures = purchaseFurniture
+                PurchaseFurnitures = purchaseFurniture,
+                PurchaseCosts = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseCosts
             });
 
             Response.Redirect("../Index");
@@ -236,7 +240,7 @@ namespace FurnitureFactoryClientApp.Controllers
         }
 
         [HttpPost]
-        public void Pay(int id, string furniture, decimal sumToPayment, decimal sum)
+        public void Pay(int id, decimal sumToPayment, decimal sum)
         {
             List<PurchaseViewModel> listPurchase = APIUser.GetRequest<List<PurchaseViewModel>>($"api/main/getpurchase?Id={id}");
             List<PaymentViewModel> listPayment = APIUser.GetRequest<List<PaymentViewModel>>($"api/main/getpayment?PurchaseId={id}");
@@ -302,6 +306,7 @@ namespace FurnitureFactoryClientApp.Controllers
             return count * fur.FurniturePrice;
         }
 
+        [HttpPost]
         public decimal CalcTotalSum(string furniture, int id)
         {
             List<PurchaseViewModel> listPurchase = APIUser.GetRequest<List<PurchaseViewModel>>($"api/main/getpurchase?Id={id}");
@@ -323,6 +328,7 @@ namespace FurnitureFactoryClientApp.Controllers
             return sumToPayment;
         }
 
+        [HttpPost]
         public decimal ChangeTotalSum(string furniture, int id, decimal sumToPayment)
         {
             List<PurchaseViewModel> listPurchase = APIUser.GetRequest<List<PurchaseViewModel>>($"api/main/getpurchase?Id={id}");
@@ -342,7 +348,8 @@ namespace FurnitureFactoryClientApp.Controllers
                         PurchaseName = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseName,
                         DateOfCreation = listPurchase.FirstOrDefault(x => x.Id == id).DateOfCreation,
                         PurchaseSum = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseSum,
-                        PurchaseFurnitures = purchaseFurniture
+                        PurchaseFurnitures = purchaseFurniture,
+                        PurchaseCosts = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseCosts
                     });
                     break;
                 }

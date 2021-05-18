@@ -1,0 +1,53 @@
+﻿@using FurnitureFactoryBusinessLogics.ViewModels
+@model List<CostViewModel>
+@{
+    ViewData["Title"] = "Costs";
+}
+<div class="text-center">
+    <h1 class="display-4">Затраты</h1>
+</div>
+<div class="text-center">
+    @{
+        <p>
+            <a asp-action="CreateCost">Создать затрату</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Номер
+                    </th>
+                    <th>
+                        Затрата
+                    </th>
+                    <th>
+                        Цена
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CostName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            <a asp-action="UpdateCost" asp-route-id="@item.Id">Изменить</a> |
+                            <a asp-action="BindCost" asp-route-id="@item.Id">Привязать</a> |
+                            <a asp-action="DeleteCost" asp-route-id="@item.Id">Удалить</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

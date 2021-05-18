@@ -15,9 +15,6 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
         public int? UserId { get; set; }
 
         [DataMember]
-        public int? CostId { get; set; }
-
-        [DataMember]
         [DisplayName("Название покупки")]
         public string PurchaseName { get; set; }
 
@@ -39,5 +36,8 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
 
         [DataMember]
         public Dictionary<int, (string, int, decimal, decimal)> PurchaseFurniture { get; set; }
+
+        [DataMember]
+        public Dictionary<int, (string, decimal)> PurchaseCosts { get; set; }
     }
 }

@@ -35,7 +35,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             }
             using (var context = new FurnitureFactoryDatabase())
             {
-                return context.Costs.Include(rec => rec.User).Where(rec => rec.Id == model.Id)
+                return context.Costs.Include(rec => rec.User).Where(rec => rec.Id == model.Id || rec.UserId == model.UserId)
                 .Select(rec => new CostViewModel
                 {
                     Id = rec.Id,

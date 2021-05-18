@@ -100,7 +100,6 @@ namespace FurnitureFactoryView
                 {
                     Id = purchaseView.Id,
                     UserId = purchaseView.UserId,
-                    CostId = costView.Id,
                     PurchaseName = purchaseView.PurchaseName,
                     PurchaseSum = purchaseView.PurchaseSum,
                     DateOfCreation = purchaseView.DateOfCreation,

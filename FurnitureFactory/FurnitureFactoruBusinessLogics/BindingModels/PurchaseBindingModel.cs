@@ -15,9 +15,6 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
         public int? UserId { get; set; }
 
         [DataMember]
-        public int? CostId { get; set; }
-
-        [DataMember]
         public string PurchaseName { get; set; }
 
         [DataMember]
@@ -40,5 +37,8 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
 
         [DataMember]
         public Dictionary<int, (string, int, decimal, decimal)> PurchaseFurnitures { get; set; }
+
+        [DataMember]
+        public Dictionary<int, (string, decimal)> PurchaseCosts { get; set; }
     }
 }
