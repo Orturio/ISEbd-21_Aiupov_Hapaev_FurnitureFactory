@@ -35,17 +35,17 @@ namespace FurnitureFactoryView
             }
             try
             {
-                ReportParameter parameter = new ReportParameter("ReportParameterPeriod", "c " + dateTimePickerFrom.Value.ToShortDateString() + " по " +
-dateTimePickerTo.Value.ToShortDateString());
-                reportViewer.LocalReport.SetParameters(parameter);
-                var dataSource = logic.GetPurchases(new ReportBindingModel
-                {
-                    DateFrom = dateTimePickerFrom.Value,
-                    DateTo = dateTimePickerTo.Value
-                }, Program.User.Id);
-                ReportDataSource source = new ReportDataSource("DataSetPurchase", dataSource);
-                reportViewer.LocalReport.DataSources.Add(source);
-                reportViewer.RefreshReport();
+//                ReportParameter parameter = new ReportParameter("ReportParameterPeriod", "c " + dateTimePickerFrom.Value.ToShortDateString() + " по " +
+//dateTimePickerTo.Value.ToShortDateString());
+//                reportViewer.LocalReport.SetParameters(parameter);
+//                var dataSource = logic.GetPurchases(new ReportBindingModel
+//                {
+//                    DateFrom = dateTimePickerFrom.Value,
+//                    DateTo = dateTimePickerTo.Value
+//                }, Program.User.Id);
+//                ReportDataSource source = new ReportDataSource("DataSetPurchase", dataSource);
+//                reportViewer.LocalReport.DataSources.Add(source);
+//                reportViewer.RefreshReport();
             }
 
             catch (Exception ex)
@@ -69,13 +69,13 @@ dateTimePickerTo.Value.ToShortDateString());
                 {
                     try
                     {
-                        logic.SavePurchasesToPdfFile(new ReportBindingModel
-                        {
-                            FileName = dialog.FileName,
-                            DateFrom = dateTimePickerFrom.Value,
-                            DateTo = dateTimePickerTo.Value
-                        }, Program.User.Id);
-                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //logic.SavePurchasesToPdfFile(new ReportBindingModel
+                        //{
+                        //    FileName = dialog.FileName,
+                        //    DateFrom = dateTimePickerFrom.Value,
+                        //    DateTo = dateTimePickerTo.Value
+                        //}, Program.User.Id);
+                        //MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
                     catch (Exception ex)

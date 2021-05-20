@@ -99,19 +99,34 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             {
                 table.AddColumn(elem);
             }
-            CreateRow(new PdfRowParameters
-            {
-                Table = table,
-                Texts = new List<string> { "Дата создания", "Мебель", "Материал", "Цена" },
-                Style = "NormalTitle",
-                ParagraphAlignment = ParagraphAlignment.Center
-            });
+            
             foreach (var furniture in info.Furnitures)
             {
                 CreateRow(new PdfRowParameters
                 {
                     Table = table,
+                    Texts = new List<string> { "Дата создания", "Мебель", "Материал", "Цена" },
+                    Style = "NormalTitle",
+                    ParagraphAlignment = ParagraphAlignment.Center
+                });
+                CreateRow(new PdfRowParameters
+                {
+                    Table = table,
                     Texts = new List<string> { furniture.DateOfCreation.ToShortDateString(), furniture.FurnitureName, furniture.Material, furniture.FurniturePrice.ToString() },
+                    Style = "Normal",
+                    ParagraphAlignment = ParagraphAlignment.Left
+                });
+                CreateRow(new PdfRowParameters
+                {
+                    Table = table,
+                    Texts = new List<string> { "Сумма оплаты", "", "", "" },
+                    Style = "NormalTitle",
+                    ParagraphAlignment = ParagraphAlignment.Left
+                });
+                CreateRow(new PdfRowParameters
+                {
+                    Table = table,
+                    Texts = new List<string> { furniture.FurniturePayment.ToString(), "", "", "" },
                     Style = "Normal",
                     ParagraphAlignment = ParagraphAlignment.Left
                 });

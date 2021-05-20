@@ -120,5 +120,17 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
                 Purchases = _purchaseStorage.GetFilteredList(new PurchaseBindingModel { DateFrom = model.DateFrom, DateTo = model.DateTo, UserId = model.UserId})
             });
         }
+
+        public void SaveFurnitureToPdfFile(ReportBindingModel model)
+        {
+            SaveToPdf.CreateDocFurniture(new PdfInfo
+            {
+                FileName = model.FileName,
+                Title = "Список мебели",
+                DateFrom = model.DateFrom.Value,
+                DateTo = model.DateTo.Value,
+                Furnitures = _furnitureStorage.GetFilteredList(new FurnitureBindingModel { DateFrom = model.DateFrom, DateTo = model.DateTo, UserId = model.UserId })
+            });
+        }
     }
 }

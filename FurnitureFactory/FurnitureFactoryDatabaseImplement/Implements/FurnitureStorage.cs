@@ -15,12 +15,13 @@ namespace FurnitureFactoryDatabaseImplement.Implements
         {
             using (var context = new FurnitureFactoryDatabase())
             {
-                return context.Furnitures.Include(rec => rec.User).Select(rec => new FurnitureViewModel
+                return context.Furnitures.Include(rec => rec.User).Include(rec => rec.Payment).Select(rec => new FurnitureViewModel
                 {
                     Id = rec.Id,
                     UserId = rec.UserId,
                     UserEmail = rec.User.Email,
                     FurnitureName = rec.FurnitureName,
+                    FurniturePayment = rec.FurniturePayment,
                     Material = rec.Material,
                     FurniturePrice = rec.FurniturePrice,
                     DateOfCreation = rec.DateOfCreation
@@ -37,7 +38,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             }
             using (var context = new FurnitureFactoryDatabase())
             {
-                return context.Furnitures.Include(rec => rec.User).Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateOfCreation.Date == model.DateOfCreation.Date) ||
+                return context.Furnitures.Include(rec => rec.User).Include(rec => rec.Payment).Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateOfCreation.Date == model.DateOfCreation.Date) ||
                     (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateOfCreation.Date >= model.DateFrom.Value.Date && rec.DateOfCreation.Date <= model.DateTo.Value.Date) || (rec.UserId == model.UserId)
                     || rec.PurchaseFurniture.Select(x => x.FurnitureId).Contains(model.PurchaseId))
                 .Select(rec => new FurnitureViewModel
@@ -46,6 +47,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     UserId = rec.UserId,
                     UserEmail = rec.User.Email,
                     FurnitureName = rec.FurnitureName,
+                    FurniturePayment = rec.FurniturePayment,
                     Material = rec.Material,
                     FurniturePrice = rec.FurniturePrice,
                     DateOfCreation = rec.DateOfCreation
@@ -62,7 +64,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             }
             using (var context = new FurnitureFactoryDatabase())
             {
-                var furniture = context.Furnitures.Include(rec => rec.User)
+                var furniture = context.Furnitures.Include(rec => rec.User).Include(rec => rec.Payment)
                 .FirstOrDefault(rec => rec.FurnitureName == model.FurnitureName || rec.Id == model.Id); 
                 return furniture != null ?
                 new FurnitureViewModel
@@ -71,6 +73,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                     UserId = furniture.UserId,
                     UserEmail = furniture.User.Email,
                     FurnitureName = furniture.FurnitureName,
+                    FurniturePayment = furniture?.FurniturePayment,
                     Material = furniture.Material,
                     FurniturePrice = furniture.FurniturePrice,
                     DateOfCreation = furniture.DateOfCreation
@@ -122,6 +125,7 @@ namespace FurnitureFactoryDatabaseImplement.Implements
         private Furniture CreateModel(FurnitureBindingModel model, Furniture furniture)
         {
             furniture.UserId = model.UserId;
+            furniture.FurniturePayment = model?.FurniturePayment;
             furniture.FurnitureName = model.FurnitureName;
             furniture.Material = model.Material;
             furniture.FurniturePrice = model.FurniturePrice;

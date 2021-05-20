@@ -20,24 +20,24 @@ namespace FurnitureFactoryView
         {
             try
             {
-                var dict = logic.GetPurchasesFurniture(Program.User.Id);
+                //var dict = logic.GetPurchasesFurniture(Program.User.Id);
 
-                if (dict != null)
-                {
-                    dataGridView.Rows.Clear();
+                //if (dict != null)
+                //{
+                //    dataGridView.Rows.Clear();
 
-                    foreach (var elem in dict)
-                    {
-                        dataGridView.Rows.Add(new object[] { elem.PurchaseName, "", "" });
+                //    foreach (var elem in dict)
+                //    {
+                //        dataGridView.Rows.Add(new object[] { elem.PurchaseName, "", "" });
 
-                        foreach (var listElem in elem.Furnitures)
-                        {
-                            dataGridView.Rows.Add(new object[] { "", listElem.Item1, listElem.Item2 });
-                        }
-                        dataGridView.Rows.Add(new object[] { "Итого", "", elem.TotalCount });
-                        dataGridView.Rows.Add(new object[] { });
-                    }
-                }
+                //        foreach (var listElem in elem.Furnitures)
+                //        {
+                //            dataGridView.Rows.Add(new object[] { "", listElem.Item1, listElem.Item2 });
+                //        }
+                //        dataGridView.Rows.Add(new object[] { "Итого", "", elem.TotalCount });
+                //        dataGridView.Rows.Add(new object[] { });
+                //    }
+                //}
             }
 
             catch (Exception ex)
@@ -54,11 +54,11 @@ namespace FurnitureFactoryView
                 {
                     try
                     {
-                        logic.SavePurchaseInfoToExcelFile(new ReportBindingModel
-                        {
-                            FileName = dialog.FileName
-                        } , Program.User.Id);
-                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //logic.SavePurchaseInfoToExcelFile(new ReportBindingModel
+                        //{
+                        //    FileName = dialog.FileName
+                        //} , Program.User.Id);
+                        //MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
                     catch (Exception ex)
@@ -73,15 +73,15 @@ namespace FurnitureFactoryView
         {
             using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
             {
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    logic.SavePurchaseToWordFile(new ReportBindingModel
-                    {
-                        FileName = dialog.FileName
-                    }, Program.User.Id);
-                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
-                   MessageBoxIcon.Information);
-                }
+                //if (dialog.ShowDialog() == DialogResult.OK)
+                //{
+                //    logic.SavePurchaseToWordFile(new ReportBindingModel
+                //    {
+                //        FileName = dialog.FileName
+                //    }, Program.User.Id);
+                //    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                //   MessageBoxIcon.Information);
+                //}
             }
         }
 

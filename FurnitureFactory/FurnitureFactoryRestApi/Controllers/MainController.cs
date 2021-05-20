@@ -94,6 +94,9 @@ namespace FurnitureFactoryRestApi.Controllers
         public void CreateReportPurchaseToPdfFile(ReportBindingModel model) => _report.SavePurchaseToPdfFile(model);
 
         [HttpPost]
+        public void CreateReportFurnitureToPdfFile(ReportBindingModel model) => _report.SaveFurnitureToPdfFile(model);
+
+        [HttpPost]
         public void CreateReportFurnitureToWordFile(ReportBindingModel model) => _report.SaveFurnitureToWordFile(model);
 
         [HttpPost]

@@ -1,5 +1,7 @@
 ﻿using FurnitureFactoryBusinessLogics.BindingModels;
 using FurnitureFactoryBusinessLogics.ViewModels;
+using FurnitureFactoryBusinessLogics.BusinessLogics;
+using FurnitureFactoryBusinessLogics.HelperModels;
 using FurnitureFactoryBusinessLogics.Enums;
 using FurnitureFactoryEmployeeApp.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +34,15 @@ namespace FurnitureFactoryEmployeeApp.Controllers
             return View();
         }
 
+        public IActionResult ReportPdf()
+        {
+            if (Program.User == null)
+            {
+                return Redirect("~/Home/Enter");
+            }
+            return View();
+        }
+
         [HttpPost]
         public IActionResult CreateReportFurnitureToWordFile([Bind("FurnitureId")] ReportBindingModel model)
         {
@@ -52,6 +63,34 @@ namespace FurnitureFactoryEmployeeApp.Controllers
             var fileName = "ReportFurnitureExcel.xls";
             var filePath = _environment.WebRootPath + @"\ReportFurniture\" + fileName;
             return PhysicalFile(filePath, "application/xls", fileName);
+        }
+
+        [HttpPost]
+        public IActionResult CreateReportFurnitureToPdfFile([Bind("DateTo,DateFrom")] ReportBindingModel model)
+        {
+            model.FileName = @"..\FurnitureFactoryEmployeeApp\wwwroot\ReportFurniture\ReportFurniturePdf.pdf";
+            model.UserId = Program.User.Id;
+            APIUser.PostRequest("api/main/CreateReportFurnitureToPdfFile", model);
+
+            var fileName = "ReportFurniturePdf.pdf";
+            var filePath = _environment.WebRootPath + @"\ReportFurniture\" + fileName;
+            return PhysicalFile(filePath, "application/pdf", fileName);
+        }
+
+        [HttpPost]
+        public IActionResult SendMail([Bind("DateTo,DateFrom")] ReportBindingModel model)
+        {
+            model.FileName = @"..\FurnitureFactoryEmployeeApp\wwwroot\ReportFurniture\ReportFurniturePdf.pdf";
+            model.UserId = Program.User.Id;
+            APIUser.PostRequest("api/main/CreateReportFurnitureToPdfFile", model);
+            MailLogic.MailSendAsync(new MailSendInfo
+            {
+                MailAddress = Program.User.Email,
+                Subject = "Отчет",
+                Text = "Отчет по мебели",
+                ReportFile = model.FileName
+            });
+            return RedirectToAction("ReportPdf");
         }
     }
 }

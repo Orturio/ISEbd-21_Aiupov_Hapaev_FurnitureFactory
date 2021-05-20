@@ -13,6 +13,8 @@ namespace FurnitureFactoryDatabaseImplement.Models
 
         public virtual User User { get; set; }
 
+        public decimal? FurniturePayment { get; set; }
+
         [Required]
         public string FurnitureName { get; set; }
 

@@ -22,6 +22,9 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
         public string FurnitureName { get; set; }
 
         [DataMember]
+        public decimal? FurniturePayment { get; set; }
+
+        [DataMember]
         public string Material { get; set; }
 
         [DataMember]

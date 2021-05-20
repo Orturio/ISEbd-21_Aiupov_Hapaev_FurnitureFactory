@@ -335,13 +335,38 @@ namespace FurnitureFactoryClientApp.Controllers
             purchaseFurniture = new Dictionary<int, (string, int, decimal, decimal)>();
             purchaseFurniture = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseFurniture;
             decimal totalSum = new decimal();
+            decimal sumFurniturePayment = new decimal();
             foreach (var furnitures in purchaseFurniture)
             {
                 if (furnitures.Value.Item1 == furniture && sumToPayment <= furnitures.Value.Item4)
                 {
                     purchaseFurniture[furnitures.Key] = (furnitures.Value.Item1, furnitures.Value.Item2, furnitures.Value.Item3, furnitures.Value.Item4 - sumToPayment);
                     totalSum = furnitures.Value.Item4 - sumToPayment;
-                    APIUser.PostRequest("api/main/updatepurchase", new PurchaseBindingModel
+
+
+                    var furnitureObject = APIUser.GetRequest<FurnitureViewModel>($"api/main/getfurniture?furnitureId={furnitures.Key}");
+                    if (furnitureObject.FurniturePayment == null)
+                    {
+                        sumFurniturePayment = sumToPayment;
+                    }
+                    else
+                    {
+                        sumFurniturePayment = furnitureObject.FurniturePayment.Value + sumToPayment;
+                    }
+
+                    APIUser.PostRequest("api/main/UpdateFurniture", new FurnitureBindingModel
+                    {
+                        Id = furnitureObject.Id,
+                        UserId = furnitureObject.UserId,
+                        FurnitureName = furnitureObject.FurnitureName,
+                        FurniturePrice = furnitureObject.FurniturePrice,
+                        Material = furnitureObject.Material,
+                        DateOfCreation = furnitureObject.DateOfCreation,
+                        FurniturePayment = sumFurniturePayment
+                    });
+
+
+                   APIUser.PostRequest("api/main/updatepurchase", new PurchaseBindingModel
                     {
                         Id = listPurchase.FirstOrDefault(x => x.Id == id).Id,
                         UserId = Program.User.Id,

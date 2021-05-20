@@ -26,6 +26,10 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
         public string FurnitureName { get; set; }
 
         [DataMember]
+        [DisplayName("Сумма оплаты мебели")]
+        public decimal? FurniturePayment { get; set; }
+
+        [DataMember]
         [DisplayName("Материал")]
         public string Material { get; set; }
 

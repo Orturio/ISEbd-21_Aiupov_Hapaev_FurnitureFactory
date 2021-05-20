@@ -89,6 +89,8 @@
     <Compile Remove="Migrations\20210518112248_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20210518113652_InitialCreate.cs" />
     <Compile Remove="Migrations\20210518113652_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20210520133904_AddManyToMany.cs" />
+    <Compile Remove="Migrations\20210520133904_AddManyToMany.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using FurnitureFactoryBusinessLogics.BusinessLogics;
+using FurnitureFactoryBusinessLogics.HelperModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +19,15 @@ namespace FurnitureFactoryEmployeeApp
         {
             Configuration = configuration;
             APIUser.Connect(configuration);
-        }
+
+            MailLogic.MailConfig(new MailConfig
+            {
+                SmtpClientHost = configuration["SmtpClientHost"],
+                SmtpClientPort = Convert.ToInt32(configuration["SmtpClientPort"]),
+                MailLogin = configuration["MailLogin"],
+                MailPassword = configuration["MailPassword"],
+            });
+        }       
 
         public IConfiguration Configuration { get; }
 
