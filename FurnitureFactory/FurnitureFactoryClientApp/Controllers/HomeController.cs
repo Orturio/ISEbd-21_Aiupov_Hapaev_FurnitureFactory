@@ -365,5 +365,22 @@ namespace FurnitureFactoryClientApp.Controllers
 
             return totalSum;
         }
+
+        [HttpGet]
+        public IActionResult Reports()
+        {
+            if (Program.User == null)
+            {
+                return Redirect("~/Home/Enter");
+            }
+            return View();
+        }
+
+        //[HttpPost]
+        //public IActionResult CreateReportPurchaseToWordFile()
+        //{
+
+        //} 
+
     }
 }

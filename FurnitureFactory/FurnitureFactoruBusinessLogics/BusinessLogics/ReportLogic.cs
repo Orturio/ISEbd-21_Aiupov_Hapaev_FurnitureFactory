@@ -73,18 +73,21 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             return list;
         }
 
-        public List<ReportPurchaseViewModel> GetPurchases(ReportBindingModel model, int UserId)
+        public List<ReportPurchaseViewModel> GetPurchases(ReportBindingModel model)
         {
             return _purchaseStorage.GetFilteredList(new PurchaseBindingModel
             {
+                UserId = model.UserId,
                 DateFrom = model.DateFrom,
                 DateTo = model.DateTo
-            }).Where(x => x.UserId == UserId).Select(x => new ReportPurchaseViewModel
+            }).Select(x => new ReportPurchaseViewModel
             {
                 DateOfCreation = x.DateOfCreation,
                 PurchaseName = x.PurchaseName,
                 PurchaseSum = x.PurchaseSum,
                 PurchaseSumToPayment = x.PurchaseSumToPayment,
+                Furnitures = GetPurchasesFurniture(model.UserId.Value)
+                //Furnitures = _furnitureStorage.GetFilteredList(new FurnitureBindingModel {Id = x.Id})//Не Id, надо PurchaseId в Furniture
             }).ToList();
         }
 
@@ -143,28 +146,28 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             });
         }
 
-        public void SavePurchasesToPdfFile(ReportBindingModel model, int UserId)
-        {
-            SaveToPdf.CreateDocPurchase(new PdfInfo
-            {
-                FileName = model.FileName,
-                Title = "Список покупок",
-                DateFrom = model.DateFrom.Value,
-                DateTo = model.DateTo.Value,
-                Purchases = GetPurchases(model, UserId)
-            });
-        }
+        //public void SavePurchasesToPdfFile(ReportBindingModel model, int UserId)
+        //{
+        //    SaveToPdf.CreateDocPurchase(new PdfInfo
+        //    {
+        //        FileName = model.FileName,
+        //        Title = "Список покупок",
+        //        DateFrom = model.DateFrom.Value,
+        //        DateTo = model.DateTo.Value,
+        //        Purchases = GetPurchases(model, UserId)
+        //    });
+        //}
 
-        public void SaveFurnitureToPdfFile(ReportBindingModel model, int UserId)
-        {
-            SaveToPdf.CreateDocFurniture(new PdfInfo
-            {
-                FileName = model.FileName,
-                Title = "Список мебели",
-                DateFrom = model.DateFrom.Value,
-                DateTo = model.DateTo.Value,
-                Furnitures = GetFurnitures(model, UserId)
-            });
-        }
+        //public void SaveFurnitureToPdfFile(ReportBindingModel model, int UserId)
+        //{
+        //    SaveToPdf.CreateDocFurniture(new PdfInfo
+        //    {
+        //        FileName = model.FileName,
+        //        Title = "Список мебели",
+        //        DateFrom = model.DateFrom.Value,
+        //        DateTo = model.DateTo.Value,
+        //        Furnitures = GetFurnitures(model, UserId)
+        //    });
+        //}
     }
 }

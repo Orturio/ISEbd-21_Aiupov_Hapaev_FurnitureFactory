@@ -8,8 +8,12 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
     {
         public string FileName { get; set; }
 
+        public int? UserId { get; set; }
+
         public DateTime? DateFrom { get; set; }
 
         public DateTime? DateTo { get; set; }
+
+        public List<int> PurchaseId { get; set; }
     }
 }

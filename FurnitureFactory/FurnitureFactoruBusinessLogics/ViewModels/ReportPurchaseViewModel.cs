@@ -13,5 +13,7 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
         public decimal PurchaseSum { get; set; }
 
         public decimal? PurchaseSumToPayment { get; set; }
+
+        public List<ReportPurchaseFurnitureViewModel> Furnitures { get; set; }
     }
 }

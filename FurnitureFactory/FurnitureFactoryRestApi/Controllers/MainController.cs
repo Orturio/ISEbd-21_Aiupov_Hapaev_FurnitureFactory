@@ -17,13 +17,15 @@ namespace FurnitureFactoryRestApi.Controllers
         private readonly PurchaseLogic _main;
         private readonly PaymentLogic _payment;
         private readonly CostLogic _cost;
-        public MainController(PurchaseLogic purchase, FurnitureLogic furniture, PurchaseLogic main, PaymentLogic payment, CostLogic cost)
+        private readonly ReportLogic _report;
+        public MainController(PurchaseLogic purchase, FurnitureLogic furniture, PurchaseLogic main, PaymentLogic payment, CostLogic cost, ReportLogic report)
         {
             _purchase = purchase;
             _furniture = furniture;
             _main = main;
             _payment = payment;
             _cost = cost;
+            _report = report;
         }
 
         [HttpGet]
@@ -81,5 +83,21 @@ namespace FurnitureFactoryRestApi.Controllers
         public void DeleteCost(CostBindingModel model) => _cost.Delete(model);
 
         public void CreatePayment(PaymentBindingModel model) => _payment.CreateOrUpdate(model);
+
+        [HttpPost]
+        public void CreateReportPurchaseToWordFile(ReportBindingModel model, int UserId) => _report.SavePurchaseToWordFile(model, UserId);
+
+        [HttpPost]
+        public void CreateReportPurchaseToExcelFile(ReportBindingModel model, int UserId) => _report.SavePurchaseInfoToExcelFile(model, UserId);
+
+        [HttpGet]
+        public ReportBindingModel GetPurchasesForReport(int UserId)
+        {
+            return new ReportBindingModel
+            {
+                UserId = UserId,
+                PurchaseId = _purchase.Read(new PurchaseBindingModel { UserId = UserId }).Select(x => x.Id).ToList()
+            };
+        }
     }
 }
