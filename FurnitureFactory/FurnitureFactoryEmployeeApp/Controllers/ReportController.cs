@@ -23,6 +23,10 @@ namespace FurnitureFactoryEmployeeApp.Controllers
 
         public IActionResult Index()
         {
+            if (Program.User == null)
+            {
+                return Redirect("~/Home/Enter");
+            }
             ViewBag.FurnitureId = new MultiSelectList(APIUser.GetRequest<List<FurnitureViewModel>>
                 ($"api/main/GetFurnitures?UserId={Program.User.Id}"), "Id", "FurnitureName");
             return View();

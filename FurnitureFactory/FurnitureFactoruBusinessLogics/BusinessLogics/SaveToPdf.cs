@@ -26,22 +26,52 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             {
                 table.AddColumn(elem);
             }
-            CreateRow(new PdfRowParameters
-            {
-                Table = table,
-                Texts = new List<string> { "Дата создания", "Покупка", "Сумма покупки", "Сумма покупки к оплате" },
-                Style = "NormalTitle",
-                ParagraphAlignment = ParagraphAlignment.Center
-            });
             foreach (var purchase in info.Purchases)
             {
                 CreateRow(new PdfRowParameters
                 {
                     Table = table,
+                    Texts = new List<string> { "Дата создания", "Покупка", "Сумма покупки", "Сумма покупки к оплате" },
+                    Style = "NormalTitle",
+                    ParagraphAlignment = ParagraphAlignment.Center
+                });
+                CreateRow(new PdfRowParameters
+                {
+                    Table = table,
                     Texts = new List<string> { purchase.DateOfCreation.ToShortDateString(), purchase.PurchaseName, purchase.PurchaseSum.ToString(), purchase.PurchaseSumToPayment.ToString() },
                     Style = "Normal",
-                    ParagraphAlignment = ParagraphAlignment.Left
+                    ParagraphAlignment = ParagraphAlignment.Justify
                 });
+                CreateRow(new PdfRowParameters
+                {
+                    Table = table,
+                    Texts = new List<string> { "Затрата", "Цена", "", "" },
+                    Style = "NormalTitle",
+                    ParagraphAlignment = ParagraphAlignment.Center
+                });
+                if (purchase.PurchaseCosts.Count == 0)
+                {
+                    CreateRow(new PdfRowParameters
+                    {
+                        Table = table,
+                        Texts = new List<string> { "Затрат нет", "", "", "" },
+                        Style = "Normal",
+                        ParagraphAlignment = ParagraphAlignment.Justify
+                    });
+                }
+                else
+                {
+                    foreach (var cost in purchase.PurchaseCosts)
+                    {
+                        CreateRow(new PdfRowParameters
+                        {
+                            Table = table,
+                            Texts = new List<string> { cost.Value.Item1, cost.Value.Item2.ToString() , "", ""},
+                            Style = "Normal",
+                            ParagraphAlignment = ParagraphAlignment.Justify
+                        });
+                    }
+                }
             }
             PdfDocumentRenderer renderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always)
             {

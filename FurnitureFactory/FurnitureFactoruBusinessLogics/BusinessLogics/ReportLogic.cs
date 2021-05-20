@@ -107,6 +107,18 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
                 Title = "Список мебели",
                 Furnitures = GetFurnitures(model)
             });
-        }       
+        }
+
+        public void SavePurchaseToPdfFile(ReportBindingModel model)
+        {
+            SaveToPdf.CreateDocPurchase(new PdfInfo
+            {
+                FileName = model.FileName,
+                Title = "Список покупок",
+                DateFrom = model.DateFrom.Value,
+                DateTo = model.DateTo.Value,
+                Purchases = _purchaseStorage.GetFilteredList(new PurchaseBindingModel { DateFrom = model.DateFrom, DateTo = model.DateTo, UserId = model.UserId})
+            });
+        }
     }
 }

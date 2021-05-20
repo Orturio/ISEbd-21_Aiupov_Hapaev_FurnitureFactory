@@ -218,7 +218,15 @@ spreadsheetDocument.WorkbookPart.AddNewPart<SharedStringTablePart>();
 
                         rowIndex++;
                     }
-
+                    InsertCellInWorksheet(new ExcelCellParameters
+                    {
+                        Worksheet = worksheetPart.Worksheet,
+                        ShareStringPart = shareStringPart,
+                        ColumnName = "B",
+                        RowIndex = rowIndex,
+                        Text = "Всего:",
+                        StyleIndex = 1U
+                    });
                     InsertCellInWorksheet(new ExcelCellParameters
                     {
                         Worksheet = worksheetPart.Worksheet,

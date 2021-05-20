@@ -53,8 +53,8 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 .ThenInclude(rec => rec.Furniture).ThenInclude(rec => rec.Payment)
                 .Include(rec => rec.PurchaseCost).ThenInclude(rec => rec.Cost)
                 .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateOfCreation.Date == model.DateOfCreation.Date) ||
-(model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateOfCreation.Date >= model.DateFrom.Value.Date && rec.DateOfCreation.Date <= model.DateTo.Value.Date)
-|| (rec.UserId.HasValue && rec.UserId == model.UserId))
+(model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateOfCreation.Date >= model.DateFrom.Value.Date && rec.DateOfCreation.Date <= model.DateTo.Value.Date
+&& rec.UserId.HasValue && rec.UserId == model.UserId) || (rec.UserId.HasValue && rec.UserId == model.UserId && !model.DateFrom.HasValue && !model.DateTo.HasValue))
                 .ToList()
                 .Select(rec => new PurchaseViewModel
                 {

@@ -10,7 +10,7 @@ namespace FurnitureFactoryBusinessLogics.HelperModels
         public string Title { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
-        public List<ReportPurchaseViewModel> Purchases { get; set; }
-        public List<ReportFurnitureViewModel> Furnitures { get; set; }
+        public List<PurchaseViewModel> Purchases { get; set; }
+        public List<FurnitureViewModel> Furnitures { get; set; }
     }
 }

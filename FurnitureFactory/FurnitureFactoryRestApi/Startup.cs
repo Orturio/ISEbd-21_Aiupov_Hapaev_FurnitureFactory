@@ -1,11 +1,13 @@
 using FurnitureFactoryBusinessLogics.BusinessLogics;
 using FurnitureFactoryBusinessLogics.Interfaces;
+using FurnitureFactoryBusinessLogics.HelperModels;
 using FurnitureFactoryDatabaseImplement.Implements;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 
 namespace FurnitureFactoryRestApi
@@ -33,6 +35,7 @@ namespace FurnitureFactoryRestApi
             services.AddTransient<PaymentLogic>();
             services.AddTransient<CostLogic>();
             services.AddTransient<ReportLogic>();
+            services.AddTransient<MailLogic>();
             services.AddControllers().AddNewtonsoftJson();
         }
 
