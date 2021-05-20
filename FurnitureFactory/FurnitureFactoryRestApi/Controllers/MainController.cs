@@ -18,7 +18,8 @@ namespace FurnitureFactoryRestApi.Controllers
         private readonly PaymentLogic _payment;
         private readonly CostLogic _cost;
         private readonly ReportLogic _report;
-        public MainController(PurchaseLogic purchase, FurnitureLogic furniture, PurchaseLogic main, PaymentLogic payment, CostLogic cost, ReportLogic report)
+        private readonly DiagramLogic _diagram;
+        public MainController(PurchaseLogic purchase, FurnitureLogic furniture, PurchaseLogic main, PaymentLogic payment, CostLogic cost, ReportLogic report, DiagramLogic diagram)
         {
             _purchase = purchase;
             _furniture = furniture;
@@ -26,6 +27,7 @@ namespace FurnitureFactoryRestApi.Controllers
             _payment = payment;
             _cost = cost;
             _report = report;
+            _diagram = diagram;
         }
 
         [HttpGet]
@@ -57,6 +59,18 @@ namespace FurnitureFactoryRestApi.Controllers
 
         [HttpGet]
         public List<PaymentViewModel> GetPayment(int PurchaseId) => _payment.Read(new PaymentBindingModel { PurchaseId = PurchaseId });
+
+        [HttpGet]
+        public DiagramViewModel GetDiagramByFurnitureCount(int PurchaseId) => _diagram.GetDiagramByFurnitureCount(PurchaseId);
+
+        [HttpGet]
+        public DiagramViewModel GetDiagramByFurniturePrice(int PurchaseId) => _diagram.GetDiagramByFurniturePrice(PurchaseId);
+
+        [HttpGet]
+        public DiagramViewModel GetDiagramByPurchaseCount(int FurnitureId) => _diagram.GetDiagramByPurchaseCount(FurnitureId);
+
+        [HttpGet]
+        public DiagramViewModel GetDiagramByPurchasePrice(int FurnitureId) => _diagram.GetDiagramByPurchasePrice(FurnitureId);
 
         [HttpPost]
         public void CreatePurchase(PurchaseBindingModel model) =>  _main.CreatePurchase(model);

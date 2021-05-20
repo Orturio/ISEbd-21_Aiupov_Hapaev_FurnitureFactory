@@ -88,8 +88,6 @@ namespace FurnitureFactoryDatabaseImplement.Implements
                 .ThenInclude(rec => rec.Furniture).ThenInclude(rec => rec.Payment)
                 .Include(rec => rec.PurchaseCost).ThenInclude(rec => rec.Cost)
                 .FirstOrDefault(rec => rec.PurchaseName == model.PurchaseName || rec.Id == model.Id);
-                var payment = purchase.PurchaseFurniture.FirstOrDefault(x => x.PurchasesId == model.Id)
-                    .Furniture;
                 return purchase != null ?
                 new PurchaseViewModel
                 {

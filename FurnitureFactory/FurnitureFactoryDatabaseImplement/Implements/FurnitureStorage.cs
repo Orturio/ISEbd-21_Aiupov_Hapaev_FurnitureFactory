@@ -38,9 +38,11 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             }
             using (var context = new FurnitureFactoryDatabase())
             {
-                return context.Furnitures.Include(rec => rec.User).Include(rec => rec.Payment).Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateOfCreation.Date == model.DateOfCreation.Date) ||
-                    (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateOfCreation.Date >= model.DateFrom.Value.Date && rec.DateOfCreation.Date <= model.DateTo.Value.Date) || (rec.UserId == model.UserId)
-                    || rec.PurchaseFurniture.Select(x => x.FurnitureId).Contains(model.PurchaseId))
+                return context.Furnitures.Include(rec => rec.User).Include(rec => rec.Payment)
+                    .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateOfCreation.Date == model.DateOfCreation.Date) ||
+                    (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateOfCreation.Date >= model.DateFrom.Value.Date && rec.DateOfCreation.Date <= model.DateTo.Value.Date && rec.UserId == model.UserId)
+                     || (rec.UserId == model.UserId && !model.DateFrom.HasValue && !model.DateTo.HasValue) 
+                     || rec.PurchaseFurniture.Select(x => x.FurnitureId).Contains(model.PurchaseId))
                 .Select(rec => new FurnitureViewModel
                 {
                     Id = rec.Id,

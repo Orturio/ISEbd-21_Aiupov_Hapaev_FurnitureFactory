@@ -36,6 +36,7 @@ namespace FurnitureFactoryRestApi
             services.AddTransient<CostLogic>();
             services.AddTransient<ReportLogic>();
             services.AddTransient<MailLogic>();
+            services.AddTransient<DiagramLogic>();
             services.AddControllers().AddNewtonsoftJson();
         }
 
