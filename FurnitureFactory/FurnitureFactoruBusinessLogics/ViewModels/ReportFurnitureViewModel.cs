@@ -8,6 +8,8 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
     {
         public DateTime DateOfCreation { get; set; }
 
+        public int FurnitureId { get; set; }
+
         public string FurnitureName { get; set; }
 
         public string Material { get; set; }

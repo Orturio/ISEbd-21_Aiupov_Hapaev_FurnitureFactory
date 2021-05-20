@@ -43,5 +43,7 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
 
         [DataMember]
         public List<int> FurnitureId { get; set; }
+
+        public int FurnituresId { get; set; }
     }
 }

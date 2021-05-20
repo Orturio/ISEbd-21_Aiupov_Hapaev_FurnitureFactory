@@ -36,10 +36,14 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             }).ToList();
         }
 
-        public List<ReportPurchaseFurnitureViewModel> GetFurnitures(int UserId)
+        public List<ReportPurchaseFurnitureViewModel> GetFurnitures(ReportBindingModel model)
         {
-            var furnitures = _furnitureStorage.GetFullList().Where(x => UserId == x.UserId);
-            var purchases = _purchaseStorage.GetFullList().Where(x => UserId == x.UserId);
+            List<FurnitureViewModel> furnitures = new List<FurnitureViewModel>();
+            foreach (var id in model.FurnitureId)
+            {
+                furnitures.Add(_furnitureStorage.GetElement(new FurnitureBindingModel { Id = id }));
+            }
+            var purchases = _purchaseStorage.GetFullList();
             var list = new List<ReportPurchaseFurnitureViewModel>();
             foreach (var furniture in furnitures)
             {
@@ -75,13 +79,13 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             });
         }
 
-        public void SaveFurnitureToWordFile(ReportBindingModel model, int UserId)
+        public void SaveFurnitureToWordFile(ReportBindingModel model)
         {
             SaveToWord.CreateDocFurniture(new WordInfo
             {
                 FileName = model.FileName,
                 Title = "Список мебели",
-                Furnitures = GetFurnitures(UserId)
+                Furnitures = GetFurnitures(model)
             });
         }
 
@@ -95,13 +99,13 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             });
         }
 
-        public void SaveFurnitureInfoToExcelFile(ReportBindingModel model, int UserId)
+        public void SaveFurnitureInfoToExcelFile(ReportBindingModel model)
         {
             SaveToExcel.CreateDocFurniture(new ExcelInfo
             {
                 FileName = model.FileName,
                 Title = "Список мебели",
-                Furnitures = GetFurnitures(UserId)
+                Furnitures = GetFurnitures(model)
             });
         }       
     }

@@ -35,5 +35,8 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
 
         [DataMember]
         public DateTime? DateTo { get; set; }
+
+        [DataMember]
+        public List<int> PurchasesId { get; set; }
     }
 }

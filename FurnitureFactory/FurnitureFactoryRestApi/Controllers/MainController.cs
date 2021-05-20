@@ -91,10 +91,10 @@ namespace FurnitureFactoryRestApi.Controllers
         public void CreateReportPurchaseToExcelFile(ReportBindingModel model) => _report.SavePurchaseInfoToExcelFile(model);
 
         [HttpPost]
-        public void CreateReportFurnitureToWordFile(ReportBindingModel model, int UserId) => _report.SaveFurnitureToWordFile(model, UserId);
+        public void CreateReportFurnitureToWordFile(ReportBindingModel model) => _report.SaveFurnitureToWordFile(model);
 
         [HttpPost]
-        public void CreateReportFurnitureToExcelFile(ReportBindingModel model, int UserId) => _report.SaveFurnitureInfoToExcelFile(model, UserId);
+        public void CreateReportFurnitureToExcelFile(ReportBindingModel model) => _report.SaveFurnitureInfoToExcelFile(model);
 
         [HttpGet]
         public ReportBindingModel GetPurchasesForReport(int UserId)
@@ -104,6 +104,15 @@ namespace FurnitureFactoryRestApi.Controllers
                 UserId = UserId,
                 PurchaseId = _purchase.Read(new PurchaseBindingModel { UserId = UserId }).Select(x => x.Id).ToList()
             };
-        }       
+        }
+
+        public ReportBindingModel GetFurnituresForReport(int UserId)
+        {
+            return new ReportBindingModel
+            {
+                UserId = UserId,
+                PurchaseId = _furniture.Read(new FurnitureBindingModel { UserId = UserId }).Select(x => x.Id).ToList()
+            };
+        }
     }
 }

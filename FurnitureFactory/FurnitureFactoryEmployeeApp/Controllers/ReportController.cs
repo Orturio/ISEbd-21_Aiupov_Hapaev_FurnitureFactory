@@ -23,29 +23,29 @@ namespace FurnitureFactoryEmployeeApp.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.PurchaseId = new MultiSelectList(APIUser.GetRequest<List<PurchaseViewModel>>
-                ($"api/main/GetPurchases?UserId={Program.User.Id}"), "Id", "PurchaseName");
+            ViewBag.FurnitureId = new MultiSelectList(APIUser.GetRequest<List<FurnitureViewModel>>
+                ($"api/main/GetFurnitures?UserId={Program.User.Id}"), "Id", "FurnitureName");
             return View();
         }
 
         [HttpPost]
-        public IActionResult CreateReportPurchaseToWordFile([Bind("PurchaseId")] ReportBindingModel model)
+        public IActionResult CreateReportFurnitureToWordFile([Bind("FurnitureId")] ReportBindingModel model)
         {
-            model.FileName = @"..\FurnitureFactoryClientApp\wwwroot\ReportFurniture\ReportFurnitureDoc.doc";
-            APIUser.PostRequest("api/main/CreateReportPurchaseToWordFile", model);
+            model.FileName = @"..\FurnitureFactoryEmployeeApp\wwwroot\ReportFurniture\ReportFurnitureDoc.doc";
+            APIUser.PostRequest("api/main/CreateReportFurnitureToWordFile", model);
 
-            var fileName = "ReportPurhcaseDoc.doc";
+            var fileName = "ReportFurnitureDoc.doc";
             var filePath = _environment.WebRootPath + @"\ReportFurniture\" + fileName;
             return PhysicalFile(filePath, "application/doc", fileName);
         }
 
         [HttpPost]
-        public IActionResult CreateReportPurchaseToExcelFile([Bind("PurchaseId")] ReportBindingModel model)
+        public IActionResult CreateReportFurnitureToExcelFile([Bind("FurnitureId")] ReportBindingModel model)
         {
-            model.FileName = @"..\FurnitureFactoryClientApp\wwwroot\ReportFurniture\ReportFurnitureExcel.xls";
-            APIUser.PostRequest("api/main/CreateReportPurchaseToExcelFile", model);
+            model.FileName = @"..\FurnitureFactoryEmployeeApp\wwwroot\ReportFurniture\ReportFurnitureExcel.xls";
+            APIUser.PostRequest("api/main/CreateReportFurnitureToExcelFile", model);
 
-            var fileName = "ReportPurhcaseExcel.xls";
+            var fileName = "ReportFurnitureExcel.xls";
             var filePath = _environment.WebRootPath + @"\ReportFurniture\" + fileName;
             return PhysicalFile(filePath, "application/xls", fileName);
         }
