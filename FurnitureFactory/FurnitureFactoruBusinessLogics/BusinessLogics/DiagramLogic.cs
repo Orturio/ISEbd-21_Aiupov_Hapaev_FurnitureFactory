@@ -29,7 +29,7 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             {
                 Title = "Диаграмма количества мебели в покупках",
                 ColumnName = "Покупка",
-                ValueName = "Количество покупок",
+                ValueName = "Количество мебели в покупке",
                 Data = _purchaseLogic.Read(new PurchaseBindingModel
                 {
                     Id = purchaseId
@@ -43,7 +43,7 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
             {
                 Title = "Диаграмма стоимости мебели в покупке",
                 ColumnName = "Покупка",
-                ValueName = "Стоимость покупок",
+                ValueName = "Стоимость мебели в покупке",
                 Data = _purchaseLogic.Read(new PurchaseBindingModel
                 {
                     Id = purchaseId

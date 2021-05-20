@@ -58,6 +58,31 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             }
         }
 
+        public List<FurnitureViewModel> GetFilteredPickList(FurnitureBindingModel model)
+        {
+            if (model == null)
+            {
+                return null;
+            }
+            using (var context = new FurnitureFactoryDatabase())
+            {
+                return context.Furnitures.Include(rec => rec.User).Include(rec => rec.Payment)
+.Where(rec => (rec.UserId == model.UserId) || rec.PurchaseFurniture.Select(x => x.FurnitureId).Contains(model.PurchaseId))
+                .Select(rec => new FurnitureViewModel
+                {
+                    Id = rec.Id,
+                    UserId = rec.UserId,
+                    UserEmail = rec.User.Email,
+                    FurnitureName = rec.FurnitureName,
+                    FurniturePayment = rec.FurniturePayment,
+                    Material = rec.Material,
+                    FurniturePrice = rec.FurniturePrice,
+                    DateOfCreation = rec.DateOfCreation
+                })
+                .ToList();
+            }
+        }
+
         public FurnitureViewModel GetElement(FurnitureBindingModel model)
         {
             if (model == null)

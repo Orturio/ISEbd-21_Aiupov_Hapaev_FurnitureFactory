@@ -75,6 +75,39 @@ namespace FurnitureFactoryDatabaseImplement.Implements
             }
         }
 
+        public List<PurchaseViewModel> GetFilteredPickList(PurchaseBindingModel model)
+        {
+            if (model == null)
+            {
+                return null;
+            }
+            using (var context = new FurnitureFactoryDatabase())
+            {
+                return context.Purchases
+                .Include(rec => rec.PurchaseFurniture)
+                .ThenInclude(rec => rec.Furniture).ThenInclude(rec => rec.Payment)
+                .Include(rec => rec.PurchaseCost).ThenInclude(rec => rec.Cost)
+                .Where(rec => (rec.UserId == model.UserId) || rec.PurchaseFurniture.Select(x => x.PurchasesId).Contains(model.FurnituresId))
+                .ToList()
+                .Select(rec => new PurchaseViewModel
+                {
+                    Id = rec.Id,
+                    UserId = rec.UserId,
+                    PurchaseName = rec.PurchaseName,
+                    PurchaseSum = rec.PurchaseSum,
+                    PurchaseSumToPayment = rec.PurchaseFurniture.FirstOrDefault(x => x.PurchasesId == rec.Id)
+                    .Furniture.Payment.FirstOrDefault(x => x.PurchaseId == rec.Id)?.PaymentSum,
+                    DateOfCreation = rec.DateOfCreation,
+                    DateOfPayment = rec.PurchaseFurniture.FirstOrDefault(x => x.PurchasesId == rec.Id)
+                    .Furniture.Payment.FirstOrDefault(x => x.PurchaseId == rec.Id)?.DateOfPayment,
+                    PurchaseFurniture = rec.PurchaseFurniture
+                .ToDictionary(recPC => recPC.FurnitureId, recPC => (recPC.Furniture?.FurnitureName, recPC.Count, recPC.Furniture.FurniturePrice, recPC.TotalPrice)),
+                    PurchaseCosts = rec.PurchaseCost
+                .ToDictionary(recPC => recPC.CostId, recPC => (recPC.Cost?.CostName, recPC.Price))
+                }).ToList();
+            }
+        }
+
         public PurchaseViewModel GetElement(PurchaseBindingModel model)
         {
             if (model == null)

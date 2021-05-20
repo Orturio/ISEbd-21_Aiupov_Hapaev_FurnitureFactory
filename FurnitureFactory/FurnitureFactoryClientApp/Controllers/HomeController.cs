@@ -36,7 +36,7 @@ namespace FurnitureFactoryClientApp.Controllers
 
         [HttpPost]
         public void Privacy(string email, string password)
-        {
+        {          
             if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
             {
                 APIUser.PostRequest("api/user/updatedata", new UserBindingModel
@@ -148,12 +148,43 @@ namespace FurnitureFactoryClientApp.Controllers
         }
 
         [HttpPost]
-        public void Update(int id, string purchase, string furniture, int count, decimal sum, DateTime datecreation)
-        {
-            purchaseFurniture = new Dictionary<int, (string, int, decimal, decimal)>();
-            purchaseFurniture.Add(Convert.ToInt32(furniture), (furniture, count, sum / count, sum));
-
+        public void Update(int id, string purchase, string furniture, int count, decimal sum)
+        {            
             var Purchase = APIUser.GetRequest<PurchaseViewModel>($"api/main/GetPurchaseNL?Id={id}");
+            var Furniture = APIUser.GetRequest<FurnitureViewModel>($"api/main/GetFurniture?furnitureId={Convert.ToInt32(furniture)}");
+            List<PaymentViewModel> listPayment = APIUser.GetRequest<List<PaymentViewModel>>($"api/main/getpayment?PurchaseId={id}");
+            Dictionary<int, (string, int, decimal, decimal)> purchaseFurniture = Purchase.PurchaseFurniture;
+            decimal purchaseSum = new decimal();
+            decimal paymentSum = new decimal();
+
+            if (purchaseFurniture.ContainsKey(Convert.ToInt32(furniture)))
+            {
+                purchaseFurniture[Convert.ToInt32(furniture)] = (purchaseFurniture[Convert.ToInt32(furniture)].Item1, count, purchaseFurniture[Convert.ToInt32(furniture)].Item3, sum);
+            }
+
+            else
+            {
+                purchaseFurniture.Add(Convert.ToInt32(furniture), (Furniture.FurnitureName, count, Furniture.FurniturePrice, sum));
+            }
+
+            foreach (var pc in purchaseFurniture)
+            {
+                purchaseSum += pc.Value.Item2 * pc.Value.Item3;
+                paymentSum += pc.Value.Item4;
+            }
+
+            if (listPayment[0] != null)
+            {
+                APIUser.PostRequest("api/main/createpayment", new PaymentBindingModel
+                {
+                    Id = listPayment.FirstOrDefault(x => x.PurchaseId == id).Id,
+                    PurchaseId = listPayment.FirstOrDefault(x => x.PurchaseId == id).PurchaseId,
+                    FurnitureId = listPayment.FirstOrDefault(x => x.PurchaseId == id).FurnitureId,
+                    PaymentSum = paymentSum,
+                    DateOfPayment = listPayment.FirstOrDefault(x => x.PurchaseId == id).DateOfPayment
+                });
+            }
+            
 
             APIUser.PostRequest("api/main/updatepurchase", new PurchaseBindingModel
             {
@@ -161,7 +192,7 @@ namespace FurnitureFactoryClientApp.Controllers
                 UserId = Program.User.Id,
                 PurchaseName = purchase,
                 DateOfCreation = Purchase.DateOfCreation,
-                PurchaseSum = sum,
+                PurchaseSum = purchaseSum,
                 PurchaseFurnitures = purchaseFurniture,
                 PurchaseCosts = Purchase.PurchaseCosts
             });
