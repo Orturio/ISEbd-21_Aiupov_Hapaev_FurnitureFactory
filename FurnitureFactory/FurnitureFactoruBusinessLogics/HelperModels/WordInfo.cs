@@ -9,7 +9,7 @@ namespace FurnitureFactoryBusinessLogics.HelperModels
 
         public string Title { get; set; }
 
-        public List<FurnitureViewModel> Furnitures { get; set; }
+        public List<ReportPurchaseFurnitureViewModel> Furnitures { get; set; }
 
         public List<PurchaseViewModel> Purchases { get; set; }
     }

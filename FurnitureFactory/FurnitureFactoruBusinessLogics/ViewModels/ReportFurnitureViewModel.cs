@@ -13,5 +13,7 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
         public string Material { get; set; }
 
         public decimal FurniturePrice { get; set; }
+
+        public List<FurnitureViewModel> Purchases { get; set; }
     }
 }

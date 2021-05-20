@@ -10,6 +10,10 @@ namespace FurnitureFactoryBusinessLogics.ViewModels
 
         public string FurnitureName { get; set; }
 
+        public string Material { get; set; }
+
+        public decimal FurniturePrice { get; set; }
+
         public int TotalCount { get; set; }
 
         public List<Tuple<string, int>> Purchases { get; set; }

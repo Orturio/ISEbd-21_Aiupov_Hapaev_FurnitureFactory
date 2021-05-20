@@ -31,17 +31,50 @@ WordTextProperties {Bold = true, Size = "24", } ) },
 
                 foreach (var purchase in info.Purchases)
                 {
-                    docBody.AppendChild(CreateParagraph(new WordParagraph
+                    decimal sumToPayment = new decimal();
+                    if (purchase.PurchaseSumToPayment == null)
                     {
-                        Texts = new List<(string, WordTextProperties)> {
-("Название: " + purchase.PurchaseName, new WordTextProperties {Bold = true, Size = "24", }), (" || Сумма покупки: " + purchase.PurchaseSum.ToString(), new WordTextProperties {Bold = false, Size = "24", }) },
+                        sumToPayment = purchase.PurchaseSum;
+                    }
+                    else
+                    {
+                        sumToPayment = purchase.PurchaseSumToPayment.Value;
+                    }
+
+                    docBody.AppendChild(CreateParagraph(new WordParagraph
+                    {                       
+                        Texts = new List<(string, WordTextProperties)> 
+                        {
+                            ("Название: " + purchase.PurchaseName, new WordTextProperties {Bold = true, Size = "24", }),
+                            (" || Сумма покупки: " + purchase.PurchaseSum.ToString(), new WordTextProperties {Bold = false, Size = "24", }),
+                             (" || Сумма покупки к оплате: " + sumToPayment.ToString(), new WordTextProperties {Bold = false, Size = "24", })
+                        },
                         TextProperties = new WordTextProperties
                         {
                             Size = "24",
                             JustificationValues = JustificationValues.Both
                         }
                     })); ;
+                    foreach (var furniture in purchase.PurchaseFurniture)
+                    {
+                        docBody.AppendChild(CreateParagraph(new WordParagraph
+                        {
+                            Texts = new List<(string, WordTextProperties)>
+                            {
+                                ("Название мебели: " + furniture.Value.Item1, new WordTextProperties {Bold = false, Size = "24", }),
+                                (" ||  Количество: " + furniture.Value.Item2.ToString(), new WordTextProperties {Bold = false, Size = "24", }),
+                                (" ||  Сумма: " + furniture.Value.Item4.ToString(), new WordTextProperties {Bold = false, Size = "24", })
+                            },
+                            
+                            TextProperties = new WordTextProperties
+                            {
+                                Size = "24",
+                                JustificationValues = JustificationValues.Both
+                            }
+                        }));
+                    }
                 }
+                
                 docBody.AppendChild(CreateSectionProperties());
 
                 wordDocument.MainDocumentPart.Document.Save();
@@ -80,6 +113,23 @@ WordTextProperties {Bold = true, Size = "24", } ) },
                             JustificationValues = JustificationValues.Both
                         }
                     })); ;
+                    foreach (var purchase in furniture.Purchases)
+                    {
+                        docBody.AppendChild(CreateParagraph(new WordParagraph
+                        {
+                            Texts = new List<(string, WordTextProperties)>
+                            {
+                                ("Название покупки: " + purchase.Item1, new WordTextProperties {Bold = false, Size = "24", }),
+                                (" ||  Количество: " +  purchase.Item2.ToString(), new WordTextProperties {Bold = false, Size = "24", })                            
+                            },
+
+                            TextProperties = new WordTextProperties
+                            {
+                                Size = "24",
+                                JustificationValues = JustificationValues.Both
+                            }
+                        }));
+                    }
                 }
                 docBody.AppendChild(CreateSectionProperties());
 

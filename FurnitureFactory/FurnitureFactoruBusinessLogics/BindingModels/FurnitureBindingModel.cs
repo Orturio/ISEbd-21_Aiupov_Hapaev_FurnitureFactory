@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace FurnitureFactoryBusinessLogics.BindingModels
 {
@@ -14,6 +15,8 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
 
         [DataMember]
         public int? CostsId { get; set; }
+
+        public int PurchaseId { get; set; }
 
         [DataMember]
         public string FurnitureName { get; set; }

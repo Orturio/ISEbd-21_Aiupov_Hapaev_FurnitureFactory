@@ -64,8 +64,9 @@ spreadsheetDocument.WorkbookPart.AddNewPart<SharedStringTablePart>();
                 });
 
                 uint rowIndex = 2;
-                foreach (var pc in info.PurchaseFurnitures)
+                foreach (var pc in info.Purchases)
                 {
+                    int TotalCountFurnitures = new int();
                     InsertCellInWorksheet(new ExcelCellParameters
                     {
                         Worksheet = worksheetPart.Worksheet,
@@ -77,15 +78,16 @@ spreadsheetDocument.WorkbookPart.AddNewPart<SharedStringTablePart>();
                     });
                     rowIndex++;
 
-                    foreach (var furniture in pc.Furnitures)
+                    foreach (var furniture in pc.PurchaseFurniture)
                     {
+                        TotalCountFurnitures += furniture.Value.Item2;
                         InsertCellInWorksheet(new ExcelCellParameters
                         {
                             Worksheet = worksheetPart.Worksheet,
                             ShareStringPart = shareStringPart,
                             ColumnName = "B",
                             RowIndex = rowIndex,
-                            Text = furniture.Item1,
+                            Text = furniture.Value.Item1,
                             StyleIndex = 1U
                         });
 
@@ -95,21 +97,28 @@ spreadsheetDocument.WorkbookPart.AddNewPart<SharedStringTablePart>();
                             ShareStringPart = shareStringPart,
                             ColumnName = "C",
                             RowIndex = rowIndex,
-                            Text = furniture.Item2.ToString(),
+                            Text = furniture.Value.Item2.ToString(),
                             StyleIndex = 1U
                         });
-
                         rowIndex++;
                     }
-
+                    InsertCellInWorksheet(new ExcelCellParameters
+                    {
+                        Worksheet = worksheetPart.Worksheet,
+                        ShareStringPart = shareStringPart,
+                        ColumnName = "B",
+                        RowIndex = rowIndex,
+                        Text = "Всего:",
+                        StyleIndex = 1U
+                    });
                     InsertCellInWorksheet(new ExcelCellParameters
                     {
                         Worksheet = worksheetPart.Worksheet,
                         ShareStringPart = shareStringPart,
                         ColumnName = "C",
                         RowIndex = rowIndex,
-                        Text = pc.TotalCount.ToString(),
-                        StyleIndex = 0U
+                        Text = TotalCountFurnitures.ToString(),
+                        StyleIndex = 1U
                     });
                     rowIndex++;
                 }
@@ -172,7 +181,7 @@ spreadsheetDocument.WorkbookPart.AddNewPart<SharedStringTablePart>();
                 });
 
                 uint rowIndex = 2;
-                foreach (var pc in info.PurchaseFurnitures)
+                foreach (var pc in info.Furnitures)
                 {
                     InsertCellInWorksheet(new ExcelCellParameters
                     {

@@ -40,5 +40,8 @@ namespace FurnitureFactoryBusinessLogics.BindingModels
 
         [DataMember]
         public Dictionary<int, (string, decimal)> PurchaseCosts { get; set; }
+
+        [DataMember]
+        public List<int> FurnitureId { get; set; }
     }
 }

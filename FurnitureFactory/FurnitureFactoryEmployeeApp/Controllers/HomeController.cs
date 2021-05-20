@@ -242,7 +242,7 @@ namespace FurnitureFactoryEmployeeApp.Controllers
                 UserId = Purchase.UserId,
                 PurchaseName = Purchase.PurchaseName,
                 DateOfCreation = Purchase.DateOfCreation,
-                PurchaseSum = Purchase.PurchaseSum,
+                PurchaseSum = Purchase.PurchaseSum + costprice,
                 PurchaseFurnitures = Purchase.PurchaseFurniture,
                 PurchaseCosts = purchaseCosts
             });
