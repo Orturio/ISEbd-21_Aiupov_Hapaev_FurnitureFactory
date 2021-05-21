@@ -42,7 +42,8 @@
                     var options = {
               'title': '@Html.Raw(HttpUtility.JavaScriptStringEncode(Model[0].Title))',
                        'width':1200,
-                       'height':900};
+                        'height': 900,
+                        is3D: true};
 
             var chart = new google.visualization.PieChart(document.getElementById('FurnitureCount'));
             chart.draw(data, options);
