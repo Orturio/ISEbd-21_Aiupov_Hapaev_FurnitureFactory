@@ -30,6 +30,14 @@ namespace FurnitureFactoryBusinessLogics.BusinessLogics
 
         public void CreatePurchase(PurchaseBindingModel model)
         {
+            var element = _purchasesStorage.GetElement(new PurchaseBindingModel
+            {
+                PurchaseName = model.PurchaseName
+            });
+            if (element != null && element.Id != model.Id)
+            {
+                throw new Exception("Уже есть покупка с таким названием");
+            }
             _purchasesStorage.Insert(model); 
         }
 

@@ -273,21 +273,27 @@ namespace FurnitureFactoryClientApp.Controllers
         [HttpPost]
         public void Pay(int id, decimal sumToPayment, decimal sum)
         {
-            List<PurchaseViewModel> listPurchase = APIUser.GetRequest<List<PurchaseViewModel>>($"api/main/getpurchase?Id={id}");
+            var Purchase = APIUser.GetRequest<PurchaseViewModel>($"api/main/getpurchaseNL?Id={id}");
             List<PaymentViewModel> listPayment = APIUser.GetRequest<List<PaymentViewModel>>($"api/main/getpayment?PurchaseId={id}");
             purchaseFurniture = new Dictionary<int, (string, int, decimal, decimal)>();
-            purchaseFurniture = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseFurniture;
+            purchaseFurniture = Purchase.PurchaseFurniture;
             int FurnitureId = purchaseFurniture.ElementAt(0).Key;
+            decimal sumPurchaseToPayment = new decimal();
             if (listPayment[0] == null)
             {
                 if (sum >= sumToPayment)
                 {
-                    decimal sumToPaymentPurchase = listPurchase.FirstOrDefault(x => x.Id == id).PurchaseSum - sumToPayment;
+                    foreach (var purchase in purchaseFurniture)
+                    {
+                        sumPurchaseToPayment += purchase.Value.Item4;
+                    }
+                    sumPurchaseToPayment -= sumToPayment;
+
                     APIUser.PostRequest("api/main/createpayment", new PaymentBindingModel
                     {
                         PurchaseId = id,
                         FurnitureId = FurnitureId,
-                        PaymentSum = sumToPaymentPurchase,
+                        PaymentSum = sumPurchaseToPayment,
                         DateOfPayment = DateTime.Now,
                     });
                     Response.Redirect("../Index");
@@ -303,13 +309,18 @@ namespace FurnitureFactoryClientApp.Controllers
             {
                 if (listPayment.FirstOrDefault(x => x.PurchaseId == id).PaymentSum >= sumToPayment)
                 {
-                    decimal sumToPaymentPurchase = listPayment.FirstOrDefault(x => x.PurchaseId == id).PaymentSum - sumToPayment;
+                    foreach (var purchase in purchaseFurniture)
+                    {
+                        sumPurchaseToPayment += purchase.Value.Item4;
+                    }
+                    sumPurchaseToPayment -= sumToPayment;
+
                     APIUser.PostRequest("api/main/createpayment", new PaymentBindingModel
                     {
                         Id = listPayment.FirstOrDefault(x => x.PurchaseId == id).Id,
                         FurnitureId = FurnitureId,
                         PurchaseId = listPayment.FirstOrDefault(x => x.PurchaseId == id).PurchaseId,
-                        PaymentSum = sumToPaymentPurchase,
+                        PaymentSum = sumPurchaseToPayment,
                         DateOfPayment = DateTime.Now,
                     });
                     Response.Redirect("../Index");
