@@ -309,22 +309,29 @@ namespace FurnitureFactoryClientApp.Controllers
             {
                 if (listPayment.FirstOrDefault(x => x.PurchaseId == id).PaymentSum >= sumToPayment)
                 {
-                    foreach (var purchase in purchaseFurniture)
+                    if (sum >= sumToPayment)
                     {
-                        sumPurchaseToPayment += purchase.Value.Item4;
-                    }
-                    sumPurchaseToPayment -= sumToPayment;
+                        foreach (var purchase in purchaseFurniture)
+                        {
+                            sumPurchaseToPayment += purchase.Value.Item4;
+                        }
+                        sumPurchaseToPayment -= sumToPayment;
 
-                    APIUser.PostRequest("api/main/createpayment", new PaymentBindingModel
+                        APIUser.PostRequest("api/main/createpayment", new PaymentBindingModel
+                        {
+                            Id = listPayment.FirstOrDefault(x => x.PurchaseId == id).Id,
+                            FurnitureId = FurnitureId,
+                            PurchaseId = listPayment.FirstOrDefault(x => x.PurchaseId == id).PurchaseId,
+                            PaymentSum = sumPurchaseToPayment,
+                            DateOfPayment = DateTime.Now,
+                        });
+                        Response.Redirect("../Index");
+                        return;
+                    }
+                    else
                     {
-                        Id = listPayment.FirstOrDefault(x => x.PurchaseId == id).Id,
-                        FurnitureId = FurnitureId,
-                        PurchaseId = listPayment.FirstOrDefault(x => x.PurchaseId == id).PurchaseId,
-                        PaymentSum = sumPurchaseToPayment,
-                        DateOfPayment = DateTime.Now,
-                    });
-                    Response.Redirect("../Index");
-                    return;
+                        throw new Exception("Внесённая сумма больше суммы к оплате");
+                    }
                 }
 
 
