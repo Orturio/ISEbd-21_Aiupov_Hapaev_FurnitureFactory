@@ -73,6 +73,7 @@ namespace FurnitureFactoryClientApp.Controllers
 
             var fileName = "ReportPurchasePdf.pdf";
             var filePath = _environment.WebRootPath + @"\ReportPurchase\" + fileName;
+            ViewBag.CheckingReport = model.FileName;
             return PhysicalFile(filePath, "application/pdf", fileName);
         }
 

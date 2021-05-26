@@ -16,15 +16,31 @@
                 <input asp-for="DateTo" class="form-control" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Сформировать" asp-action="CreateReportFurnitureToPdfFile" class="btn btn-primary" />
+                <input type="submit" value="Сформировать" onclick="check()" asp-action="CreateReportFurnitureToPdfFile" class="btn btn-primary" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Отправить на почту" asp-action="SendMail" class="btn btn-primary" />
             </div>
         </form>
     </div>
+    <div class="embed-responsive embed-responsive-16by9 col-8">
+        <iframe class="embed-responsive-item w-100" hidden src="~/ReportFurniture/ReportFurniturePdf.pdf" allowfullscreen id="frame"></iframe>
+    </div>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script>
+    function check() {
+        var frame = document.getElementById("frame");
+        frame.hidden = false;
+        frame.src = frame.src + "?unique=" + new Date().getTime();
+        frame.style.height = '700px';
+    }
+       @if (ViewBag.CheckingReport != null)
+       {
+          <text> window.onload = check; </text>
+       }
+</script>
